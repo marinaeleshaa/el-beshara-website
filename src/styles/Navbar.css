@@ -1,0 +1,33 @@
+@layer utilities {
+  .link-underline {
+    @apply relative transition-all duration-300 ease-in-out no-underline;
+  }
+
+  .link-underline:hover {
+    transform: translateY(-3px);
+  }
+
+  .link-underline::before {
+    content: "";
+    @apply absolute left-0 right-0 bg-primary;
+    bottom: -5px;
+    height: 3px;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+    z-index: -1;
+  }
+
+  .link-underline:hover::before {
+    transform: scaleY(1);
+  }
+
+  /* 🔥 active state */
+  .link-active {
+    transform: translateY(-3px);
+  }
+
+  .link-active::before {
+    transform: scaleY(1);
+  }
+}
