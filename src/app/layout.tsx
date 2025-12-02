@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MainProvider>
-          <Navbar menu={NavMenuItems} className="fixed w-full inset-0" />
+          <Navbar menu={NavMenuItems} className="fixed w-full h-fit inset-0 z-999 bg-background" />
           <div className=" mt-15">{children}</div>
         </MainProvider>
       </body>
