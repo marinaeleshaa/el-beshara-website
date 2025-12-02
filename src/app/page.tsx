@@ -1,10 +1,10 @@
-import HomeHeroLayout from "@/components/features/home/hero/HomeHeroLayout";
-import Image from "next/image";
+import HomeLayout from "@/components/features/home/HomeLayout";
 
 export default function Home() {
   return (
     <div className="">
-      <HomeHeroLayout />
+      <HomeLayout />
+      
     </div>
   );
 }
