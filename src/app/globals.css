@@ -5,8 +5,25 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@layer utilities {
+  .w-myWidth {
+    width: var(--myWidth);
+  }
+}
 
-
+.animated-underline {
+  @apply 
+    before:content-[''] 
+    before:absolute 
+    before:w-0 
+    before:h-1 
+    before:-bottom-2 
+    before:bg-primary 
+    before:transition-all 
+    before:duration-500 
+    before:ease-in-out 
+    group-hover:before:w-full;
+}
 
 
 @theme inline {
@@ -52,7 +69,8 @@
 }
 
 :root {
-  --light:#f2f5fa;
+  --myWidth: 80%;
+  --light: #f2f5fa;
   --light-foreground: #1c2826;
   --background: #f2f5fa;
   --foreground: #1c2826;

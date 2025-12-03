@@ -1,12 +1,17 @@
 import HomeHeroLayout from "./hero/HomeHeroLayout";
 import AboutHomeSectionLayout from "./aboutHome/AboutHomeSectionLayout";
+import ServicesHomeLayout from "./servicesHome/ServicesHomeLayout";
 
 const HomeLayout = () => {
   return (
     <div>
       <HomeHeroLayout />
-      <div className="max-w-[80%] mx-auto relative -top-20">
+      <div className="space-y-20">
+
+      <div className="w-myWidth mx-auto relative ">
         <AboutHomeSectionLayout />
+      </div>
+      <ServicesHomeLayout />
       </div>
     </div>
   );
