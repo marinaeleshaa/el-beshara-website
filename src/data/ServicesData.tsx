@@ -42,8 +42,8 @@ const ServicesData = () => {
         { label: "Studio Capacity", value: "Up to 12 people" },
       ],
       action: {
-        text: "Book a Session",
-        href: "/contact",
+        text: "More Details",
+        href: "/services/#reserve",
       },
     },
 
