@@ -1,6 +1,9 @@
 import PageHero from "@/components/shared/PageHero";
-import React from "react";
 
+export const metadata = {
+  title: "Services | El-Beshara Studio",
+  description: "Creating amazing musical experiences for the world.",
+}
 const page = () => {
   return (
     <div>
