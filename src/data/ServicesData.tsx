@@ -1,11 +1,19 @@
+import { IService } from "@/lib/Interfaces/ServiceInterface";
 import {
   FaHandsHelping,
   FaMicrophoneAlt,
   FaRegClock,
   FaVolumeUp,
+  FaHeadphonesAlt,
+  FaUsers,
+  FaSmileBeam,
+  FaMusic,
+  FaTools,
+  FaCompressArrowsAlt,
+  FaCloudUploadAlt,
 } from "react-icons/fa";
 
-const ServicesData = () => {
+const ServicesData = (): IService[] => {
   return [
     {
       id: 1,
@@ -50,16 +58,31 @@ const ServicesData = () => {
     {
       id: 2,
       title: "Record a Song",
-      subtitle:
-        "Turn your worship message into a professionally recorded song.",
+      subtitle: "Turn your worship message into a professionally recorded song.",
       description:
         "Bring your worship song to life with industry-standard recording. Whether it's gospel, contemporary Christian music, choir harmonies, or a devotional track, we guide you through every step to capture your message with clarity and emotion.",
       image: "/home/service.jpg",
       points: [
-        "High-quality vocal and instrument recording with professional engineers.",
-        "Coaching for performance, vocal delivery, and artistic expression.",
-        "Multi-track recording for choirs, harmonies, and live instruments.",
-        "Comfortable recording environment that encourages creativity and worship.",
+        {
+          label:
+            "High-quality vocal and instrument recording with professional engineers.",
+          icon: <FaMicrophoneAlt />,
+        },
+        {
+          label:
+            "Coaching for performance, vocal delivery, and artistic expression.",
+          icon: <FaHeadphonesAlt />,
+        },
+        {
+          label:
+            "Multi-track recording for choirs, harmonies, and live instruments.",
+          icon: <FaUsers />,
+        },
+        {
+          label:
+            "Comfortable recording environment that encourages creativity and worship.",
+          icon: <FaSmileBeam />,
+        },
       ],
       statistics: [
         { label: "Songs Recorded", value: "300+" },
@@ -80,10 +103,26 @@ const ServicesData = () => {
         "Transform your raw tracks into a polished, radio-ready Christian song. Our team balances vocals, instruments, beats, and harmonies while preserving the spirit of worship. We deliver a clean, powerful, and emotionally engaging final mix.",
       image: "/home/service.jpg",
       points: [
-        "Professional mixing for vocals, choirs, instruments, and backgrounds.",
-        "Mastering for clarity, punch, warmth, and wide stereo sound.",
-        "Noise reduction, tuning, EQ, compression, and effects as needed.",
-        "Final high-quality files ready for streaming platforms, churches, or events.",
+        {
+          label:
+            "Professional mixing for vocals, choirs, instruments, and backgrounds.",
+          icon: <FaMusic />,
+        },
+        {
+          label:
+            "Mastering for clarity, punch, warmth, and wide stereo sound.",
+          icon: <FaTools />,
+        },
+        {
+          label:
+            "Noise reduction, tuning, EQ, compression, and effects as needed.",
+          icon: <FaCompressArrowsAlt />,
+        },
+        {
+          label:
+            "Final high-quality files ready for streaming platforms, churches, or events.",
+          icon: <FaCloudUploadAlt />,
+        },
       ],
       statistics: [
         { label: "Songs Mixed", value: "500+" },

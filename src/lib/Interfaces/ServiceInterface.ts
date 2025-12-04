@@ -19,7 +19,7 @@ export interface IService {
   subtitle: string;
   description: string;
   image: string;
-  points: IPoints[]|string[];
+  points: IPoints[];
   statistics: IServiceStat[];
   action: IServiceAction;
 }
