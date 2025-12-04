@@ -14,7 +14,7 @@ const WhyChooseUsRight = ({ className }: { className?: string }) => {
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris.
       </p>
-      <MyBtn text="contact us" href="/about" variant="primary" className="mt-4 w-fit" />
+      <MyBtn text="contact us" href="/contact" variant="primary" className="mt-4 w-fit" />
     </div>
   );
 };
