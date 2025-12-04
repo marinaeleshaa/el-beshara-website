@@ -1,0 +1,71 @@
+import Link from "next/link";
+import React from "react";
+
+type IBtnVariant = "primary" | "secondary" | "light" | "dark";
+
+interface IBtn {
+  text: string | React.ReactNode;
+  onClick?: () => void;
+  href?: string;
+  variant?: IBtnVariant;
+  outline?: boolean;
+  icon?: React.ReactNode;
+  className?: string;
+  width?: "fit" | "full" | "auto";
+}
+
+const CheckVariant = (variant?: IBtnVariant, outline?: boolean) => {
+  if (outline) {
+    switch (variant) {
+      case "primary":
+        return "border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground";
+      case "secondary":
+        return "border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground";
+      case "light":
+        return "border-2 border-light text-light hover:bg-light hover:text-light-foreground";
+      case "dark":
+        return "border-2 border-dark text-dark hover:bg-dark hover:text-dark-foreground";
+      default:
+        return "border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground";
+    }
+  }else{
+    switch (variant) {
+      case "primary":
+        return "bg-primary text-primary-foreground hover:bg-primary/80";
+      case "secondary":
+        return "bg-secondary text-secondary-foreground hover:bg-secondary/80";
+      case "light":
+        return "bg-light text-light-foreground hover:bg-light/80";
+      case "dark":
+        return "bg-dark text-dark-foreground hover:bg-dark/80";
+      default:
+        return "bg-primary text-primary-foreground hover:bg-primary/80";
+    }
+  }
+};
+const MyBtn = ({
+  text,
+  onClick,
+  href = "#",
+  variant = "primary",
+  icon,
+  className,
+  width = "fit",
+  outline = false,
+}: IBtn) => {
+  return (
+    <Link
+      href={href}
+      className={` ${CheckVariant(
+        variant,
+        outline
+      )} ${className} flex justify-center items-center ${icon && "gap-2"}  font-semibold px-4 py-2  hover:scale-105 transition duration-300 cursor-pointer capitalize group w-${width} rounded-lg `}
+      onClick={onClick}
+    >
+      {text}
+      { icon && <span className="group-hover:translate-x-3 transition duration-500">{icon}</span>}
+    </Link>
+  );
+};
+
+export default MyBtn;

@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import { NavMenuItems } from "@/data/NavMenuItems";
 import MainProvider from "@/components/providers/MainProvider";
+import Footer from "@/components/shared/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MainProvider>
-          <Navbar menu={NavMenuItems} className="fixed w-full inset-0" />
-          <div className=" mt-15">{children}</div>
+          <Navbar menu={NavMenuItems} className="fixed w-full h-fit inset-0 z-999 bg-background" />
+          <div className=" my-15">{children}</div>
+          <Footer/>
         </MainProvider>
       </body>
     </html>
