@@ -131,7 +131,7 @@ const ServicesData = (): IService[] => {
       ],
       action: {
         text: "Mix & Master",
-        href: "/services",
+        href: "/services/#mix",
       },
     },
   ];
