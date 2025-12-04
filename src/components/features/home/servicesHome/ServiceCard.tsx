@@ -1,6 +1,6 @@
+import MyBtn from "@/components/ui/MyBtn";
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+
 
 const ServiceCard = () => {
   return (
@@ -45,14 +45,9 @@ const ServiceCard = () => {
           >
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic
-              accusantium nesciunt vero 
+              accusantium nesciunt vero
             </p>
-            <Link
-              href="/services"
-              className="inline-block bg-primary transition duration-300 cursor-pointer text-primary-foreground hover:scale-105 rounded-md font-bold capitalize p-2 px-4"
-            >
-              Read more
-            </Link>
+            <MyBtn text="read more" href="/services" width="full" />
           </div>
         </div>
       </div>

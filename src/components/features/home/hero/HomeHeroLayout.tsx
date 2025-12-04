@@ -1,3 +1,4 @@
+import MyBtn from "@/components/ui/MyBtn";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,8 +24,8 @@ const HomeHeroLayout = () => {
             <p className="text-sm md:text-lg text-light/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil cum minus, et magnam soluta odit molestiae dignissimos omnis quam </p>
           </div>
           <div className="flex text-center justify-evenly flex-col sm:flex-row gap-5 w-full">
-            <Link href={"/services"} className="bg-light hover:scale-105 transition duration-300 cursor-pointer text-light-foreground w-full sm:w-1/2  rounded-md font-bold p-2 px-4">Our Services</Link>
-            <Link href={"/contact"} className="border-2 hover:scale-105 transition duration-300 cursor-pointer w-full sm:w-1/2 rounded-md border-light text-light font-bold p-2 px-4">contact us</Link>
+          <MyBtn text="contact us" href="/contact" variant="primary"  width="full" />
+          <MyBtn text="about us" href="/about" variant="light" outline width="full" />
           </div>
         </div>
       </div>
