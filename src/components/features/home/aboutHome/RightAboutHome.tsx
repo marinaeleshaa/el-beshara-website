@@ -1,8 +1,13 @@
 import MyBtn from "@/components/ui/MyBtn";
-import Link from "next/link";
-import React from "react";
 
-const RightAboutHome = ({ className }: { className?: string }) => {
+
+const RightAboutHome = ({
+  className,
+  isInHome=true,
+}: {
+  className?: string;
+  isInHome?: boolean;
+}) => {
   return (
     <div className={`${className} p-4 group space-y-5`}>
       <p className="text-primary/80 relative w-fit capitalize font-bold text-md md:text-lg  animated-underline">
@@ -12,17 +17,20 @@ const RightAboutHome = ({ className }: { className?: string }) => {
         know more about us
       </h2>
       <p className="text-foreground/90  md:text-lg text-base">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos, doloribus cumque ad ullam sunt sit officia voluptas. Quo, repudiandae ipsam?
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos,
+        doloribus cumque ad ullam sunt sit officia voluptas. Quo, repudiandae
+        ipsam?
       </p>
       <ul className="list-disc list-inside">
         <li className="text-foreground/80  md:text-lg text-base">
-          Lorem ipsum dolor sit amet 
+          Lorem ipsum dolor sit amet
         </li>
         <li className="text-foreground/80  md:text-lg text-base">
-        Lorem ipsum dolor sit amet 
+          Lorem ipsum dolor sit amet
         </li>
       </ul>
-      <MyBtn text="read more" href="/about"  className="mt-4 " />
+      {isInHome && <MyBtn text="read more" href="/about" className="mt-4 " />}
+      
     </div>
   );
 };
