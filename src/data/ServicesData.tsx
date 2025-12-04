@@ -1,3 +1,10 @@
+import {
+  FaHandsHelping,
+  FaMicrophoneAlt,
+  FaRegClock,
+  FaVolumeUp,
+} from "react-icons/fa";
+
 const ServicesData = () => {
   return [
     {
@@ -9,10 +16,25 @@ const ServicesData = () => {
         "Book your dedicated recording space in our professional Christian music studio. Enjoy a peaceful, inspiring environment equipped with high-quality microphones, instruments, and sound treatment — perfect for worship sessions, choirs, solo artists, voice-overs, and live musical performances.",
       image: "/home/service.jpg",
       points: [
-        "Sound-treated rooms designed for worship and vocal clarity.",
-        "Professional equipment including studio microphones, headphones, and monitors.",
-        "Flexible booking hours for individual artists, choirs, and worship teams.",
-        "Supportive Christian atmosphere to help you create with purpose.",
+        {
+          label: "Sound-treated rooms designed for worship and vocal clarity.",
+          icon: <FaVolumeUp />,
+        },
+        {
+          label:
+            "Professional equipment including studio microphones, headphones, and monitors.",
+          icon: <FaMicrophoneAlt />,
+        },
+        {
+          label:
+            "Flexible booking hours for individual artists, choirs, and worship teams.",
+          icon: <FaRegClock />,
+        },
+        {
+          label:
+            "Supportive Christian atmosphere to help you create with purpose.",
+          icon: <FaHandsHelping />,
+        },
       ],
       statistics: [
         { label: "Sessions Booked", value: "450+" },

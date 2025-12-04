@@ -8,13 +8,18 @@ export interface IServiceAction {
   href: string;
 }
 
+export interface IPoints{
+  label: string;
+  icon: React.ReactNode
+}
+
 export interface IService {
   id: number;
   title: string;
   subtitle: string;
   description: string;
   image: string;
-  points: string[];
+  points: IPoints[]|string[];
   statistics: IServiceStat[];
   action: IServiceAction;
 }

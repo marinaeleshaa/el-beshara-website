@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import ReserveLayout from "./reserveSection/ReserveLayout";
 
 const ServicesLayout = () => {
   return (
-    <div>ServicesLayout</div>
-  )
-}
+    <div className="w-[80%] mx-auto my-20">
+      <ReserveLayout />
+    </div>
+  );
+};
 
-export default ServicesLayout
+export default ServicesLayout;
