@@ -14,8 +14,9 @@ const HomeHeroLayout = () => {
           height={900}
           className="object-cover w-full h-full absolute inset-0 -z-1 -scale-x-[1]"
         />
-        <div className="clip-wave overflow-hidden absolute bg-secondary/30 backdrop-blur-[6px] inset-0 w-full h-full z-10"></div>
-        <div className="clip-wave overflow-hidden absolute bg-primary/20 backdrop-blur-[7px] inset-0 w-full h-full z-9"></div>
+        {/* overlay */}
+        <div className="clip-wave overflow-hidden absolute bg-dark/70 backdrop-blur-[6px] inset-0 w-full h-full z-10"></div>
+      
         {/* content */}
         <div className="flex h-fit p-10 max-w-2xl  rounded-lg flex-col items-center justify-center relative z-20 text-primary-foreground gap-5">
           <div className="flex flex-col justify-center gap-2">
