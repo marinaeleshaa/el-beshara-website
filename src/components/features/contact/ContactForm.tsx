@@ -37,7 +37,7 @@ const ContactForm = ({ className }: { className?: string }) => {
   };
 
   return (
-    <div className={`${className ?? ""} rounded-lg space-y-3 group`}>
+    <div className={`${className} rounded-lg space-y-3 group`}>
       <h1 className="text-primary text-2xl md:text-4xl font-bold capitalize relative animated-underline w-fit">
         get in touch
       </h1>
