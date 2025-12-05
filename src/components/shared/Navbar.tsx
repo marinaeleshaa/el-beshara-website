@@ -63,16 +63,24 @@ const Navbar = ({
 
           {/* Menu Items */}
           <div className="flex items-center gap-6 lg:gap-8">
-            {menu?.map((item) => (
-              <Link
-                key={item.title}
-                href={item.url}
-                className={`text-sm font-medium link-underline
-    ${pathname === item.url ? "link-active" : ""}`}
-              >
-                {item.title}
-              </Link>
-            ))}
+            {menu?.map((item) => {
+              const isActive =
+                item.url === "/gallery/images"
+                  ? pathname.includes("gallery") 
+                  : pathname === item.url;
+
+              return (
+                <Link
+                  key={item.title}
+                  href={item.url}
+                  className={`text-sm font-medium link-underline ${
+                    isActive ? "link-active" : ""
+                  }`}
+                >
+                  {item.title}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Desktop Mode Toggle */}

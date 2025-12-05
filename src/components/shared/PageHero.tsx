@@ -19,7 +19,7 @@ const PageHero = ({ imgPath = "/home/fixed.jpg" }: PageHeroProps) => {
 
   // Convert dashed-routes → normal words (ex: sound-engineering → Sound Engineering)
   const formatText = (text: string) =>
-    text.replaceAll('-', " ").replaceAll(/\b\w/g, (l) => l.toUpperCase());
+    text.replaceAll("-", " ").replaceAll(/\b\w/g, (l) => l.toUpperCase());
 
   return (
     <div className="w-full h-[40vh] relative flex justify-center items-center">
@@ -37,27 +37,35 @@ const PageHero = ({ imgPath = "/home/fixed.jpg" }: PageHeroProps) => {
 
       {/* Main content */}
       <div className="relative z-20 text-primary-foreground flex flex-col items-center gap-4 px-6">
-        
         {/* Title */}
         <h1 className="sm:text-7xl text-5xl font-extrabold capitalize">
           {formatText(title!)}
         </h1>
 
         {/* Breadcrumbs */}
+        {/* Breadcrumbs */}
         <div className="flex items-center gap-2 text-light/80 sm:text-lg text-base">
-          <Link href="/" className="hover:text-light">Home</Link>
+          <Link href="/" className="hover:text-light">
+            Home
+          </Link>
+
           {segments.map((seg, index) => {
             const href = "/" + segments.slice(0, index + 1).join("/");
             const isLast = index === segments.length - 1;
+
+            // if last segment is "gallery", redirect to "/gallery/images"
+            const finalHref = seg === "gallery" ? "/gallery/images" : href;
 
             return (
               <div key={seg} className="flex items-center gap-2">
                 <span>/</span>
                 {isLast ? (
-                  <span className="text-light capitalize">{formatText(seg)}</span>
+                  <span className="text-light capitalize">
+                    {formatText(seg)}
+                  </span>
                 ) : (
                   <Link
-                    href={href}
+                    href={finalHref}
                     className="hover:text-light capitalize"
                   >
                     {formatText(seg)}

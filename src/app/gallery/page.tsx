@@ -1,4 +1,4 @@
-
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Gallery | El-Beshara Studio",
@@ -6,7 +6,7 @@ export const metadata = {
 }
 
 const page = () => {
-  return <div></div>;
+   redirect("/gallery/images");
 };
 
 export default page;
