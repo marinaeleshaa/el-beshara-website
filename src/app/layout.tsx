@@ -31,14 +31,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MainProvider>
+        {/* <MainProvider>
           <Navbar
             menu={NavMenuItems}
             className="fixed w-full h-fit inset-0 z-49 bg-background "
           />
           <div className=" my-15">{children}</div>
           <Footer />
-        </MainProvider>
+        </MainProvider> */}
+        {children}
       </body>
     </html>
   );
