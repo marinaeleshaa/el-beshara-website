@@ -3,7 +3,7 @@ import MyBtn from "@/components/ui/MyBtn";
 const WhyChooseUsRight = ({ className }: { className?: string }) => {
   return (
     <div className={`${className} flex flex-col justify-center p-6 md:p-8 bg-secondary rounded-lg`}>
-      <p className="text-primary  w-fit font-semibold text-sm md:text-base uppercase tracking-wide mb-3 relative animated-underline">
+      <p className="text-primary/80 relative w-fit capitalize font-bold text-md md:text-lg  animated-underline mb-4">
         Why Choose Us
       </p>
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">

@@ -1,8 +1,8 @@
 import MyBtn from "@/components/ui/MyBtn";
+import { IService } from "@/lib/Interfaces/ServiceInterface";
 import Image from "next/image";
 
-
-const ServiceCard = () => {
+const ServiceCard = ({ service }: { service: IService }) => {
   return (
     <div className="group relative">
       <div
@@ -13,8 +13,8 @@ const ServiceCard = () => {
         "
       >
         <Image
-          src="/home/service.jpg"
-          alt="service"
+          src={service.image}
+          alt={service.title}
           width={900}
           height={900}
           className="object-cover rounded-lg w-full h-full"
@@ -32,7 +32,9 @@ const ServiceCard = () => {
           "
         >
           {/* Title: always visible */}
-          <p className="text-dark-foreground text-lg font-bold ">Service</p>
+          <p className="text-dark-foreground text-lg font-bold ">
+            {service.title}
+          </p>
 
           {/* Hidden content: appears on hover */}
           <div
@@ -40,14 +42,15 @@ const ServiceCard = () => {
               opacity-0 translate-y-4
               transition-all duration-500 ease-out
               group-hover:opacity-100 group-hover:translate-y-0
-              text-center px-4 mt-2 flex flex-col gap-2
+              text-center px-4 mt-2 flex flex-col gap-2 
             "
           >
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic
-              accusantium nesciunt vero
-            </p>
-            <MyBtn text="read more" href="/services" width="full" />
+            <p className="line-clamp-3">{service.description}</p>
+            <MyBtn
+              text={service.action.text}
+              href={service.action.href}
+              width="full"
+            />
           </div>
         </div>
       </div>

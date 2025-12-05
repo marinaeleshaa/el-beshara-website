@@ -11,9 +11,12 @@
   }
 }
 
+* {
+  scroll-behavior: smooth;
+}
+
 .animated-underline {
-  @apply 
-    before:content-[''] 
+  @apply before:content-[''] 
     before:absolute 
     before:w-0 
     before:h-1 
@@ -24,7 +27,6 @@
     before:ease-in-out 
     group-hover:before:w-full;
 }
-
 
 @theme inline {
   --color-light: var(--light);

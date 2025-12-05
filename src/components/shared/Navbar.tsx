@@ -43,7 +43,7 @@ const Navbar = ({
   const pathname = usePathname();
 
   return (
-    <section className={`py-2 md:py-3 border-b ${className}`}>
+    <section className={`py-2 md:py-3 border-b  ${className}`}>
       <div className="max-w-[80%] mx-auto">
         {/* Desktop Navbar */}
         <nav className="hidden md:flex items-center justify-between">
@@ -63,16 +63,24 @@ const Navbar = ({
 
           {/* Menu Items */}
           <div className="flex items-center gap-6 lg:gap-8">
-            {menu?.map((item) => (
-              <Link
-                key={item.title}
-                href={item.url}
-                className={`text-sm font-medium link-underline
-    ${pathname === item.url ? "link-active" : ""}`}
-              >
-                {item.title}
-              </Link>
-            ))}
+            {menu?.map((item) => {
+              const isActive =
+                item.url === "/gallery/images"
+                  ? pathname.includes("gallery") 
+                  : pathname === item.url;
+
+              return (
+                <Link
+                  key={item.title}
+                  href={item.url}
+                  className={`text-sm font-medium link-underline ${
+                    isActive ? "link-active" : ""
+                  }`}
+                >
+                  {item.title}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Desktop Mode Toggle */}
@@ -140,7 +148,11 @@ const Navbar = ({
                     <Link
                       key={item.title}
                       href={item.url}
-                      className={`text-lg cursor-pointer font-semibold hover:text-foreground/80 transition-colors py-2 border-b last:border-0 ${pathname === item.url ? "text-primary hover:text-primary/80" : ""} `}
+                      className={`text-lg cursor-pointer font-semibold hover:text-foreground/80 transition-colors py-2 border-b last:border-0 ${
+                        pathname === item.url
+                          ? "text-primary hover:text-primary/80"
+                          : ""
+                      } `}
                       onClick={() => document.body.click()} // Close sheet on click
                     >
                       {item.title}

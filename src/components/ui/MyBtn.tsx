@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
 import React from "react";
 
 type IBtnVariant = "primary" | "secondary" | "light" | "dark";
@@ -12,6 +14,8 @@ interface IBtn {
   icon?: React.ReactNode;
   className?: string;
   width?: "fit" | "full" | "auto";
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 const CheckVariant = (variant?: IBtnVariant, outline?: boolean) => {
@@ -28,7 +32,7 @@ const CheckVariant = (variant?: IBtnVariant, outline?: boolean) => {
       default:
         return "border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground";
     }
-  }else{
+  } else {
     switch (variant) {
       case "primary":
         return "bg-primary text-primary-foreground hover:bg-primary/80";
@@ -43,28 +47,41 @@ const CheckVariant = (variant?: IBtnVariant, outline?: boolean) => {
     }
   }
 };
+
 const MyBtn = ({
   text,
   onClick,
-  href = "#",
+  href,
   variant = "primary",
   icon,
   className,
   width = "fit",
   outline = false,
+  type = "button",
+  disabled = false,
 }: IBtn) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (onClick) onClick();
+    if (href) router.push(href);
+  };
+
   return (
-    <Link
-      href={href}
-      className={` ${CheckVariant(
-        variant,
-        outline
-      )} ${className} flex justify-center items-center ${icon && "gap-2"}  font-semibold px-4 py-2  hover:scale-105 transition duration-300 cursor-pointer capitalize group w-${width} rounded-lg `}
-      onClick={onClick}
+    <button
+      className={` ${CheckVariant(variant, outline)} ${className} flex justify-center items-center ${
+        icon ? "gap-2" : ""
+      } font-semibold px-4 py-2 hover:scale-105 transition duration-300 cursor-pointer capitalize w-${width} rounded-lg ${disabled ? "opacity-50 cursor-not-allowed hover:scale-none" : ""}`}
+      onClick={handleClick}
+      type={type}
     >
       {text}
-      { icon && <span className="group-hover:translate-x-3 transition duration-500">{icon}</span>}
-    </Link>
+      {icon && (
+        <span className="group-hover:translate-x-3 transition duration-500">
+          {icon}
+        </span>
+      )}
+    </button>
   );
 };
 

@@ -1,9 +1,12 @@
-import React from 'react'
+import { redirect } from "next/navigation";
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
+export const metadata = {
+  title: "Gallery | El-Beshara Studio",
+  description: "Creating amazing musical experiences for the world.",
 }
 
-export default page
+const page = () => {
+   redirect("/gallery/images");
+};
+
+export default page;
