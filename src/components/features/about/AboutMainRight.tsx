@@ -8,8 +8,8 @@ import {
 
 const AboutMainRight = ({ className }: { className: string }) => {
   return (
-    <div className={`${className} flex flex-col md:flex-row gap-5 h-[300px] md:h-[535px] sm:h-[500px]`}>
-      <div className=" shrink-0 h-full">
+    <div className={`${className} flex flex-col md:flex-row gap-5 h-auto  `}>
+      <div className=" shrink-0 sm:h-[600px] md:h-[535px]">
         <Image
           src="/home/about2.jpg"
           alt="about"
