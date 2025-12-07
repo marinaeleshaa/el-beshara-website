@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import DashboardViewSlice from "./DashboardViewSlice";
-
+import langReducer from "./LangSlice";
 export const store = configureStore({
   reducer: {
-    dashView: DashboardViewSlice,
-  },
+    lang : langReducer
+  }
 });
 
 export type RootState = ReturnType<typeof store.getState>;
