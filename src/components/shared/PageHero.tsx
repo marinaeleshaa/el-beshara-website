@@ -22,7 +22,7 @@ const PageHero = ({ imgPath = "/home/fixed.jpg" }: PageHeroProps) => {
     text.replaceAll("-", " ").replaceAll(/\b\w/g, (l) => l.toUpperCase());
 
   return (
-    <div className="w-full h-[40vh] relative flex justify-center items-center">
+    <div className="w-full h-[50vh] relative flex justify-center items-center">
       {/* Background Image */}
       <Image
         src={imgPath}
