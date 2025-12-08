@@ -169,6 +169,15 @@
       }
     }
   },
+
+  "whyChooseUs": {
+    "title": "Why Choose Us",
+    "heading": "Excellence in Every Detail",
+    "description": "At El-Beshara Studio, we combine professional equipment, expert sound engineers, and a comfortable creative environment to ensure every recording reaches industry-standard quality. From precise vocal recording to detailed mixing and mastering, we help artists bring their musical vision to life with clarity and excellence.",
+    "btnText": "Contact Us",
+    "href": "/contact"
+  },
+
   "common": {
     "menu": [
       { "title": "Home", "url": "/" },
