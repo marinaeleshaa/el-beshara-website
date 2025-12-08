@@ -1,6 +1,6 @@
 import React from 'react'
-import GalleryHomeLeft from './GalleryHomeLeft'
-import GalleryHomeRight from './GalleryHomeRight'
+import GalleryHomeLeft from './StudioHomeLeft'
+import GalleryHomeRight from './StudioHomeRight'
 
 const GalleryHomeLayout = () => {
   return (

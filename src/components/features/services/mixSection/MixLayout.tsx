@@ -1,10 +1,15 @@
 import MyBtn from "@/components/ui/MyBtn";
 import ServicesData from "@/data/ServicesData";
+import DynamicIcon from "@/hooks/DynamicIconHook";
+import { IService } from "@/lib/Interfaces/ServiceInterface";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
 const MixLayout = () => {
-  const mixData = ServicesData()[2];
+  // const mixData = ServicesData()[2];
+  const t = useTranslations("ourServices");
+  const mixData = t.raw("servicesData.mix") as IService;
   return (
     <div className="flex group flex-col  items-center  md:flex-row lg:p-8 md:p-6 p-2 ">
       {/* left */}
@@ -20,12 +25,19 @@ const MixLayout = () => {
               key={index}
               className="flex   text-center items-center gap-2 text-secondary-foreground "
             >
-              <p className="text-xl font-bold">{point.icon}</p>
+              <p className="text-xl font-bold">
+                <DynamicIcon iconName={point.icon} />
+              </p>
               <p className="text-sm ">{point.label}</p>
             </div>
           ))}
         </div>
-        <MyBtn text="book your session now" href="/contact" variant="primary" width="full" />
+        <MyBtn
+          text={mixData.toContact}
+          href="/contact"
+          variant="primary"
+          width="full"
+        />
       </div>
       {/* right */}
       <div className="w-full md:w-1/2 min-h-[300px] md:h-[560px] lg:h-[490px] xl:h-[410px]">
@@ -37,7 +49,6 @@ const MixLayout = () => {
           className="w-full h-full object-cover rounded-lg dark:rounded-b-lg dark:md:rounded-r-lg dark:md:rounded-l-none"
         />
       </div>
-      
     </div>
   );
 };

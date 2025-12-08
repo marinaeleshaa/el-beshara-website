@@ -1,14 +1,14 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const GalleryTabs = () => {
   const pathname = usePathname();
-
-  const current = pathname.split("/").pop(); // account | password
-
+  const current = pathname.split("/").pop();
+  const t = useTranslations("gallery.tabs");
   return (
     <div className="flex justify-center items-center my-10">
       <Tabs
@@ -17,15 +17,15 @@ const GalleryTabs = () => {
       >
         <TabsList defaultValue={"images"}>
           <TabsTrigger value="images" asChild>
-            <Link href="/gallery/images">Images</Link>
+            <Link href="/gallery/images">{t("images")}</Link>
           </TabsTrigger>
 
           <TabsTrigger value="videos" asChild>
-            <Link href="/gallery/videos">Videos</Link>
+            <Link href="/gallery/videos">{t("videos")}</Link>
           </TabsTrigger>
 
           <TabsTrigger value="reels" asChild>
-            <Link href="/gallery/reels">Reels</Link>
+            <Link href="/gallery/reels">{t("reels")}</Link>
           </TabsTrigger>
         </TabsList>
       </Tabs>

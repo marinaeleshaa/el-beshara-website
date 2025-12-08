@@ -10,7 +10,7 @@ export interface IServiceAction {
 
 export interface IPoints{
   label: string;
-  icon: React.ReactNode
+  icon: string;
 }
 
 export interface IService {
@@ -22,4 +22,10 @@ export interface IService {
   points: IPoints[];
   statistics: IServiceStat[];
   action: IServiceAction;
+  toContact?: string
+}
+
+export interface MenuItem {
+  title: string;
+  url: string;
 }

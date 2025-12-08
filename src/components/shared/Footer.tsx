@@ -1,4 +1,6 @@
 import { NavMenuItems } from "@/data/NavMenuItems";
+import { MenuItem } from "@/lib/Interfaces/ServiceInterface";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
 import {
@@ -9,6 +11,9 @@ import {
 } from "react-icons/fa";
 
 const Footer = () => {
+   const tCommon = useTranslations("common");
+    const menu = tCommon.raw("menu") as MenuItem[];
+    const tFooter = useTranslations("footer");
   return (
     <footer className="bg-dark dark:bg-secondary text-dark-foreground">
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-5">
@@ -16,9 +21,9 @@ const Footer = () => {
         <div className="grid grid-cols-1  sm:grid-cols-3 gap-12 ">
           {/* Company Info */}
           <div className="space-y-4 text-left sm:text-center">
-            <h3 className="text-2xl font-bold text-white">El-Beshara Studio</h3>
+            <h3 className="text-2xl font-bold text-white">{tCommon("studioName")}</h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Creating amazing musical experiences for the world.
+             {tFooter("studioSlogan")}
             </p>
             <div className="flex sm:justify-center gap-3 pt-2">
               <Link
@@ -49,9 +54,9 @@ const Footer = () => {
           <div className="flex sm:justify-center">
 
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Quick Links</h4>
+            <h4 className="text-lg font-semibold text-white">{tFooter("quickLinks")}</h4>
             <ul className="space-y-3 ">
-              {NavMenuItems.map((item) => (
+              {menu.map((item) => (
                 <li key={item.title}>
                   <a
                     href={item.url}
@@ -69,7 +74,7 @@ const Footer = () => {
           <div className="flex sm:justify-center">
 
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Get in Touch</h4>
+            <h4 className="text-lg font-semibold text-white">{tFooter("contactUs")}</h4>
             <div className="space-y-3 text-sm text-gray-400">
               <p>123 Music Street</p>
               <p>Cairo, Egypt</p>

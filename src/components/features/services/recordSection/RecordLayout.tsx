@@ -1,9 +1,11 @@
 import MyBtn from "@/components/ui/MyBtn";
-import ServicesData from "@/data/ServicesData";
-import React from "react";
+import DynamicIcon from "@/hooks/DynamicIconHook";
+import { IService } from "@/lib/Interfaces/ServiceInterface";
+import { useTranslations } from "next-intl";
 
 const RecordLayout = () => {
-  const recordData = ServicesData()[1];
+  const t = useTranslations("ourServices");
+  const recordData = t.raw("servicesData.record") as IService;
   return (
     <div className="flex flex-col gap-8 items-center  md:flex-row lg:p-8 md:p-6 p-2">
       {/* left */}
@@ -14,7 +16,7 @@ const RecordLayout = () => {
             className="w-full flex relative justify-center items-center gap-4 p-5 pt-8 rounded-lg bg-secondary"
           >
             <p className="text-xl absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:text-3xl bg-primary rounded-lg text-primary-foreground p-2">
-              {point.icon}
+              <DynamicIcon iconName={point.icon} />
             </p>
             <h3 className="text-lg md:text-xl capitalize">{point.label}</h3>
           </div>

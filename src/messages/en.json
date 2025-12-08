@@ -1,0 +1,266 @@
+{
+  "home": {
+    "homeHero": [
+      {
+        "title": "El-Beshara Music Studio",
+        "description": "A creative space where artists find their true sound. Record, mix, master, and bring your vision to life with a professional team and world-class equipment.",
+        "href": "/"
+      },
+      {
+        "title": "Who We Are",
+        "description": "El-Beshara Studio is a professional music space built to inspire creativity. We help artists, singers, and musicians record high-quality tracks in a comfortable environment with expert audio engineers.",
+        "btnText": "Read More",
+        "href": "/about"
+      },
+      {
+        "title": "Our Studio Services",
+        "description": "From professional recording to mixing and mastering, our studio offers everything you need to create industry-standard music.",
+        "btnText": "View All Services",
+        "href": "/services"
+      },
+      {
+        "title": "Gallery: Photos, Reels & Videos",
+        "description": "Explore moments from our studio sessions — behind-the-scenes photos, artist reels, and full video performances.",
+        "btnText": "View Gallery",
+        "href": "/gallery/images"
+      },
+      {
+        "title": "Get in Touch",
+        "description": "Have a question or want to book a session? Contact us and our team will get back to you shortly.",
+        "btnText": "Contact Us",
+        "href": "/contact"
+      }
+    ],
+    "homeAbout": {
+      "title": "About Us",
+      "subtitle": "know more about us",
+      "description": "El-Beshara Studio is a creative space where artists find their true sound. Our studio offers everything you need to create industry-standard music.",
+      "points": [
+        "Professional audio recording using the latest equipment and global quality standards.",
+        "Specialized mixing and mastering that give your tracks clarity and powerful sound.",
+        "A quiet, inspiring space designed to help you deliver your best performance.",
+        "A highly experienced team that has worked with singers, musicians, and music groups."
+      ],
+      "btnText": "Read More",
+      "href": "/about"
+    },
+    "homeStudio": {
+      "sectionLabel": "Our Studio",
+      "title": "Where Sound Comes to Life",
+      "points": [
+        "Professional audio engineering and mixing for all genres.",
+        "High-quality recording sessions for vocals and instruments.",
+        "Music production and arrangement to bring your ideas to life."
+      ],
+      "stats": {
+        "hoursTitle": "Hours of Recording",
+        "hoursFirstDescription": "We have produced and recorded over",
+        "hoursNumber": "500",
+        "hoursSecondDescription": "hours of music for artists",
+
+        "projectsTitle": "Completed Projects",
+        "projectsFirstDescription": "Our team has successfully produced and recorded over",
+        "projectsNumber": "100",
+        "projectsSecondDescription": "music projects"
+      },
+      "btnText": "Explore Our Studio Gallery",
+      "href": "/gallery"
+    }
+  },
+  "ourServices": {
+    "title": "Our Services",
+    "description": "Discover how we help artists, worship teams, and creators bring their musical vision to life. From reserving a peaceful studio space to recording powerful vocals and producing a fully mixed and mastered track — we’re here to support every step of your creative journey.",
+    "servicesData": {
+      "reserve": {
+        "id": 1,
+        "title": "Reserve the Studio",
+        "subtitle": "A peaceful, creative space designed to inspire worship and excellence.",
+        "description": "Book your dedicated recording space in our professional Christian music studio. Enjoy a peaceful, inspiring environment equipped with high-quality microphones, instruments, and sound treatment — perfect for worship sessions, choirs, solo artists, voice-overs, and live musical performances.",
+        "image": "/home/service.jpg",
+        "points": [
+          {
+            "label": "Sound-treated rooms designed for worship and vocal clarity.",
+            "icon": "FaVolumeUp"
+          },
+          {
+            "label": "Professional equipment including studio microphones, headphones, and monitors.",
+            "icon": "FaMicrophoneAlt"
+          },
+          {
+            "label": "Flexible booking hours for individual artists, choirs, and worship teams.",
+            "icon": "FaRegClock"
+          },
+          {
+            "label": "Supportive Christian atmosphere to help you create with purpose.",
+            "icon": "FaHandsHelping"
+          }
+        ],
+        "statistics": [
+          { "label": "Sessions Booked", "value": "450+" },
+          { "label": "Returning Artists", "value": "90%" },
+          { "label": "Studio Capacity", "value": "Up to 12 people" }
+        ],
+        "action": { "text": "More Details", "href": "/services/#reserve" },
+        "toContact": "reserve now"
+      },
+      "record": {
+        "id": 2,
+        "title": "Record a Song",
+        "subtitle": "Turn your worship message into a professionally recorded song.",
+        "description": "Bring your worship song to life with industry-standard recording. Whether it's gospel, contemporary Christian music, choir harmonies, or a devotional track, we guide you through every step to capture your message with clarity and emotion.",
+        "image": "/home/service.jpg",
+        "points": [
+          {
+            "label": "High-quality vocal and instrument recording with professional engineers.",
+            "icon": "FaMicrophoneAlt"
+          },
+          {
+            "label": "Coaching for performance, vocal delivery, and artistic expression.",
+            "icon": "FaHeadphonesAlt"
+          },
+          {
+            "label": "Multi-track recording for choirs, harmonies, and live instruments.",
+            "icon": "FaUsers"
+          },
+          {
+            "label": "Comfortable recording environment that encourages creativity and worship.",
+            "icon": "FaSmileBeam"
+          }
+        ],
+        "statistics": [
+          { "label": "Songs Recorded", "value": "300+" },
+          { "label": "Choirs & Groups", "value": "70+" },
+          { "label": "Artist Satisfaction", "value": "98%" }
+        ],
+        "action": { "text": "Start Recording", "href": "/services/#record" },
+        "toContact": "book your session"
+      },
+      "mix": {
+        "id": 3,
+        "title": "Mix & Master Your Song",
+        "subtitle": "Deliver a polished, powerful sound ready for any platform.",
+        "description": "Transform your raw tracks into a polished, radio-ready Christian song. Our team balances vocals, instruments, beats, and harmonies while preserving the spirit of worship. We deliver a clean, powerful, and emotionally engaging final mix.",
+        "image": "/home/service.jpg",
+        "points": [
+          {
+            "label": "Professional mixing for vocals, choirs, instruments, and backgrounds.",
+            "icon": "FaMusic"
+          },
+          {
+            "label": "Mastering for clarity, punch, warmth, and wide stereo sound.",
+            "icon": "FaTools"
+          },
+          {
+            "label": "Noise reduction, tuning, EQ, compression, and effects as needed.",
+            "icon": "FaCompressArrowsAlt"
+          },
+          {
+            "label": "Final high-quality files ready for streaming platforms, churches, or events.",
+            "icon": "FaCloudUploadAlt"
+          }
+        ],
+        "statistics": [
+          { "label": "Songs Mixed", "value": "500+" },
+          { "label": "Streaming-Ready Files Delivered", "value": "1000+" },
+          { "label": "Average Delivery Time", "value": "48 hours" }
+        ],
+        "action": { "text": "Mix & Master", "href": "/services/#mix" },
+        "toContact": "book your session"
+      }
+    }
+  },
+  "about": {
+    "sectionLabel": "About Us",
+    "title": "know more about us",
+    "description": "El-Beshara Studio is a creative space where artists find their true sound. We provide professional recording, mixing, and mastering services with world-class equipment, a quiet environment, and an experienced team ready to bring your musical vision to life.",
+    "visionTitle": "Our Vision",
+    "visionContent": [
+      "To be a beacon of faith-inspired creativity, empowering Christian artists and worship leaders to craft music that transforms hearts and glorifies God across generations.",
+      "We envision a world where every believer has access to professional-quality production that amplifies their message of hope, redemption, and divine love."
+    ],
+
+    "missionTitle": "Our Mission",
+    "missionContent": [
+      "To provide exceptional recording, production, and mixing services that honor God and serve the Christian music community with excellence, integrity, and compassion.",
+      "We are committed to creating a welcoming space where artists can freely express their faith through music, supported by cutting-edge technology and a team dedicated to bringing their spiritual vision to life."
+    ],
+
+    "valuesTitle": "Our Values",
+    "valuesContent": [
+      "Faith First: We place God at the center of everything we do, praying over each project and seeking His guidance in our creative process.",
+      "Excellence & Integrity: We deliver professional-quality work with honesty and transparency, treating every artist with respect and dignity.",
+      "Community & Service: We believe in building lasting relationships and serving the body of Christ through our gifts and talents."
+    ],
+    "btnText": "Contact Us",
+    "href": "/contact"
+  },
+
+  "whyChooseUs": {
+    "title": "Why Choose Us",
+    "heading": "Excellence in Every Detail",
+    "description": "At El-Beshara Studio, we combine professional equipment, expert sound engineers, and a comfortable creative environment to ensure every recording reaches industry-standard quality. From precise vocal recording to detailed mixing and mastering, we help artists bring their musical vision to life with clarity and excellence.",
+    "btnText": "Contact Us",
+    "href": "/contact"
+  },
+  "gallery": {
+    "tabs": {
+      "images": "Images",
+      "videos": "Videos",
+      "reels": "Reels"
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "description": "Get in touch with us for a professional recording, mixing, or mastering session. We're here to help you bring your musical vision to life.",
+    "nameInput":{
+      "label": "Name",
+      "placeholder": "Enter your name"
+    },
+    "emailInput": {
+      "label": "Email",
+      "placeholder": "Enter your email"
+    },
+    "phoneInput": {
+      "label": "Phone",
+      "placeholder": "Enter your phone number"
+    },
+    "subjectInput": {
+      "label": "Subject",
+      "placeholder": "Enter a subject"
+    },
+    "messageInput": {
+      "label": "Message",
+      "placeholder": "Enter your message"
+    },
+    "btnText": "Send Message",
+    "successMessage": {
+      "title": "Message Sent Successfully",
+      "description": "We will get back to you soon."
+    }
+  },
+  "common": {
+    "menu": [
+      { "title": "Home", "url": "/" },
+      { "title": "About", "url": "/about" },
+      { "title": "Services", "url": "/services" },
+      { "title": "Gallery", "url": "/gallery/images" },
+      { "title": "Contact", "url": "/contact" }
+    ],
+    "studioName": "El-Beshara Studio",
+    "pageHero": {
+      "home": "Home",
+      "about": "About",
+      "services": "Services",
+      "gallery": "Gallery",
+      "contact": "Contact",
+      "images": "Images",
+      "videos": "Videos",
+      "reels": "Reels"
+    }
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "studioSlogan": "Creating amazing musical experiences for the world."
+  }
+}

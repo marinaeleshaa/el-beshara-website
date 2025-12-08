@@ -1,3 +1,4 @@
+// ! for images
 export const images = [
   { id: "1", img: "/home/service.jpg", url: "/home/service.jpg", height: 400 },
   { id: "2", img: "/home/hero.jpg", url: "/home/hero.jpg", height: 350 },
@@ -19,7 +20,7 @@ export const images = [
   { id: "18", img: "/home/about1.jpg", url: "/home/about1.jpg", height: 300 },
 ];
 
-
+//! for video
 // const videoItems = [
 //   {
 //     id: "1",

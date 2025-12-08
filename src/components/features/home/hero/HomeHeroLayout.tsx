@@ -1,6 +1,5 @@
 import MyBtn from "@/components/ui/MyBtn";
 import Image from "next/image";
-import Link from "next/link";
 
 const HomeHeroLayout = () => {
   return (

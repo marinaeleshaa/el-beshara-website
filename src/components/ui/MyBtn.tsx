@@ -71,16 +71,16 @@ const MyBtn = ({
     <button
       className={` ${CheckVariant(variant, outline)} ${className} flex justify-center items-center ${
         icon ? "gap-2" : ""
-      } font-semibold px-4 py-2 hover:scale-105 transition duration-300 cursor-pointer capitalize w-${width} rounded-lg ${disabled ? "opacity-50 cursor-not-allowed hover:scale-none" : ""}`}
+      } font-semibold  px-4 py-2 hover:scale-105 transition duration-300 cursor-pointer capitalize w-${width} rounded-lg ${disabled ? "opacity-50 cursor-not-allowed hover:scale-none" : ""}`}
       onClick={handleClick}
       type={type}
     >
-      {text}
       {icon && (
-        <span className="group-hover:translate-x-3 transition duration-500">
+        <span className=" transition duration-500">
           {icon}
         </span>
       )}
+      {text}
     </button>
   );
 };
