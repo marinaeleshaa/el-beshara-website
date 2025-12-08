@@ -45,7 +45,7 @@ const HomeHero = () => {
       {images.slice(0, index + 1).map((img, i) => (
         <motion.div
           key={i}
-          initial={i === 0 ? { x: 0 } : { x: "100%" }}
+          initial={i === 0 ? { x: 0 } : mounted && lang === "ar" ? { x: "-100%" } : { x: "100%" }}
           animate={{ x: 0 }}
           transition={{ duration: 2, ease: "easeOut" }}
           className="absolute inset-0"
