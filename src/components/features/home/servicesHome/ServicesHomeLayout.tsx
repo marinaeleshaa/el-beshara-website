@@ -6,7 +6,7 @@ import { IService } from "@/lib/Interfaces/ServiceInterface";
 const ServicesHomeLayout = () => {
   const t = useTranslations("ourServices");
   const ServicesData = t.raw("servicesData") as IService[];
-
+  const servicesArray = Object.values(ServicesData) 
   return (
     <div className="bg-secondary group/parent   min-h-[70vh]">
       <div className="w-myWidth  mx-auto flex flex-col gap-10 justify-center items-center px-4 pt-10">
@@ -21,7 +21,7 @@ const ServicesHomeLayout = () => {
       </div>
       <div className="w-myWidth   mx-auto flex flex-col gap-10  px-4 py-10">
         <div className=" grid grid-cols-1 gap-10 md:grid-cols-3">
-          {ServicesData.map((service) => (
+          {servicesArray.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>

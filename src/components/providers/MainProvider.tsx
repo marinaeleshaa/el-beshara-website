@@ -2,11 +2,12 @@ import React from "react";
 import { ThemeProvider } from "./ThemeProvider";
 import { Toaster } from "react-hot-toast";
 import StoreProvider from "./StoreProvider";
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider, useLocale } from "next-intl";
 
 const MainProvider = ({ children }: { children: React.ReactNode }) => {
+  const locale = useLocale()
   return (
-    <NextIntlClientProvider>
+    <NextIntlClientProvider locale={locale}>
       <StoreProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Toaster position="top-center" reverseOrder={false} />

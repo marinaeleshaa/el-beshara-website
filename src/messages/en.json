@@ -142,7 +142,17 @@
       { "title": "Gallery", "url": "/gallery/images" },
       { "title": "Contact", "url": "/contact" }
     ],
-    "studioName": "El-Beshara Studio"
+    "studioName": "El-Beshara Studio",
+    "pageHero": {
+      "home":"Home",
+      "about":"About",
+      "services":"Services",
+      "gallery":"Gallery",
+      "contact":"Contact",
+      "images":"Images",
+      "videos":"Videos",
+      "reels":"Reels"
+    }
   },
   "footer": {
     "quickLinks": "Quick Links",

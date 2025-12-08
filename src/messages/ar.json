@@ -161,7 +161,17 @@
         "url": "/contact"
       }
     ],
-    "studioName": "استوديو البشارة"
+    "studioName": "استوديو البشارة",
+    "pageHero": {
+      "home":"الصفحة الرئيسية",
+      "about":"من نحن",
+      "services":"خدماتنا",
+      "gallery":"المعرض",
+      "contact":"تواصل معنا",
+      "images":"صور",
+      "videos":"فيديوهات",
+      "reels":"ريلز"
+    }
   },
   "footer": {
     "quickLinks": "روابط سريعة",
