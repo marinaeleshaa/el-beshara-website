@@ -169,6 +169,31 @@
       }
     }
   },
+  "about": {
+    "sectionLabel": "About Us",
+    "title": "know more about us",
+    "description": "El-Beshara Studio is a creative space where artists find their true sound. We provide professional recording, mixing, and mastering services with world-class equipment, a quiet environment, and an experienced team ready to bring your musical vision to life.",
+    "visionTitle": "Our Vision",
+    "visionContent": [
+      "To be a beacon of faith-inspired creativity, empowering Christian artists and worship leaders to craft music that transforms hearts and glorifies God across generations.",
+      "We envision a world where every believer has access to professional-quality production that amplifies their message of hope, redemption, and divine love."
+    ],
+
+    "missionTitle": "Our Mission",
+    "missionContent": [
+      "To provide exceptional recording, production, and mixing services that honor God and serve the Christian music community with excellence, integrity, and compassion.",
+      "We are committed to creating a welcoming space where artists can freely express their faith through music, supported by cutting-edge technology and a team dedicated to bringing their spiritual vision to life."
+    ],
+
+    "valuesTitle": "Our Values",
+    "valuesContent": [
+      "Faith First: We place God at the center of everything we do, praying over each project and seeking His guidance in our creative process.",
+      "Excellence & Integrity: We deliver professional-quality work with honesty and transparency, treating every artist with respect and dignity.",
+      "Community & Service: We believe in building lasting relationships and serving the body of Christ through our gifts and talents."
+    ],
+    "btnText": "Contact Us",
+    "href": "/contact"
+  },
 
   "whyChooseUs": {
     "title": "Why Choose Us",

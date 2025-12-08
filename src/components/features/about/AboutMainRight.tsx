@@ -5,8 +5,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTranslations } from "next-intl";
 
 const AboutMainRight = ({ className }: { className: string }) => {
+  const t = useTranslations("about");
+  const visionData = t.raw("visionContent") as string[];
+  const missionData = t.raw("missionContent") as string[];
+  const valuesData = t.raw("valuesContent") as string[];
   return (
     <div className={`${className} flex flex-col md:flex-row gap-5 h-auto  `}>
       <div className=" shrink-0 sm:h-[600px] md:h-[535px]">
@@ -25,40 +30,34 @@ const AboutMainRight = ({ className }: { className: string }) => {
           className="w-full"
           defaultValue="item-3"
         >
-          <AccordionItem value="item-1" className="bg-secondary p-1 rounded-lg mb-5">
+          <AccordionItem
+            value="item-1"
+            className="bg-secondary p-1 rounded-lg mb-5"
+          >
             <div className="p-2 cursor-pointer">
               <AccordionTrigger className="text-foreground text-lg md:text-2xl capitalize cursor-pointer">
-                Our Vision
+                {t("visionTitle")}
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance text-foreground/80">
-                <p>
-                  To be a beacon of faith-inspired creativity, empowering Christian artists 
-                  and worship leaders to craft music that transforms hearts and glorifies God 
-                  across generations.
-                </p>
-                <p>
-                  We envision a world where every believer has access to professional-quality 
-                  production that amplifies their message of hope, redemption, and divine love.
-                </p>
+                {visionData.map((item, index) => (
+                  <p key={index}>{item}</p>
+                ))}
               </AccordionContent>
             </div>
           </AccordionItem>
 
-          <AccordionItem value="item-2" className="bg-secondary p-1 rounded-lg mb-5">
+          <AccordionItem
+            value="item-2"
+            className="bg-secondary p-1 rounded-lg mb-5"
+          >
             <div className="p-2 cursor-pointer">
               <AccordionTrigger className="text-foreground text-lg md:text-2xl capitalize cursor-pointer">
-                Our Mission
+                {t("missionTitle")}
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance text-foreground/80">
-                <p>
-                  To provide exceptional recording, production, and mixing services that honor 
-                  God and serve the Christian music community with excellence, integrity, and compassion.
-                </p>
-                <p>
-                  We are committed to creating a welcoming space where artists can freely express 
-                  their faith through music, supported by cutting-edge technology and a team dedicated 
-                  to bringing their spiritual vision to life.
-                </p>
+                {missionData.map((item, index) => (
+                  <p key={index}>{item}</p>
+                ))}
               </AccordionContent>
             </div>
           </AccordionItem>
@@ -66,21 +65,12 @@ const AboutMainRight = ({ className }: { className: string }) => {
           <AccordionItem value="item-3" className="bg-secondary p-1 rounded-lg">
             <div className="p-2 cursor-pointer">
               <AccordionTrigger className="text-foreground text-lg md:text-2xl capitalize cursor-pointer">
-                Our Values
+                {t("valuesTitle")}
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance text-foreground/80">
-                <p>
-                  <strong>Faith First:</strong> We place God at the center of everything we do, 
-                  praying over each project and seeking His guidance in our creative process.
-                </p>
-                <p>
-                  <strong>Excellence & Integrity:</strong> We deliver professional-quality work with 
-                  honesty and transparency, treating every artist with respect and dignity.
-                </p>
-                <p>
-                  <strong>Community & Service:</strong> We believe in building lasting relationships 
-                  and serving the body of Christ through our gifts and talents.
-                </p>
+                {valuesData.map((item, index) => (
+                  <p key={index}>{item}</p>
+                ))}
               </AccordionContent>
             </div>
           </AccordionItem>
