@@ -1,18 +1,24 @@
 "use client";
 import MyBtn from "@/components/ui/MyBtn";
+import { Spinner } from "@/components/ui/spinner";
 import { loginMethod } from "@/lib/api/auth";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { IoMdEyeOff } from "react-icons/io";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{
     text: string;
     type: "success" | "error";
   } | null>(null);
 
   const handleLogin = async () => {
+    setIsLoading(true);
     // Clear previous message
     setMessage(null);
 
@@ -24,13 +30,10 @@ const LoginPage = () => {
     // ! main logic
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
-    // console.log(trimmedEmail, trimmedPassword);
     const checkLogin = await loginMethod({
       email: trimmedEmail,
       password: trimmedPassword,
     });
-
-    console.log(checkLogin);
 
     if (checkLogin.success) {
       setMessage({ text: "Login successful! Redirecting...", type: "success" });
@@ -42,17 +45,7 @@ const LoginPage = () => {
       setMessage({ text: checkLogin.message, type: "error" });
     }
 
-    // Simulate login (replace with actual authentication)
-    // if (username === "admin" && password === "password") {
-    //   setMessage({ text: "Login successful! Redirecting...", type: "success" });
-    //   setTimeout(() => {
-    //     // Redirect or handle successful login
-    //     // console.log("Redirecting...");
-    //     redirect("/admin/images");
-    //   }, 1500);
-    // } else {
-    //   setMessage({ text: "Invalid username or password", type: "error" });
-    // }
+    setIsLoading(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -81,7 +74,7 @@ const LoginPage = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
               placeholder="Enter your username"
               autoComplete="username"
               className="w-full px-4 py-3 text-background border-2 border-gray-200 rounded-lg focus:outline-none  focus:ring-2 focus:ring-background/50 transition-all"
@@ -95,21 +88,30 @@ const LoginPage = () => {
             >
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Enter your password"
-              autoComplete="current-password"
-              className="w-full px-4 py-3 text-background border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-background/50 transition-all"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyPress}
+                placeholder="Enter your password"
+                autoComplete="current-password"
+                className="w-full px-4 py-3 text-background border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-background/50 transition-all pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute text-background cursor-pointer text-lg right-3 top-1/2 transform -translate-y-1/2 focus:outline-none"
+              >
+                {showPassword ? <FaEye /> : <IoMdEyeOff />}
+              </button>
+            </div>
           </div>
 
           <MyBtn
             onClick={handleLogin}
-            text="Sign In"
+            text={isLoading ? <Spinner/> : "Login"}
             className={`${!email || !password ? "cursor-not-allowed!" : ""}`}
             width="full"
             disabled={!email || !password}

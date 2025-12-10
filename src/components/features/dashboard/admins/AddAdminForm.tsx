@@ -68,28 +68,30 @@ const AddAdminForm = () => {
         <div className="space-y-6">
           {/* username */}
           <div>
-            <label className="block text-sm font-medium text-background/80 mb-2">
+            <label htmlFor="username" className="block text-sm font-medium text-background/80 mb-2">
               Username
             </label>
             <input
+              id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
               placeholder="Enter admin username"
               className="w-full px-4 py-3 text-background border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-background/50 transition-all"
             />
           </div>
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-background/80 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-background/80 mb-2">
               Email
             </label>
             <input
+              id="email"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
               placeholder="Enter admin email"
               className="w-full px-4 py-3 text-background border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-background/50 transition-all"
             />
@@ -97,7 +99,7 @@ const AddAdminForm = () => {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-background/80 mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-background/80 mb-2">
               Password
             </label>
             <div className="relative">
@@ -106,7 +108,7 @@ const AddAdminForm = () => {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress}
                 placeholder="Enter password"
                 className="w-full px-4 py-3 text-background border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-background/50 transition-all pr-10"
               />
@@ -122,7 +124,7 @@ const AddAdminForm = () => {
 
           {/* Confirm Password */}
           <div>
-            <label className="block text-sm font-medium text-background/80 mb-2">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-background/80 mb-2">
               Confirm Password
             </label>
             <div className="relative">
@@ -131,7 +133,7 @@ const AddAdminForm = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress}
                 placeholder="Confirm password"
                 className="w-full px-4 py-3 text-background border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-background/50 transition-all pr-10"
               />

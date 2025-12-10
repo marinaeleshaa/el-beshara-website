@@ -12,7 +12,7 @@ export default function AdminTable() {
     { id: 4, email: "mike.jones@enterprise.com" },
   ]);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     setAdmins(admins.filter((admin) => admin.id !== id));
   };
 
