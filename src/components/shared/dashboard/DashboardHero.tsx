@@ -5,11 +5,22 @@ import { usePathname } from "next/navigation";
 import { IoIosAddCircle } from "react-icons/io";
 import Cookies from "js-cookie";
 import { FaUserCircle } from "react-icons/fa";
+import {  useEffect, useState } from "react";
 
 const DashboardHero = () => {
   const pathname = usePathname();
   const page = pathname.split("/").pop();
-  const username = Cookies.get("username");
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getUsername = () => {
+      const username = Cookies.get("username");
+      if (username) {
+        setUsername(username);
+      }
+    };
+    getUsername();
+  }, []);
 
   return (
     <div className="w-full p-5 flex flex-col gap-5  justify-between   rounded-lg">
