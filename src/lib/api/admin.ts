@@ -19,14 +19,17 @@ export const addAdminMethod = async (data: {
   }
 };
 
-export const getAdminsMethod = async () => {
+export const getAdminsMethod = async ({ page = 1, limit = 5 }: { page?: number; limit?: number }) => {
   try {
-    const res = await fetch("/api/admin", {
+    const res = await fetch(`/api/admin?page=${page}&limit=${limit}`, {
       method: "GET",
-    })
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     const result = await res.json();
-  
-    console.log("result", result);
+    // console.log("result", result);
     return result;
   } catch (err) {
     if (err instanceof Error) return { success: false, message: err.message };
@@ -36,6 +39,7 @@ export const getAdminsMethod = async () => {
     };
   }
 };
+
 
 export const deleteAdminMethod = async (id: string) => {
   try {

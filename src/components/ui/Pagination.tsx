@@ -114,7 +114,7 @@ const Pagination = ({
                 transition-all duration-300 ease-out
                 ${
                   isActive
-                    ? "bg-linear-to-br from-primary/80 to-dark/80 text-white  scale-110"
+                    ? "bg-linear-to-br from-primary to-dark text-white  scale-110"
                     : "bg-secondary/50  text-secondary-foreground hover:bg-linear-to-br hover:from-primary/10 hover:to-secondary/10 hover:scale-105 hover:-translate-y-0.5 active:translate-y-0"
                 }
                 border border-secondary 
@@ -125,7 +125,7 @@ const Pagination = ({
               >
                 {/* Active page glow effect */}
                 {isActive && (
-                  <span className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary to-secondary opacity-20 blur-md animate-pulse" />
+                  <span className="absolute inset-0 rounded-xl bg-linear-to-br from-primary to-secondary opacity-20 blur-md animate-pulse" />
                 )}
                 <span className="relative z-10">{page}</span>
               </button>

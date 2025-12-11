@@ -10,20 +10,33 @@ import { RootState } from "./Store";
 interface IState {
   admins: IAdmin[];
   isLoading: boolean;
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
 }
 
 const initialState: IState = {
   admins: [],
   isLoading: false,
+  meta: {
+    total: 0,
+    page: 1,
+    limit: 5,
+    totalPages: 1,
+  },
 };
 
 export const getAllAdminsAction = createAsyncThunk(
   "admins/getAllAdmins",
-  async () => {
-    const res = await getAdminsMethod();
-    return res.data;
+  async ({ page = 1, limit = 5 }: { page?: number; limit?: number }) => {
+    const res = await getAdminsMethod({ page, limit });
+    return res;
   }
 );
+
 
 export const deleteAdminAction = createAsyncThunk(
   "admins/deleteAdmin",
@@ -59,13 +72,13 @@ const AdminsSlice = createSlice({
     builder.addCase(getAllAdminsAction.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(
-      getAllAdminsAction.fulfilled,
-      (state, { payload }: { payload: IAdmin[] }) => {
-        state.admins = payload;
-        state.isLoading = false;
-      }
-    );
+    builder.addCase(getAllAdminsAction.fulfilled, (state, action) => {
+      const { data, meta } = action.payload;
+      state.admins = data;
+      state.meta = meta;
+      state.isLoading = false;
+    });
+
     builder.addCase(getAllAdminsAction.rejected, (state) => {
       state.isLoading = false;
     });

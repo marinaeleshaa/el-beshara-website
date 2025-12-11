@@ -32,19 +32,24 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     const cookiesObj = await cookies();
     const token = cookiesObj.get("token")?.value;
-    const res = await fetch(`${process.env.SERVERBASE}/admin/all`, {
+
+    const url = new URL(req.url);
+    const page = Number(url.searchParams.get("page") || 1);
+    const limit = Number(url.searchParams.get("limit") || 5);
+
+    const res = await fetch(`${process.env.SERVERBASE}/admin/all?page=${page}&limit=${limit}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
+
     const result = await res.json();
-    console.log("result", result);
 
     if (!res.ok || result.status !== "success") {
       return NextResponse.json(
@@ -52,6 +57,7 @@ export async function GET() {
         { status: res.status }
       );
     }
+
     return NextResponse.json(result);
   } catch (error) {
     console.log("an error occurred", error);
