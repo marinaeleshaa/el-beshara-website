@@ -75,11 +75,7 @@ const preloadImages = async (urls: string[]): Promise<void> => {
 
 interface Item {
   id: string;
-  img: string;
   url: string;
-  height: number;
-  type?: "image" | "video";
-  poster?: string;
 }
 
 interface GridItem extends Item {
@@ -87,6 +83,7 @@ interface GridItem extends Item {
   y: number;
   w: number;
   h: number;
+  height: number;
 }
 
 interface MasonryDashboardProps {
@@ -135,6 +132,21 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Generate random heights for items (stable across re-renders)
+  const itemHeights = useMemo(() => {
+    const heights = new Map<string, number>();
+    const possibleHeights = [200, 250, 300, 350];
+    
+    items.forEach((item) => {
+      // Use item.id as seed for consistent random heights
+      const seed = item.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      const randomIndex = seed % possibleHeights.length;
+      const height = possibleHeights[randomIndex];
+      heights.set(item.id, height);
+    });
+    return heights;
+  }, [items]);
+
   const getInitialPosition = (item: GridItem) => {
     const containerRect = containerRef.current?.getBoundingClientRect();
     if (!containerRect) return { x: item.x, y: item.y };
@@ -168,7 +180,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
 
   useEffect(() => {
     if (mediaType === "image") {
-      preloadImages(items.map((i) => i.img)).then(() => setImagesReady(true));
+      preloadImages(items.map((i) => i.url)).then(() => setImagesReady(true));
     } else {
       setImagesReady(true);
     }
@@ -184,13 +196,13 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
     return items.map((child) => {
       const col = colHeights.indexOf(Math.min(...colHeights));
       const x = col * (columnWidth + gap);
-      const height = child.height / 2;
+      const height = itemHeights.get(child.id) || 300;
       const y = colHeights[col];
 
       colHeights[col] += height + gap;
-      return { ...child, x, y, w: columnWidth, h: height };
+      return { ...child, x, y, w: columnWidth, h: height, height };
     });
-  }, [columns, items, width]);
+  }, [columns, items, width, itemHeights]);
 
   const hasMounted = useRef(false);
 
@@ -310,14 +322,14 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
               height: item.h,
               transform: `translate(${item.x}px, ${item.y}px)`,
             }}
-            onClick={() => setPopupMedia(item.img)}
+            onClick={() => setPopupMedia(item.url)}
             onMouseEnter={(e) => handleMouseEnter(item.id, e.currentTarget)}
             onMouseLeave={(e) => handleMouseLeave(item.id, e.currentTarget)}
           >
             {mediaType === "image" ? (
               <div
                 className="relative w-full h-full bg-cover bg-center rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] uppercase text-[10px] leading-[10px] cursor-pointer"
-                style={{ backgroundImage: `url(${item.img})` }}
+                style={{ backgroundImage: `url(${item.url})` }}
               >
                 {colorShiftOnHover && (
                   <div className="color-overlay absolute inset-0 rounded-[10px] bg-gradient-to-tr from-pink-500/50 to-sky-500/50 opacity-0 pointer-events-none" />
@@ -346,8 +358,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
             ) : (
               <div className="relative w-full h-full rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] overflow-hidden cursor-pointer">
                 <video
-                  src={item.img}
-                  poster={item.poster}
+                  src={item.url}
                   className="w-full h-full object-cover"
                   muted
                   loop
