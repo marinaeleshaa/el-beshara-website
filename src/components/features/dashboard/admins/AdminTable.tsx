@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import MyBtn from "@/components/ui/MyBtn";
-import { deleteAdminMethod } from "@/lib/api/admin";
 import { useDispatch, useSelector } from "react-redux";
 import {
   adminsSelector,
@@ -14,8 +13,9 @@ import { AppDispatch } from "@/redux/slices/Store";
 import { Spinner } from "@/components/ui/spinner";
 
 export default function AdminTable() {
-  const { admins, isLoading, isDeleting } = useSelector(adminsSelector);
+  const { admins, isLoading } = useSelector(adminsSelector);
   const dispatch = useDispatch<AppDispatch>();
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(getAllAdminsAction());
@@ -23,8 +23,12 @@ export default function AdminTable() {
   }, [dispatch]);
 
   const handleDelete = async (id: string) => {
-    // deleteAdminMethod(id);
-    dispatch(deleteAdminAction(id));
+    setDeletingId(id);
+    try {
+      await dispatch(deleteAdminAction(id)).unwrap();
+    } finally {
+      setDeletingId(null); 
+    }
   };
 
   if (isLoading) {
@@ -65,7 +69,7 @@ export default function AdminTable() {
                       onClick={() => handleDelete(admin._id)}
                       variant="primary"
                       outline
-                      text={isDeleting ? <Spinner /> : "Delete"}
+                      text={deletingId === admin._id ? <Spinner /> : "Delete"}
                       className="ml-auto"
                       icon={<Trash2 className="w-4 h-4 mr-1" />}
                     />

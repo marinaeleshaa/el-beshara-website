@@ -10,13 +10,11 @@ import { RootState } from "./Store";
 interface IState {
   admins: IAdmin[];
   isLoading: boolean;
-  isDeleting: boolean;
 }
 
 const initialState: IState = {
   admins: [],
   isLoading: false,
-  isDeleting: false,
 };
 
 export const getAllAdminsAction = createAsyncThunk(
@@ -55,8 +53,7 @@ export const addAdminAction = createAsyncThunk(
 const AdminsSlice = createSlice({
   name: "admins",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // todo => get all admins
     builder.addCase(getAllAdminsAction.pending, (state) => {
@@ -89,12 +86,9 @@ const AdminsSlice = createSlice({
     });
 
     // todo => delete admin
-    builder.addCase(deleteAdminAction.pending, (state) => {
-      state.isDeleting = true;
-    });
+
     builder.addCase(deleteAdminAction.fulfilled, (state, { payload }) => {
       state.admins = state.admins.filter((admin) => admin._id !== payload);
-      state.isDeleting = false;
     });
   },
 });
