@@ -1,16 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IAdmin } from "@/lib/Interfaces/AdminInterface";
-import { getAdminsMethod } from "@/lib/api/admin";
+import { deleteAdminMethod, getAdminsMethod } from "@/lib/api/admin";
 import { RootState } from "./Store";
 
 interface IState {
   admins: IAdmin[];
   isLoading: boolean;
+  isDeleting: boolean;
 }
 
 const initialState: IState = {
   admins: [],
   isLoading: false,
+  isDeleting: false,
 };
 
 export const getAllAdminsAction = createAsyncThunk(
@@ -18,6 +20,14 @@ export const getAllAdminsAction = createAsyncThunk(
   async () => {
     const res = await getAdminsMethod();
     return res.data;
+  }
+);
+
+export const deleteAdminAction = createAsyncThunk(
+  "admins/deleteAdmin",
+  async (id: string) => {
+    await deleteAdminMethod(id);
+    return id;
   }
 );
 
@@ -35,6 +45,14 @@ const AdminsSlice = createSlice({
     });
     builder.addCase(getAllAdminsAction.rejected, (state) => {
       state.isLoading = false;
+    });
+
+    builder.addCase(deleteAdminAction.pending, (state) => {
+      state.isDeleting = true;
+    });
+    builder.addCase(deleteAdminAction.fulfilled, (state, { payload }) => {
+      state.admins = state.admins.filter((admin) => admin._id !== payload);
+      state.isDeleting = false;
     });
   },
 });
