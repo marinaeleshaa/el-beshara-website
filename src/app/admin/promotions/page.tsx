@@ -11,12 +11,12 @@ const page = () => {
       <div className="space-y-10">
         <DashboardHero />
         <Tabs defaultValue="promotions">
-          <TabsList className="mb-10 w-fit mx-auto flex gap-10">
-            <TabsTrigger value="promotions" className="flex items-center gap-2">
+          <TabsList className="mb-10 w-fit mx-auto flex gap-6">
+            <TabsTrigger value="promotions" className="flex items-center gap-2 text-sm sm:text-lg">
               <TbRosetteDiscountFilled />
               Promotions
             </TabsTrigger>
-            <TabsTrigger value="form" className="flex items-center gap-2">
+            <TabsTrigger value="form" className="flex items-center gap-2 text-sm sm:text-lg">
               <IoIosAddCircle />
               Add Promotion
             </TabsTrigger>

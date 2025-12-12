@@ -49,7 +49,7 @@ export default function AdminTable() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="max-w-5xl mx-auto ">
       <div className="bg-secondary/20 rounded-xl shadow-lg overflow-hidden border border-primary/10">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-primary/20">

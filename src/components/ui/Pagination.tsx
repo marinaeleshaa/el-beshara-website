@@ -5,7 +5,7 @@ const Pagination = ({
   currentPage = 1,
   totalPages = 10,
   onPageChange = (page: number) => console.log("Page:", page),
-  maxVisible = 3,
+  maxVisible = 4,
 }) => {
   const [activePage, setActivePage] = useState(currentPage);
 

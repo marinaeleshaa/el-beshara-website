@@ -1,5 +1,9 @@
 import { Calendar, Clock, Edit, Trash2 } from "lucide-react";
 import MyBtn from "@/components/ui/MyBtn";
+import { deletePromotionMethod } from "@/lib/api/promotions";
+import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
+import { is } from "zod/v4/locales";
 
 const PromotionDashboardCard = ({
   _id = "promo-001",
@@ -8,7 +12,7 @@ const PromotionDashboardCard = ({
   validFrom = "2025-12-11T21:31:11.838Z",
   validTo = "2025-12-31T23:59:59.999Z",
 }) => {
-  const formatDate = (dateString : string) => {
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
       month: "short",
@@ -39,6 +43,14 @@ const PromotionDashboardCard = ({
   };
 
   const status = getStatus();
+
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    await deletePromotionMethod(_id);
+    setIsDeleting(false);
+  };
 
   return (
     <div className="bg-secondary/40 rounded-lg shadow-md border border-background hover:shadow-lg transition-shadow duration-200">
@@ -84,8 +96,9 @@ const PromotionDashboardCard = ({
             outline
           />
           <MyBtn
-            text="delete"
-            icon={<Trash2 className="w-4 h-4" />}
+            text={isDeleting ? <Spinner /> : "Delete"}
+            onClick={handleDelete}
+            icon={isDeleting ? null : <Trash2 className="w-4 h-4" />}
             variant="primary"
             className="flex-1"
           />
@@ -94,6 +107,5 @@ const PromotionDashboardCard = ({
     </div>
   );
 };
-
 
 export default PromotionDashboardCard;

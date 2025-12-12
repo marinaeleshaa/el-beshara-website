@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./Store";
 import { IPromotionInterface } from "@/lib/Interfaces/PromotionInterface";
-import { addPromotionMethod, getPromotionsMethod } from "@/lib/api/promotions";
+import {
+  addPromotionMethod,
+  deletePromotionMethod,
+  getPromotionsMethod,
+} from "@/lib/api/promotions";
 import { IMeta } from "@/lib/Interfaces/metaInterface";
 
 interface IState {
@@ -26,11 +30,11 @@ export const addPromotionAction = createAsyncThunk(
   async (data: IPromotionInterface, thunkAPI) => {
     try {
       const res = await addPromotionMethod(data);
-      console.log(res)
+      console.log(res);
       if (res.status !== "success") {
         return thunkAPI.rejectWithValue(res.message);
       }
-      return res
+      return res;
     } catch (err) {
       if (err instanceof Error) return thunkAPI.rejectWithValue(err.message);
       return thunkAPI.rejectWithValue(
@@ -42,13 +46,34 @@ export const addPromotionAction = createAsyncThunk(
 
 export const getPromotionsAction = createAsyncThunk(
   "promotions/getPromotions",
-  async ({ page = 1, limit = 5 }: { page?: number; limit?: number }, thunkAPI) => {
+  async (
+    { page = 1, limit = 5 }: { page?: number; limit?: number },
+    thunkAPI
+  ) => {
     try {
       const res = await getPromotionsMethod({ page, limit });
       if (res.status !== "success") {
         return thunkAPI.rejectWithValue(res.message);
       }
-      return res
+      return res;
+    } catch (err) {
+      if (err instanceof Error) return thunkAPI.rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(
+        "An error occurred. Please try again later."
+      );
+    }
+  }
+);
+
+export const deletePromotionAction = createAsyncThunk(
+  "promotions/deletePromotion",
+  async (id: string, thunkAPI) => {
+    try {
+      const res = await deletePromotionMethod(id);
+      if (res.status !== "success") {
+        return thunkAPI.rejectWithValue(res.message);
+      }
+      return id;
     } catch (err) {
       if (err instanceof Error) return thunkAPI.rejectWithValue(err.message);
       return thunkAPI.rejectWithValue(
@@ -86,6 +111,14 @@ const PromotionsSlice = createSlice({
     });
     builder.addCase(getPromotionsAction.rejected, (state) => {
       state.isLoading = false;
+    });
+
+    // todo => delete promotion
+
+    builder.addCase(deletePromotionAction.fulfilled, (state, action) => {
+      state.promotions = state.promotions.filter(
+        (promotion) => promotion._id !== action.payload
+      );
     });
   },
 });

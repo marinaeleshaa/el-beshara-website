@@ -31,3 +31,18 @@ export const getPromotionsMethod = async ({ page = 1, limit = 5 }) => {
     };
   }
 };
+
+export const deletePromotionMethod = async (id: string) => {
+  try {
+    const res = await fetch(`/api/promotions/${id}`, {
+      method: "DELETE",
+    });
+    return res.json();
+  } catch (err) {
+    if (err instanceof Error) return { success: false, message: err.message };
+    return {
+      success: false,
+      message: "An error occurred. Please try again later.",
+    };
+  }
+};
