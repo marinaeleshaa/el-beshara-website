@@ -1,5 +1,7 @@
 import React from "react";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar, Clock, Sparkles, TrendingUp } from "lucide-react";
+import MyBtn from "@/components/ui/MyBtn";
+import { CiDiscount1 } from "react-icons/ci";
 
 const PromotionCard = ({
   _id = "promo-001",
@@ -8,7 +10,7 @@ const PromotionCard = ({
   validFrom = "2025-12-11T21:31:11.838Z",
   validTo = "2025-12-31T23:59:59.999Z",
 }) => {
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
       month: "short",
@@ -33,49 +35,67 @@ const PromotionCard = ({
   };
 
   return (
-    <div className="max-w-md bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow duration-300">
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-white">{title}</h2>
-          {isActive() && (
-            <span className="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
-              Active
-            </span>
-          )}
+    <div className="group relative w-full h-full bg-secondary rounded-xl overflow-hidden border border-primary/10 hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      
+      <div className="relative flex flex-col h-full">
+        {/* Header Section */}
+        <div className="p-5 pb-4 border-b border-primary/10">
+          <div className="flex items-start justify-between gap-3 mb-3">
+            {/* Icon */}
+            <div className="flex-shrink-0 p-2.5 bg-primary/10 rounded-lg group-hover:bg-primary/15 transition-colors">
+              <CiDiscount1 className="w-5 h-5 text-primary dark:text-light" />
+            </div>
+            
+            {/* Badges Container */}
+            <div className="flex flex-wrap items-center gap-2 justify-end">
+              {isActive() && (
+                <span className="flex items-center gap-1.5 bg-green-500 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">
+                  <Sparkles className="w-3 h-3" />
+                  Active
+                </span>
+              )}
+              
+              {isActive() && getDaysRemaining() > 0 && (
+                <span className="flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-md border border-amber-200">
+                  <TrendingUp className="w-3 h-3" />
+                  {getDaysRemaining()}d left
+                </span>
+              )}
+            </div>
+          </div>
+          
+          {/* Title */}
+          <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight line-clamp-2">
+            {title}
+          </h3>
         </div>
-      </div>
 
-      <div className="p-6">
-        <p className="text-gray-700 text-base mb-4">{description}</p>
+        {/* Content Section */}
+        <div className="flex-1 p-5 pt-4 flex flex-col">
+          {/* Description */}
+          <p className="text-sm text-foreground/70 leading-relaxed line-clamp-3 mb-4">
+            {description}
+          </p>
 
-        <div className="space-y-3">
-          <div className="flex items-center text-sm text-gray-600">
-            <Calendar className="w-4 h-4 mr-2 text-blue-500" />
-            <span className="font-medium mr-2">Valid From:</span>
-            <span>{formatDate(validFrom)}</span>
+          {/* Date Range */}
+          <div className="flex items-center gap-2 text-xs text-foreground/60 mb-4">
+            <Calendar className="w-3.5 h-3.5 text-primary/60 flex-shrink-0" />
+            <span className="truncate">{formatDate(validFrom)}</span>
+            <span className="flex-shrink-0">→</span>
+            <Clock className="w-3.5 h-3.5 text-primary/60 flex-shrink-0" />
+            <span className="truncate">{formatDate(validTo)}</span>
           </div>
 
-          <div className="flex items-center text-sm text-gray-600">
-            <Clock className="w-4 h-4 mr-2 text-purple-500" />
-            <span className="font-medium mr-2">Valid To:</span>
-            <span>{formatDate(validTo)}</span>
-          </div>
+          {/* Spacer */}
+          <div className="flex-1" />
         </div>
 
-        {isActive() && getDaysRemaining() > 0 && (
-          <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded-md p-3">
-            <p className="text-sm text-yellow-800 font-medium">
-              ⏰ {getDaysRemaining()}{" "}
-              {getDaysRemaining() === 1 ? "day" : "days"} remaining
-            </p>
-          </div>
-        )}
-      </div>
-
-      <div className="px-6 pb-6">
-        <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-3 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200">
-          View Details
-        </button>
+        {/* Footer Section */}
+        <div className="p-5 pt-0">
+          <MyBtn text="Apply" href={`/contact`} variant="primary" width="full" />
+        </div>
       </div>
     </div>
   );

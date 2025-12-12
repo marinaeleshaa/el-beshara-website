@@ -10,7 +10,7 @@ interface Props {
   amount?: number
 }
 
-const Animate = ({ children, delay = 0, duration = 1, className , amount=0.1}: Props) => {
+const Animate = ({ children, delay = 0, duration = 0.5, className , amount=0.1}: Props) => {
   return (
     <motion.div
       className={`${className}`}

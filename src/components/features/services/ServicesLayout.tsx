@@ -2,10 +2,12 @@ import React from "react";
 import ReserveLayout from "./reserveSection/ReserveLayout";
 import RecordLayout from "./recordSection/RecordLayout";
 import MixLayout from "./mixSection/MixLayout";
+import PromotionHomeLayout from "../home/promotions/PromotionHomeLayout";
 
 const ServicesLayout = () => {
   return (
     <div className="w-[80%] mx-auto space-y-20 my-20">
+      <PromotionHomeLayout/>
       <div id="reserve" className="">
         <ReserveLayout />
       </div>

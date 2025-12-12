@@ -14,8 +14,12 @@
 
 * {
   scroll-behavior: smooth;
+  
 }
-
+*::selection {
+  background-color: var(--dark);
+  color: var(--light);
+}
 .animated-underline {
   @apply before:content-[''] 
     before:absolute 
@@ -85,7 +89,7 @@
   --popover-foreground: #f2f5fa;
   --primary: #a90015;
   --primary-foreground: #f2f5fa;
-  --secondary: #ced2dc;
+  --secondary: #e5e8f1;
   --secondary-foreground: #1c2826;
   --sidebar: #ced2dc;
   --sidebar-foreground: #1c2826;
