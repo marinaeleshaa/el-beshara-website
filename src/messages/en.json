@@ -262,5 +262,23 @@
     "quickLinks": "Quick Links",
     "contactUs": "Contact Us",
     "studioSlogan": "Creating amazing musical experiences for the world."
+  },
+  "promotion":{
+    "hero":{
+      "badge":"Execlusive Offer",
+      "title1":"Amazing Promotions ",
+      "title2":"Just for you",
+      "description":" Discover unbeatable deals and limited-time offers. Save big on your favorite products and services.",
+      "activeDeals":"Active Deals",
+      "upTo":"Up to",
+      "discount":"Discounts"
+    },
+    "slider":{
+      "currentOffer":"Current Offer",
+      "offers":"Offers",
+      "offer":"Offer",
+      "scroll":"Scroll To See More Offers",
+      "stayTuned":"Stay Tuned"
+    }
   }
 }

@@ -5,9 +5,11 @@ import { Sparkles, TrendingUp, Zap } from "lucide-react";
 import { useSelector } from "react-redux";
 import PromotionSlider from "./PromotionSlider";
 import Animate from "@/components/ui/Animate";
+import { useTranslations } from "next-intl";
 
 const PromotionHomeLayout = () => {
   const { promotions, meta } = useSelector(promotionsSelector);
+  const t = useTranslations("promotion.hero");
 
   if (promotions) {
     return (
@@ -25,20 +27,19 @@ const PromotionHomeLayout = () => {
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white text-sm font-semibold px-4 py-2 rounded-full border border-white/30">
                   <Sparkles className="w-4 h-4" />
-                  Exclusive Offers
+                  {t("badge")}
                 </div>
 
                 {/* Title */}
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                  Amazing Promotions
+                  {t("title1")}
                   <br />
-                  Just for You
+                  {t("title2")}
                 </h1>
 
                 {/* Description */}
                 <p className="text-base sm:text-lg text-white/90 max-w-2xl leading-relaxed">
-                  Discover unbeatable deals and limited-time offers. Save big on
-                  your favorite products and services.
+                  {t("description")}
                 </p>
 
                 {/* Stats */}
@@ -51,7 +52,7 @@ const PromotionHomeLayout = () => {
                       <div className="text-2xl font-bold">
                         {meta.total || 0}
                       </div>
-                      <div className="text-sm text-white/80">Active Deals</div>
+                      <div className="text-sm text-white/80">{t("activeDeals")}</div>
                     </div>
                   </div>
 
@@ -60,8 +61,8 @@ const PromotionHomeLayout = () => {
                       <Zap className="w-5 h-5" />
                     </div>
                     <div className="text-left">
-                      <div className="text-2xl font-bold">Up to 70%</div>
-                      <div className="text-sm text-white/80">Discounts</div>
+                      <div className="text-2xl font-bold">{t("upTo")} 70%</div>
+                      <div className="text-sm text-white/80">{t("discount")}</div>
                     </div>
                   </div>
                 </div>

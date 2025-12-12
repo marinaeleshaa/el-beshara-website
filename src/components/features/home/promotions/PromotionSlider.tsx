@@ -8,10 +8,12 @@ import {
 } from "@/redux/slices/PromotionsSlice";
 import { AppDispatch } from "@/redux/slices/Store";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslations } from "next-intl";
 
 const PromotionSlider = () => {
   const { promotions, isLoading, meta } = useSelector(promotionsSelector);
   const dispatch = useDispatch<AppDispatch>();
+  const t = useTranslations("promotion.slider");
 
   const fetchPromotions = useCallback(
     (page: number) => {
@@ -38,17 +40,17 @@ const PromotionSlider = () => {
         <div className="flex items-center justify-center min-h-[100px] px-8 pb-8 md:px-12 md:pb-12 lg:px-16 lg:pb-16">
           <p className="text-3xl md:text-5xl font-bold text-light flex gap-2 items-center">
             <FaBullhorn />
-            <span>Stay Tuned</span>
+            <span>{t("stayTuned")}</span>
           </p>
         </div>
       ) : (
         <div className="relative flex flex-col z-10 px-8 pb-8 md:px-12 md:pb-12 lg:px-16 lg:pb-16">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl sm:text-2xl font-bold text-white">
-              Current Promotions
+              {t("currentOffer")}
             </h2>
             <span className="text-sm text-white/80">
-              {meta.total} {meta.total === 1 ? "offer" : "offers"}
+              {meta.total} {meta.total === 1 ? t("offer") : t("offers")}
             </span>
           </div>
 
@@ -62,7 +64,7 @@ const PromotionSlider = () => {
 
           {promotions.length > 4 && (
             <span className="text-light animate-bounce flex items-center justify-center gap-2 mt-10 text-center w-full duration-300">
-              scroll to show more <FaArrowCircleRight />
+              {t("scroll")} <FaArrowCircleRight />
             </span>
           )}
         </div>
