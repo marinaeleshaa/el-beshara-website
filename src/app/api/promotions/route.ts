@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({ title, description, validFrom, validTo }),
     });
     const result = await res.json();
-    console.log("result", result);
+    console.log("result from post promotion route", result);
 
     if (!res.ok || result.status !== "success") {
       return NextResponse.json(
@@ -37,13 +37,19 @@ export async function GET(req: Request) {
   try {
     const cookiesObj = await cookies();
     const token = cookiesObj.get("token")?.value;
-    const res = await fetch(`${process.env.SERVERBASE}/promotions`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const url = new URL(req.url);
+    const page = Number(url.searchParams.get("page") || 1);
+    const limit = Number(url.searchParams.get("limit") || 5);
+    const res = await fetch(
+      `${process.env.SERVERBASE}/promotions?page=${page}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const result = await res.json();
     if (!res.ok || result.status !== "success") {
       return NextResponse.json(

@@ -8,7 +8,7 @@ const PromotionDashboardCard = ({
   validFrom = "2025-12-11T21:31:11.838Z",
   validTo = "2025-12-31T23:59:59.999Z",
 }) => {
-  const formatDate = (dateString) => {
+  const formatDate = (dateString : string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
       month: "short",
@@ -53,7 +53,7 @@ const PromotionDashboardCard = ({
                 {status.label}
               </span>
             </div>
-            <p className="text-sm text-foreground/80 mb-3">ID: {_id}</p>
+            {/* <p className="text-sm text-foreground/80 mb-3">ID: {_id}</p> */}
           </div>
         </div>
 
@@ -95,6 +95,5 @@ const PromotionDashboardCard = ({
   );
 };
 
-// Demo component showing multiple cards
 
 export default PromotionDashboardCard;

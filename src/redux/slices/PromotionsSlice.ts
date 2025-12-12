@@ -26,10 +26,11 @@ export const addPromotionAction = createAsyncThunk(
   async (data: IPromotionInterface, thunkAPI) => {
     try {
       const res = await addPromotionMethod(data);
+      console.log(res)
       if (res.status !== "success") {
         return thunkAPI.rejectWithValue(res.message);
       }
-      return res.data;
+      return res
     } catch (err) {
       if (err instanceof Error) return thunkAPI.rejectWithValue(err.message);
       return thunkAPI.rejectWithValue(
@@ -41,9 +42,9 @@ export const addPromotionAction = createAsyncThunk(
 
 export const getPromotionsAction = createAsyncThunk(
   "promotions/getPromotions",
-  async (_, thunkAPI) => {
+  async ({ page = 1, limit = 5 }: { page?: number; limit?: number }, thunkAPI) => {
     try {
-      const res = await getPromotionsMethod();
+      const res = await getPromotionsMethod({ page, limit });
       if (res.status !== "success") {
         return thunkAPI.rejectWithValue(res.message);
       }
@@ -67,7 +68,7 @@ const PromotionsSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(addPromotionAction.fulfilled, (state, action) => {
-      state.promotions.push(action.payload);
+      state.promotions.push(action.payload.data);
       state.isLoading = false;
     });
     builder.addCase(addPromotionAction.rejected, (state) => {
