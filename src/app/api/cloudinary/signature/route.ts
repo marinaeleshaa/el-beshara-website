@@ -7,7 +7,7 @@ export async function POST() {
   console.log(token)
   try {
     const res = await fetch(`${process.env.SERVERBASE}/cloud/signature`, {
-      method: "GET",
+      method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",

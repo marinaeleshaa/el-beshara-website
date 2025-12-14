@@ -11,18 +11,12 @@ const page = () => {
       <div className="space-y-10">
         <DashboardHero />
 
-        {/* <CldUploadButton
-          uploadPreset="<Upload Preset>"
-          className="bg-primary! px-4 py-2! rounded-lg! text-primary-foreground cursor-pointer hover:bg-primary/90 transition-all duration-300 hover:scale-105!"
-        /> */}
-
         <CldUploadWidget
-          // uploadPreset="ElBeshara"
           signatureEndpoint="/api/cloudinary/signature"
-          // options={{
-          //   multiple:false
-          // }}
-          // onUpload={(result)=> console.log("uploaded result",result)}
+          onSuccess={(result) => {
+            console.log("Full info:", result.info);
+          }}
+          onError={(err) => console.log("Error:", err)}
         >
           {({ open }) => <button onClick={() => open()}>Upload Image</button>}
         </CldUploadWidget>
