@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import langReducer from "./LangSlice";
 import adminsSlice from "./AdminsSlice";
 import PromotionSlice from "./PromotionsSlice";
+import ImgSlice from "./ImagesSlice";
 export const store = configureStore({
   reducer: {
     lang: langReducer,
     admins: adminsSlice,
     promotions: PromotionSlice,
+    img: ImgSlice,
   },
 });
 

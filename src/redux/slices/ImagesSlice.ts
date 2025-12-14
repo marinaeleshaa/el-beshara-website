@@ -1,40 +1,54 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./Store";
-import { images } from "@/data/images";
+import { IImage } from "@/lib/Interfaces/ImgInterface";
+import { AddImageMethod } from "@/lib/api/img";
 
 interface IState {
-    images: string[]
+  images: IImage[];
+  isLoading: boolean;
 }
 
-
-
 const initialState: IState = {
-    images: images
+  images: [],
+  isLoading: false,
 };
 
-const langSlice = createSlice({
-  name: "lang",
-  initialState,
-  reducers: {
-    toggleLang(state) {
-      const newLang = state.lang === "ar" ? "en" : "ar";
-      state.lang = newLang;
-      
-      // Set cookie - next-intl expects NEXT_LOCALE
-      document.cookie = `NEXT_LOCALE=${newLang}; path=/; max-age=31536000`;
-      document.cookie = `locale=${newLang}; path=/; max-age=31536000`;
-      
-      // Reload to apply new locale
-      window.location.reload();
-    },
-    setLang(state, action: { payload: "ar" | "en" }) {
-      state.lang = action.payload;
-      document.cookie = `NEXT_LOCALE=${action.payload}; path=/; max-age=31536000`;
-      document.cookie = `locale=${action.payload}; path=/; max-age=31536000`;
+export const AddImageAction = createAsyncThunk(
+  "img/addImage",
+  async (data: IImage, thunkAPI) => {
+    try {
+      const res = await AddImageMethod(data);
+      if (res.status !== "success") {
+        return thunkAPI.rejectWithValue(res.message);
+      }
+      return res;
+    } catch (err) {
+      if (err instanceof Error) return thunkAPI.rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(
+        "An error occurred. Please try again later."
+      );
     }
+  }
+);
+
+const ImgSlice = createSlice({
+  name: "img",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(AddImageAction.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(AddImageAction.fulfilled, (state, action) => {
+      state.images.push(action.payload.data);
+      state.isLoading = false;
+    });
+    builder.addCase(AddImageAction.rejected, (state) => {
+      state.isLoading = false;
+    });
   },
 });
 
-export const { toggleLang, setLang } = langSlice.actions;
+export const {} = ImgSlice.actions;
 export const langSelector = (state: RootState) => state.lang;
-export default langSlice.reducer;
+export default ImgSlice.reducer;

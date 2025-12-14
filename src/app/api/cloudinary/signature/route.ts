@@ -1,32 +1,36 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function POST() {
+// Disable caching for this route - signatures must be fresh
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export async function POST(request: Request) {
   const cookiesObj = await cookies();
   const token = cookiesObj.get("token")?.value;
-  console.log(token)
+
   try {
+    const body = await request.json();
+
     const res = await fetch(`${process.env.SERVERBASE}/cloud/signature`, {
       method: "POST",
+      cache: "no-cache",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(body),
     });
 
     const backendResponse = await res.json();
-    console.log("backendResponse", backendResponse);
-    return NextResponse.json(backendResponse.data);
 
-    // const { cloudName, apiKey, signature, timestamp } = backendResponse.data;
+    // Ensure we're returning the correct structure
+    if (backendResponse.data) {
+      return NextResponse.json(backendResponse.data);
+    }
+    return NextResponse.json(backendResponse);
 
-    // return NextResponse.json({
-    //   cloudName,
-    //   apiKey,
-    //   signature,
-    //   timestamp,
-    // });
   } catch (error) {
     console.error("Error generating Cloudinary signature:", error);
     return NextResponse.json(

@@ -31,7 +31,7 @@ export const addPromotionAction = createAsyncThunk(
   async (data: IPromotionInterface, thunkAPI) => {
     try {
       const res = await addPromotionMethod(data);
-      console.log(res);
+      // console.log(res);
       if (res.status !== "success") {
         return thunkAPI.rejectWithValue(res.message);
       }
