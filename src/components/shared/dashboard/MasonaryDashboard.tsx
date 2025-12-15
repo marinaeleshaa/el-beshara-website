@@ -126,16 +126,18 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
   const itemHeights = useMemo(() => {
     const heights = new Map<string, number>();
     const possibleHeights = [200, 250, 300, 350];
-    
+
     items.forEach((item) => {
       // Audio items get a fixed smaller height
       if (item.type === "audio") {
         heights.set(item._id, 150);
         return;
       }
-      
+
       // Use item._id as seed for consistent random heights
-      const seed = item._id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      const seed = item._id
+        .split("")
+        .reduce((acc, char) => acc + char.charCodeAt(0), 0);
       const randomIndex = seed % possibleHeights.length;
       const height = possibleHeights[randomIndex];
       heights.set(item._id, height);
@@ -310,35 +312,35 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
             sizes="(max-width: 400px) 100vw, (max-width: 600px) 50vw, (max-width: 1000px) 33vw, (max-width: 1500px) 25vw, 20vw"
           />
         );
+      // case "video":
+      //   return (
+      //     <div className="w-full h-full rounded-[10px] overflow-hidden">
+      //       <CldVideoPlayer
+      //         src={item.public_id}
+      //         width="1920"
+      //         height="1080"
+      //         className="w-full h-full object-cover"
+      //       />
+      //     </div>
+      //   );
       case "video":
         return (
-          <div className="w-full h-full rounded-[10px] overflow-hidden">
-            <CldVideoPlayer
-              src={item.public_id}
-              width="1920"
-              height="1080"
-              className="w-full h-full object-cover"
+          <div className="absolute inset-0 rounded-[10px] overflow-hidden">
+            <video
+              src={item.url}
+              className="w-full h-full object-cover rounded-[10px]"
+              muted
+              loop
+              playsInline
+              onMouseEnter={(e) => e.currentTarget.play()}
+              onMouseLeave={(e) => {
+                e.currentTarget.pause();
+                e.currentTarget.currentTime = 0;
+              }}
+              onClick={(e) => e.stopPropagation()}
             />
           </div>
         );
-  //     case "video":
-  // return (
-  //   <div className="absolute inset-0 rounded-[10px] overflow-hidden">
-  //     <video
-  //       src={item.url}
-  //       className="w-full h-full object-cover rounded-[10px]"
-  //       muted
-  //       loop
-  //       playsInline
-  //       onMouseEnter={(e) => e.currentTarget.play()}
-  //       onMouseLeave={(e) => {
-  //         e.currentTarget.pause();
-  //         e.currentTarget.currentTime = 0;
-  //       }}
-  //       onClick={(e) => e.stopPropagation()}
-  //     />
-  //   </div>
-  // );
       case "audio":
         return (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded-[10px] p-4">
@@ -377,9 +379,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
             onMouseEnter={(e) => handleMouseEnter(item._id, e.currentTarget)}
             onMouseLeave={(e) => handleMouseLeave(item._id, e.currentTarget)}
           >
-            <div
-              className="relative w-full h-full rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] cursor-pointer overflow-hidden"
-            >
+            <div className="relative w-full h-full rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] cursor-pointer overflow-hidden">
               {renderMedia(item)}
 
               {colorShiftOnHover && (
@@ -393,7 +393,9 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
                 }`}
               >
                 <div className="text-white text-center px-4">
-                  <p className="text-xs uppercase tracking-wider mb-1 opacity-70">Created By</p>
+                  <p className="text-xs uppercase tracking-wider mb-1 opacity-70">
+                    Created By
+                  </p>
                   <p className="text-lg font-semibold">{item.created_by}</p>
                 </div>
               </div>
@@ -434,8 +436,11 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
           >
             <RiCloseLargeLine />
           </button>
-          
-          <div className="max-w-[90vw] max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
+
+          <div
+            className="max-w-[90vw] max-h-[90vh] relative"
+            onClick={(e) => e.stopPropagation()}
+          >
             {popupMedia.type === "image" && (
               <div className="relative w-full h-full">
                 <CldImage
@@ -447,7 +452,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
                 />
               </div>
             )}
-            
+
             {/* {popupMedia.type === "video" && (
               <div className="rounded-lg shadow-2xl overflow-hidden">
                 <CldVideoPlayer
@@ -458,21 +463,25 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
               </div>
             )} */}
             {popupMedia.type === "video" && (
-  <div className="rounded-lg shadow-2xl overflow-hidden max-w-[90vw] max-h-[90vh]">
-    <video
-      src={popupMedia.url}
-      controls
-      autoPlay
-      className="max-w-[90vw] max-h-[90vh] object-contain"
-    />
-  </div>
-)}
-            
+              <div className="rounded-lg shadow-2xl overflow-hidden max-w-[90vw] max-h-[90vh]">
+                <video
+                  src={popupMedia.url}
+                  controls
+                  autoPlay
+                  className="max-w-[90vw] max-h-[90vh] object-contain"
+                />
+              </div>
+            )}
+
             {popupMedia.type === "audio" && (
               <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg shadow-2xl p-8 flex flex-col items-center justify-center min-w-[400px]">
                 <div className="text-white text-center mb-6">
-                  <p className="text-sm uppercase tracking-wider opacity-70 mb-2">Audio File</p>
-                  <p className="text-xl font-semibold mb-1">Created by {popupMedia.created_by}</p>
+                  <p className="text-sm uppercase tracking-wider opacity-70 mb-2">
+                    Audio File
+                  </p>
+                  <p className="text-xl font-semibold mb-1">
+                    Created by {popupMedia.created_by}
+                  </p>
                 </div>
                 <audio
                   src={popupMedia.url}

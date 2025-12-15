@@ -44,6 +44,8 @@ const Page = () => {
       type: "image",
     };
     dispatch(AddImageAction(img));
+    // Fix: Restore body overflow after Cloudinary widget closes
+    document.body.style.overflow = "unset";
   };
 
   const handleSelect = (ids: string[]) => {
