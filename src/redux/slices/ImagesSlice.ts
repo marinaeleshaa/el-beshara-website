@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./Store";
 import { IImage, IMediaItem } from "@/lib/Interfaces/ImgInterface";
-import { AddImageMethod, getImagesMethod } from "@/lib/api/img";
+import {
+  AddImageMethod,
+  deleteImageMethod,
+  getImagesMethod,
+} from "@/lib/api/img";
 
 interface IState {
   images: IMediaItem[];
@@ -12,6 +16,7 @@ interface IState {
     limit: number;
     totalPages: number;
   };
+  selectedImages: string[];
 }
 
 const initialState: IState = {
@@ -23,6 +28,7 @@ const initialState: IState = {
     limit: 5,
     totalPages: 1,
   },
+  selectedImages: [],
 };
 
 export const AddImageAction = createAsyncThunk(
@@ -51,10 +57,30 @@ export const getImagesAction = createAsyncThunk(
   }
 );
 
+export const deleteImgsAction = createAsyncThunk(
+  "img/deleteImgs",
+  async (ids: string[]) => {
+    await deleteImageMethod(ids);
+    return ids;
+  }
+);
+
+export const deleteOneImgAction = createAsyncThunk(
+  "img/deleteOneImg",
+  async (id: string) => {
+    await deleteImageMethod([id]);
+    return id;
+  }
+);
+
 const ImgSlice = createSlice({
   name: "img",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedImages: (state, action) => {
+      state.selectedImages = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // todo => add images
     builder.addCase(AddImageAction.pending, (state) => {
@@ -80,9 +106,38 @@ const ImgSlice = createSlice({
     builder.addCase(getImagesAction.rejected, (state) => {
       state.isLoading = false;
     });
+
+    // todo => delete images
+    builder.addCase(deleteImgsAction.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteImgsAction.fulfilled, (state, action) => {
+      state.images = state.images.filter(
+        (img) => !action.payload.includes(img._id)
+      );
+      state.isLoading = false;
+    });
+    builder.addCase(deleteImgsAction.rejected, (state) => {
+      state.isLoading = false;
+    });
+
+    // todo => delete one image
+    builder.addCase(deleteOneImgAction.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteOneImgAction.fulfilled, (state, action) => {
+      state.images = state.images.filter((img) => img._id !== action.payload);
+      state.selectedImages = state.selectedImages.filter(
+        (id) => id !== action.payload
+      );
+      state.isLoading = false;
+    });
+    builder.addCase(deleteOneImgAction.rejected, (state) => {
+      state.isLoading = false;
+    });
   },
 });
 
-export const {} = ImgSlice.actions;
+export const { setSelectedImages } = ImgSlice.actions;
 export const imgSelector = (state: RootState) => state.img;
 export default ImgSlice.reducer;
