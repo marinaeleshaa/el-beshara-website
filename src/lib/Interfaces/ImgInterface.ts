@@ -1,6 +1,15 @@
 export interface IImage {
-    id?: string;
+    _id?: string;
     url: string;
     public_id: string;
-    type:"image"|"video"|"audio"
+    type:"image"|"video"|"audio",
+    created_by?: string
+}
+
+export interface IMediaItem {
+  _id: string;
+  url: string;
+  public_id: string;
+  type: "image" | "video" | "audio";
+  created_by: string;
 }

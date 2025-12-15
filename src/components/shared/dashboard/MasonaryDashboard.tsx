@@ -9,6 +9,8 @@ import React, {
 import { gsap } from "gsap";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { RiCloseLargeLine } from "react-icons/ri";
+import { CldImage, CldVideoPlayer } from "next-cloudinary";
+import "next-cloudinary/dist/cld-video-player.css";
 
 const useMedia = (
   queries: string[],
@@ -60,25 +62,15 @@ const useMeasure = <T extends HTMLElement>() => {
   return [ref, size] as const;
 };
 
-const preloadImages = async (urls: string[]): Promise<void> => {
-  await Promise.all(
-    urls.map(
-      (src) =>
-        new Promise<void>((resolve) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = img.onerror = () => resolve();
-        })
-    )
-  );
-};
-
-interface Item {
-  id: string;
+interface MediaItem {
+  _id: string;
   url: string;
+  public_id: string;
+  type: "image" | "video" | "audio";
+  created_by: string;
 }
 
-interface GridItem extends Item {
+interface GridItem extends MediaItem {
   x: number;
   y: number;
   w: number;
@@ -87,7 +79,7 @@ interface GridItem extends Item {
 }
 
 interface MasonryDashboardProps {
-  items: Item[];
+  items: MediaItem[];
   onRemove?: (id: string) => void;
   onSelectionChange?: (selectedIds: string[]) => void;
   ease?: string;
@@ -98,7 +90,6 @@ interface MasonryDashboardProps {
   hoverScale?: number;
   blurToFocus?: boolean;
   colorShiftOnHover?: boolean;
-  mediaType?: "image" | "video";
 }
 
 const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
@@ -113,7 +104,6 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
   hoverScale = 0.95,
   blurToFocus = true,
   colorShiftOnHover = false,
-  mediaType = "image",
 }) => {
   const columns = useMedia(
     [
@@ -128,9 +118,9 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
 
   const [containerRef, { width }] = useMeasure<HTMLDivElement>();
   const [imagesReady, setImagesReady] = useState(false);
-  const [popupMedia, setPopupMedia] = useState<string | null>(null);
+  const [popupMedia, setPopupMedia] = useState<MediaItem | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   // Generate random heights for items (stable across re-renders)
   const itemHeights = useMemo(() => {
@@ -138,11 +128,17 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
     const possibleHeights = [200, 250, 300, 350];
     
     items.forEach((item) => {
-      // Use item.id as seed for consistent random heights
-      const seed = item.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      // Audio items get a fixed smaller height
+      if (item.type === "audio") {
+        heights.set(item._id, 150);
+        return;
+      }
+      
+      // Use item._id as seed for consistent random heights
+      const seed = item._id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
       const randomIndex = seed % possibleHeights.length;
       const height = possibleHeights[randomIndex];
-      heights.set(item.id, height);
+      heights.set(item._id, height);
     });
     return heights;
   }, [items]);
@@ -179,12 +175,8 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
   };
 
   useEffect(() => {
-    if (mediaType === "image") {
-      preloadImages(items.map((i) => i.url)).then(() => setImagesReady(true));
-    } else {
-      setImagesReady(true);
-    }
-  }, [items, mediaType]);
+    setImagesReady(true);
+  }, [items]);
 
   const grid = useMemo<GridItem[]>(() => {
     if (!width) return [];
@@ -196,7 +188,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
     return items.map((child) => {
       const col = colHeights.indexOf(Math.min(...colHeights));
       const x = col * (columnWidth + gap);
-      const height = itemHeights.get(child.id) || 300;
+      const height = itemHeights.get(child._id) || 300;
       const y = colHeights[col];
 
       colHeights[col] += height + gap;
@@ -210,7 +202,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
     if (!imagesReady) return;
 
     grid.forEach((item, index) => {
-      const selector = `[data-key="${item.id}"]`;
+      const selector = `[data-key="${item._id}"]`;
       const animProps = { x: item.x, y: item.y, width: item.w, height: item.h };
 
       if (!hasMounted.current) {
@@ -248,6 +240,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
   }, [grid, imagesReady, stagger, animateFrom, blurToFocus, duration, ease]);
 
   const handleMouseEnter = (id: string, element: HTMLElement) => {
+    setHoveredId(id);
     if (scaleOnHover) {
       gsap.to(`[data-key="${id}"]`, {
         scale: hoverScale,
@@ -262,6 +255,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
   };
 
   const handleMouseLeave = (id: string, element: HTMLElement) => {
+    setHoveredId(null);
     if (scaleOnHover) {
       gsap.to(`[data-key="${id}"]`, {
         scale: 1,
@@ -304,6 +298,45 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
     return Math.max(...grid.map((item) => item.y + item.h)) + 16;
   }, [grid]);
 
+  const renderMedia = (item: MediaItem) => {
+    switch (item.type) {
+      case "image":
+        return (
+          <CldImage
+            src={item.public_id}
+            alt="Media"
+            fill
+            className="object-cover rounded-[10px]"
+            sizes="(max-width: 400px) 100vw, (max-width: 600px) 50vw, (max-width: 1000px) 33vw, (max-width: 1500px) 25vw, 20vw"
+          />
+        );
+      case "video":
+        return (
+          <div className="w-full h-full rounded-[10px] overflow-hidden">
+            <CldVideoPlayer
+              src={item.public_id}
+              width="1920"
+              height="1080"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        );
+      case "audio":
+        return (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded-[10px] p-4">
+            <audio
+              src={item.url}
+              controls
+              className="w-full"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <div
@@ -313,8 +346,8 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
       >
         {grid.map((item) => (
           <div
-            key={item.id}
-            data-key={item.id}
+            key={item._id}
+            data-key={item._id}
             className="absolute box-content group"
             style={{
               willChange: "transform, width, height, opacity",
@@ -322,73 +355,51 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
               height: item.h,
               transform: `translate(${item.x}px, ${item.y}px)`,
             }}
-            onClick={() => setPopupMedia(item.url)}
-            onMouseEnter={(e) => handleMouseEnter(item.id, e.currentTarget)}
-            onMouseLeave={(e) => handleMouseLeave(item.id, e.currentTarget)}
+            onClick={() => setPopupMedia(item)}
+            onMouseEnter={(e) => handleMouseEnter(item._id, e.currentTarget)}
+            onMouseLeave={(e) => handleMouseLeave(item._id, e.currentTarget)}
           >
-            {mediaType === "image" ? (
+            <div
+              className="relative w-full h-full rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] cursor-pointer overflow-hidden"
+            >
+              {renderMedia(item)}
+
+              {colorShiftOnHover && (
+                <div className="color-overlay absolute inset-0 rounded-[10px] bg-gradient-to-tr from-pink-500/50 to-sky-500/50 opacity-0 pointer-events-none" />
+              )}
+
+              {/* Created By Overlay - Shows on Hover */}
               <div
-                className="relative w-full h-full bg-cover bg-center rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] uppercase text-[10px] leading-[10px] cursor-pointer"
-                style={{ backgroundImage: `url(${item.url})` }}
+                className={`absolute inset-0 bg-black/60 backdrop-blur-sm rounded-[10px] flex items-center justify-center transition-opacity duration-300 ${
+                  hoveredId === item._id ? "opacity-100" : "opacity-0"
+                }`}
               >
-                {colorShiftOnHover && (
-                  <div className="color-overlay absolute inset-0 rounded-[10px] bg-gradient-to-tr from-pink-500/50 to-sky-500/50 opacity-0 pointer-events-none" />
-                )}
-
-                {/* Checkbox */}
-                <div className="absolute top-2 left-2 z-10">
-                  <input
-                    type="checkbox"
-                    checked={selectedIds.has(item.id)}
-                    onChange={(e) => handleCheckboxChange(e, item.id)}
-                    onClick={(e) => e.stopPropagation()}
-                    className="w-5 h-5 cursor-pointer accent-blue-500"
-                  />
+                <div className="text-white text-center px-4">
+                  <p className="text-xs uppercase tracking-wider mb-1 opacity-70">Created By</p>
+                  <p className="text-lg font-semibold">{item.created_by}</p>
                 </div>
-
-                {/* Remove Button */}
-                <button
-                  onClick={(e) => handleRemove(e, item.id)}
-                  className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-red-500/80 hover:bg-red-600 rounded-full text-white cursor-pointer text-lg font-bold transition-colors duration-200 opacity-0 group-hover:opacity-100 z-10"
-                  aria-label="Remove item"
-                >
-                  <FaRegTrashAlt />
-                </button>
               </div>
-            ) : (
-              <div className="relative w-full h-full rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] overflow-hidden cursor-pointer">
-                <video
-                  src={item.url}
-                  className="w-full h-full object-cover"
-                  muted
-                  loop
-                  playsInline
+
+              {/* Checkbox */}
+              <div className="absolute top-2 left-2 z-10">
+                <input
+                  type="checkbox"
+                  checked={selectedIds.has(item._id)}
+                  onChange={(e) => handleCheckboxChange(e, item._id)}
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-5 h-5 cursor-pointer accent-blue-500"
                 />
-                {colorShiftOnHover && (
-                  <div className="color-overlay absolute inset-0 bg-gradient-to-tr from-pink-500/50 to-sky-500/50 opacity-0 pointer-events-none" />
-                )}
-
-                {/* Checkbox */}
-                <div className="absolute top-2 left-2 z-10">
-                  <input
-                    type="checkbox"
-                    checked={selectedIds.has(item.id)}
-                    onChange={(e) => handleCheckboxChange(e, item.id)}
-                    onClick={(e) => e.stopPropagation()}
-                    className="w-5 h-5 cursor-pointer accent-blue-500"
-                  />
-                </div>
-
-                {/* Remove Button */}
-                <button
-                  onClick={(e) => handleRemove(e, item.id)}
-                  className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-red-500/80 hover:bg-red-600 rounded-full text-white cursor-pointer text-lg font-bold transition-colors duration-200 opacity-0 group-hover:opacity-100 z-10"
-                  aria-label="Remove item"
-                >
-                  <FaRegTrashAlt />
-                </button>
               </div>
-            )}
+
+              {/* Remove Button */}
+              <button
+                onClick={(e) => handleRemove(e, item._id)}
+                className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-red-500/80 hover:bg-red-600 rounded-full text-white cursor-pointer text-lg font-bold transition-colors duration-200 opacity-0 group-hover:opacity-100 z-10"
+                aria-label="Remove item"
+              >
+                <FaRegTrashAlt />
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -396,42 +407,54 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
       {popupMedia && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
-          onClick={() => {
-            setPopupMedia(null);
-            if (videoRef.current) {
-              videoRef.current.pause();
-            }
-          }}
+          onClick={() => setPopupMedia(null)}
         >
           <button
-            onClick={() => {
-              setPopupMedia(null);
-              if (videoRef.current) {
-                videoRef.current.pause();
-              }
-            }}
+            onClick={() => setPopupMedia(null)}
             className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full cursor-pointer text-white text-2xl font-light transition-colors duration-200 z-10"
             aria-label="Close popup"
           >
             <RiCloseLargeLine />
           </button>
-          {mediaType === "image" ? (
-            <img
-              src={popupMedia}
-              alt="Popup view"
-              className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-          ) : (
-            <video
-              ref={videoRef}
-              src={popupMedia}
-              className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
-              controls
-              autoPlay
-              onClick={(e) => e.stopPropagation()}
-            />
-          )}
+          
+          <div className="max-w-[90vw] max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
+            {popupMedia.type === "image" && (
+              <div className="relative w-full h-full">
+                <CldImage
+                  src={popupMedia.public_id}
+                  alt="Popup view"
+                  width="1920"
+                  height="1080"
+                  className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                />
+              </div>
+            )}
+            
+            {popupMedia.type === "video" && (
+              <div className="rounded-lg shadow-2xl overflow-hidden">
+                <CldVideoPlayer
+                  src={popupMedia.public_id}
+                  width="1920"
+                  height="1080"
+                />
+              </div>
+            )}
+            
+            {popupMedia.type === "audio" && (
+              <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg shadow-2xl p-8 flex flex-col items-center justify-center min-w-[400px]">
+                <div className="text-white text-center mb-6">
+                  <p className="text-sm uppercase tracking-wider opacity-70 mb-2">Audio File</p>
+                  <p className="text-xl font-semibold mb-1">Created by {popupMedia.created_by}</p>
+                </div>
+                <audio
+                  src={popupMedia.url}
+                  controls
+                  autoPlay
+                  className="w-full"
+                />
+              </div>
+            )}
+          </div>
         </div>
       )}
     </>

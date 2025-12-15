@@ -14,7 +14,13 @@ import { IPromotionInterface } from "@/lib/Interfaces/PromotionInterface";
 
 const PromotionSection = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedPromotion, setSelectedPromotion] = useState<IPromotionInterface >({});
+  const [selectedPromotion, setSelectedPromotion] = useState<IPromotionInterface >({
+    _id: "",
+    title: "",
+    description: "",
+    validFrom: "",
+    validTo: "",
+  });
   const { promotions, isLoading, meta } = useSelector(promotionsSelector);
   const dispatch = useDispatch<AppDispatch>();
 
