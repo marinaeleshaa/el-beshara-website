@@ -1,6 +1,5 @@
 "use server";
 
-import next from "next";
 import { cookies } from "next/headers";
 
 export const getImagesServerAction = async ({ page = 1, limit = 5 }) => {

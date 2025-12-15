@@ -1,4 +1,3 @@
-// app/(site)/gallery/images/page.tsx
 import ImagesLayout from "@/components/features/gallery/images/ImagesLayout";
 import { getImagesServerAction } from "./actions";
 
@@ -7,7 +6,6 @@ interface PageProps {
 }
 
 export default async function ImagesPage({ searchParams }: PageProps) {
-  // First await the searchParams Promise
   const params = await searchParams;
   const page = params.page ? Number(params.page) : 1;
 
