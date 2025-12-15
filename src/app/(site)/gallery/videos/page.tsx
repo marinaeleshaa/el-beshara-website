@@ -1,6 +1,11 @@
 import React from "react";
 import { getVideosServerAction } from "./actions";
 import VideosLayout from "@/components/features/gallery/videos/VideosLayout";
+
+export const metadata = {
+  title: "Videos | El-Beshara Studio",
+  description: "Creating amazing musical experiences for the world.",
+}
 interface PageProps {
   searchParams: Promise<{ page?: string }>;
 }

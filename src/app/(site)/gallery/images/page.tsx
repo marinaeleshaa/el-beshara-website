@@ -5,6 +5,11 @@ interface PageProps {
   searchParams: Promise<{ page?: string }>;
 }
 
+export const metadata = {
+  title: "Images | El-Beshara Studio",
+  description: "Creating amazing musical experiences for the world.",
+};
+
 export default async function ImagesPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const page = params.page ? Number(params.page) : 1;

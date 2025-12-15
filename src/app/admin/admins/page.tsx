@@ -5,6 +5,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IoPersonAdd } from "react-icons/io5";
 import { RiAdminFill } from "react-icons/ri";
 
+export const metadata = {
+  title: "Admins | Admin | El-Beshara Studio",
+  description: "Creating amazing musical experiences for the world.",
+};
+
 const page = () => {
   return (
     <div>
