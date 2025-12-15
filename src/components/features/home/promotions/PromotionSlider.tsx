@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect } from "react";
-import { FaArrowCircleRight, FaBullhorn } from "react-icons/fa";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { FaArrowCircleRight, FaBullhorn, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import PromotionCard from "../../dashboard/promotions/PromotionCard";
 import { Spinner } from "@/components/ui/spinner";
 import {
@@ -14,6 +14,10 @@ const PromotionSlider = () => {
   const { promotions, isLoading, meta } = useSelector(promotionsSelector);
   const dispatch = useDispatch<AppDispatch>();
   const t = useTranslations("promotion.slider");
+  
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const fetchPromotions = useCallback(
     (page: number) => {
@@ -25,6 +29,38 @@ const PromotionSlider = () => {
   useEffect(() => {
     fetchPromotions(meta.page);
   }, [fetchPromotions, meta.page]);
+
+  // Check scroll position to show/hide arrows
+  const checkScrollPosition = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  }, []);
+
+  useEffect(() => {
+    checkScrollPosition();
+    window.addEventListener("resize", checkScrollPosition);
+    return () => window.removeEventListener("resize", checkScrollPosition);
+  }, [checkScrollPosition, promotions]);
+
+  const scroll = (direction: "left" | "right") => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const scrollAmount = container.clientWidth * 0.8;
+    const targetScroll =
+      direction === "left"
+        ? container.scrollLeft - scrollAmount
+        : container.scrollLeft + scrollAmount;
+
+    container.scrollTo({
+      left: targetScroll,
+      behavior: "smooth",
+    });
+  };
 
   if (isLoading) {
     return (
@@ -54,12 +90,49 @@ const PromotionSlider = () => {
             </span>
           </div>
 
-          <div className="flex overflow-x-scroll gap-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            {promotions.map((promotion) => (
-              <div key={promotion._id}>
-                <PromotionCard {...promotion} />
-              </div>
-            ))}
+          <div className="relative">
+            {/* Left Arrow */}
+            {canScrollLeft && (
+              <button
+                onClick={() => scroll("left")}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+                aria-label="Scroll left"
+              >
+                <FaChevronLeft className="text-primary text-xl" />
+              </button>
+            )}
+
+            {/* Slider Container */}
+            <div
+              ref={scrollContainerRef}
+              onScroll={checkScrollPosition}
+              className="flex overflow-x-scroll gap-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden scroll-smooth"
+            >
+              {promotions.map((promotion) => (
+                <div key={promotion._id}>
+                  <PromotionCard {...promotion} />
+                </div>
+              ))}
+            </div>
+
+            {/* Right Arrow */}
+            {canScrollRight && (
+              <button
+                onClick={() => scroll("right")}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+                aria-label="Scroll right"
+              >
+                <FaChevronRight className="text-primary text-xl" />
+              </button>
+            )}
+
+            {/* Gradient Overlays for visual effect */}
+            {canScrollLeft && (
+              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black/30 to-transparent pointer-events-none z-10" />
+            )}
+            {canScrollRight && (
+              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black/30 to-transparent pointer-events-none z-10" />
+            )}
           </div>
 
           {promotions.length > 4 && (
