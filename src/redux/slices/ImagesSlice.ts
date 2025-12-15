@@ -87,7 +87,7 @@ const ImgSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(AddImageAction.fulfilled, (state, action) => {
-      state.images.push(action.payload.data);
+      state.images.unshift(action.payload.data);
       state.isLoading = false;
     });
     builder.addCase(AddImageAction.rejected, (state) => {

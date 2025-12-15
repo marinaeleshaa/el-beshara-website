@@ -10,11 +10,7 @@ const page = () => {
         <DashboardHero />
         <div className="bg-secondary/50 rounded-lg p-4">
       <div className="">
-        <MasonryDashboard
-          items={images}
-          onSelectionChange={(ids) => console.log("Selected reels:", ids)}
-          onRemove={(id) => console.log("Remove reel:", id)}
-        />
+
       </div>
     </div>
       </div>

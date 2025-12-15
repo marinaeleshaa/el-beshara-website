@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { gsap } from "gsap";
-import { CldImage, CldVideoPlayer } from "next-cloudinary";
+import { CldImage } from "next-cloudinary";
 import "next-cloudinary/dist/cld-video-player.css";
 
 const useMedia = (
@@ -16,19 +16,24 @@ const useMedia = (
   defaultValue: number
 ): number => {
   const get = () => {
-    if (typeof window === 'undefined') return defaultValue;
-    return values[queries.findIndex((q) => window.matchMedia(q).matches)] ?? defaultValue;
+    if (typeof window === "undefined") return defaultValue;
+    return (
+      values[queries.findIndex((q) => window.matchMedia(q).matches)] ??
+      defaultValue
+    );
   };
 
   const [value, setValue] = useState<number>(defaultValue);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
+    if (typeof window === "undefined") return;
+
     setValue(get());
-    
+
     const handler = () => setValue(get());
-    queries.forEach((q) => window.matchMedia(q).addEventListener("change", handler));
+    queries.forEach((q) =>
+      window.matchMedia(q).addEventListener("change", handler)
+    );
     return () =>
       queries.forEach((q) =>
         window.matchMedia(q).removeEventListener("change", handler)
@@ -109,20 +114,34 @@ const Masonry: React.FC<MasonryProps> = ({
   const [imagesReady, setImagesReady] = useState(false);
   const [popupMedia, setPopupMedia] = useState<MediaItem | null>(null);
 
+  // Prevent body scroll when popup is open
+  useEffect(() => {
+    if (popupMedia) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [popupMedia]);
+
   // Generate random heights for items (stable across re-renders)
   const itemHeights = useMemo(() => {
     const heights = new Map<string, number>();
-    const possibleHeights = [200, 250, 300, 350, 400, 450, 500];
-    
+    const possibleHeights = [200, 250, 300, 320];
+
     items.forEach((item) => {
       // Audio items get a fixed smaller height
       if (item.type === "audio") {
         heights.set(item._id, 150);
         return;
       }
-      
+
       // Use item._id as seed for consistent random heights
-      const seed = item._id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      const seed = item._id
+        .split("")
+        .reduce((acc, char) => acc + char.charCodeAt(0), 0);
       const randomIndex = seed % possibleHeights.length;
       const height = possibleHeights[randomIndex];
       heights.set(item._id, height);
@@ -259,7 +278,7 @@ const Masonry: React.FC<MasonryProps> = ({
     return Math.max(...grid.map((item) => item.y + item.h)) + 16;
   }, [grid]);
 
-  const renderMedia = (item: MediaItem) => {
+  const renderMedia = (item: MediaItem, isInGrid: boolean = true) => {
     switch (item.type) {
       case "image":
         return (
@@ -272,27 +291,60 @@ const Masonry: React.FC<MasonryProps> = ({
           />
         );
       case "video":
-        return (
-          <div className="w-full h-full rounded-[10px] overflow-hidden">
-            <CldVideoPlayer
-              src={item.public_id}
-              width="1920"
-              height="1080"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        );
+        if (isInGrid) {
+          // In grid: Show video thumbnail/preview with play icon overlay
+          return (
+            <div className="relative w-full h-full rounded-[10px] overflow-hidden group">
+              <video
+                src={item.url}
+                className="w-full h-full object-cover"
+                preload="metadata"
+                muted
+                playsInline
+              />
+              {/* Play button overlay */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors duration-300">
+                <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <svg 
+                    className="w-8 h-8 text-gray-800 ml-1" 
+                    fill="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          );
+        }
+        // In popup: Show full video player
+        return null;
       case "audio":
-        return (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded-[10px] p-4">
-            <audio
-              src={item.url}
-              controls
-              className="w-full"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-        );
+        if (isInGrid) {
+          // In grid: Show audio icon/thumbnail
+          return (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded-[10px] group">
+              <div className="text-center">
+                <svg 
+                  className="w-12 h-12 text-white mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" 
+                  />
+                </svg>
+                <p className="text-white text-sm font-medium opacity-90">Audio File</p>
+              </div>
+            </div>
+          );
+        }
+        // In popup: Show audio player
+        return null;
       default:
         return null;
     }
@@ -321,7 +373,7 @@ const Masonry: React.FC<MasonryProps> = ({
             onMouseLeave={(e) => handleMouseLeave(item._id, e.currentTarget)}
           >
             <div className="relative w-full h-full rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] cursor-pointer overflow-hidden">
-              {renderMedia(item)}
+              {renderMedia(item, true)}
 
               {colorShiftOnHover && (
                 <div className="color-overlay absolute inset-0 rounded-[10px] bg-gradient-to-tr from-pink-500/50 to-sky-500/50 opacity-0 pointer-events-none" />
@@ -343,8 +395,11 @@ const Masonry: React.FC<MasonryProps> = ({
           >
             ×
           </button>
-          
-          <div className="max-w-[90vw] max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
+
+          <div
+            className="max-w-[90vw] max-h-[90vh] relative"
+            onClick={(e) => e.stopPropagation()}
+          >
             {popupMedia.type === "image" && (
               <div className="relative w-full h-full">
                 <CldImage
@@ -356,21 +411,37 @@ const Masonry: React.FC<MasonryProps> = ({
                 />
               </div>
             )}
-            
+
             {popupMedia.type === "video" && (
               <div className="rounded-lg shadow-2xl overflow-hidden">
-                <CldVideoPlayer
-                  src={popupMedia.public_id}
-                  width="1920"
-                  height="1080"
+                <video
+                  src={popupMedia.url}
+                  controls
+                  autoPlay
+                  className="max-w-[90vw] max-h-[90vh] object-contain"
                 />
               </div>
             )}
-            
+
             {popupMedia.type === "audio" && (
               <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg shadow-2xl p-8 flex flex-col items-center justify-center min-w-[400px]">
                 <div className="text-white text-center mb-6">
-                  <p className="text-sm uppercase tracking-wider opacity-70 mb-2">Audio File</p>
+                  <svg 
+                    className="w-16 h-16 mx-auto mb-4" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" 
+                    />
+                  </svg>
+                  <p className="text-sm uppercase tracking-wider opacity-70 mb-2">
+                    Audio File
+                  </p>
                 </div>
                 <audio
                   src={popupMedia.url}

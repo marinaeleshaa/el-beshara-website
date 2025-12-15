@@ -5,6 +5,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IoIosAddCircle } from "react-icons/io";
 import { TbRosetteDiscountFilled } from "react-icons/tb";
 
+export const metadata = {
+  title: "Promotions | Admin | El-Beshara Studio",
+  description: "Creating amazing musical experiences for the world.",
+}
 const page = () => {
   return (
     <div>
