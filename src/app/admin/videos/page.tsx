@@ -15,7 +15,7 @@ import {
   videoSelector,
 } from "@/redux/slices/VideoSlice";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
-import React, { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { GrTrash } from "react-icons/gr";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
