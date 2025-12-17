@@ -30,7 +30,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Get locale from cookies
   const { cookies } = await import("next/headers");
   const cookieStore = await cookies();
   const locale = cookieStore.get("NEXT_LOCALE")?.value || cookieStore.get("locale")?.value || "en";
