@@ -13,7 +13,6 @@ import {
 } from "@/lib/Interfaces/AboutInterface";
 import { CldImage, CldUploadWidget } from "next-cloudinary";
 import React from "react";
-import { IoMdAddCircleOutline } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
 
 export const socialOptions: SocialOption[] = [
