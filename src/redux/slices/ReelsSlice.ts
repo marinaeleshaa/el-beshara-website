@@ -3,6 +3,7 @@ import { RootState } from "./Store";
 import { IImage, IMediaItem } from "@/lib/Interfaces/ImgInterface";
 import { AddReelMethod, getReelsMethod } from "@/lib/api/reels";
 import { deleteVideoMethod } from "@/lib/api/video";
+import { clear } from "console";
 
 interface IState {
   reels: IMediaItem[];
@@ -94,6 +95,9 @@ const ReelsSlice = createSlice({
     setSelectedReels: (state, action) => {
       state.selectedReels = action.payload;
     },
+    clearSelectedReels: (state) => {
+      state.selectedReels = [];
+    }
   },
   extraReducers: (builder) => {
     // todo => add reels
@@ -102,6 +106,10 @@ const ReelsSlice = createSlice({
     });
     builder.addCase(AddReelsAction.fulfilled, (state, action) => {
       state.reels.unshift(action.payload.data);
+      // Update total count when adding new image
+      state.meta.total += 1;
+      // Recalculate total pages
+      state.meta.totalPages = Math.ceil(state.meta.total / state.meta.limit);
       state.isLoading = false;
     });
     builder.addCase(AddReelsAction.rejected, (state) => {
@@ -126,9 +134,19 @@ const ReelsSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(deleteReelsAction.fulfilled, (state, action) => {
+      const deletedCount = action.payload.length;
       state.reels = state.reels.filter(
         (img) => !action.payload.includes(img._id)
       );
+      state.selectedReels = state.selectedReels.filter((id) => !action.payload.includes(id));
+      state.meta.total -= deletedCount;
+      state.meta.totalPages = Math.ceil(state.meta.total / state.meta.limit);
+      if (state.reels.length === 0 && state.meta.page > 1) {
+        state.meta.page -= 1;
+      }
+      if(state.meta.page > state.meta.totalPages && state.meta.totalPages > 0) {
+        state.meta.page = state.meta.totalPages
+      }
       state.isLoading = false;
     });
     builder.addCase(deleteReelsAction.rejected, (state) => {
@@ -141,6 +159,15 @@ const ReelsSlice = createSlice({
     });
     builder.addCase(deleteOneReelAction.fulfilled, (state, action) => {
       state.reels = state.reels.filter((img) => img._id !== action.payload);
+      state.selectedReels = state.selectedReels.filter((id) => id !== action.payload);
+      state.meta.total -= 1;
+      state.meta.totalPages = Math.ceil(state.meta.total / state.meta.limit);
+      if (state.reels.length === 0 && state.meta.page > 1) {
+        state.meta.page -= 1;
+      }
+      if(state.meta.page > state.meta.totalPages && state.meta.totalPages > 0) {
+        state.meta.page = state.meta.totalPages
+      }
       state.isLoading = false;
     });
     builder.addCase(deleteOneReelAction.rejected, (state) => {
@@ -149,6 +176,6 @@ const ReelsSlice = createSlice({
   },
 });
 
-export const { setSelectedReels } = ReelsSlice.actions;
+export const { setSelectedReels , clearSelectedReels } = ReelsSlice.actions;
 export const reelsSelector = (state: RootState) => state.reels;
 export default ReelsSlice.reducer;

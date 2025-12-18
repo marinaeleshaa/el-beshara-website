@@ -16,7 +16,6 @@ import {
   setSelectedVideos,
   videoSelector,
 } from "@/redux/slices/VideoSlice";
-import { clear } from "console";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GrTrash } from "react-icons/gr";
@@ -250,8 +249,8 @@ const Page = () => {
           onCancel={() => setOpenDeleteAll(false)}
           variant="danger"
           onConfirm={handleDeleteAll}
-          title={`Remove ${selectedVideos.length} images`}
-          message="Are you sure you want to remove these images?"
+          title={`Remove ${selectedVideos.length} Videos`}
+          message="Are you sure you want to remove these videos?"
           confirmText="Remove"
           cancelText="Cancel"
         />
@@ -260,8 +259,8 @@ const Page = () => {
           onCancel={() => setOpenDelete(false)}
           variant="danger"
           onConfirm={() => handleDelete(selectedVideo)}
-          title={`Remove image`}
-          message="Are you sure you want to remove this image?"
+          title={`Remove Video`}
+          message="Are you sure you want to remove this video?"
           confirmText="Remove"
           cancelText="Cancel"
         />
