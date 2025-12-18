@@ -1,11 +1,17 @@
 import MyBtn from "@/components/ui/MyBtn";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
 
-const GalleryHomeRight = ({ className }: { className?: string }) => {
-  const t = useTranslations("home.homeStudio");
+const GalleryHomeRight =async ({ className }: { className?: string }) => {
+  const cookieStore = await cookies();
+  const lang = cookieStore.get("NEXT_LOCALE")?.value || "en";
+  const t = await getTranslations({
+    locale: lang,
+    namespace: "home.homeStudio",
+  })
   const points = t.raw("points");
   return (
-    <div className={`${className} p-4 group space-y-5`}>
+    <div dir={lang === "ar" ? "rtl" : "ltr"} className={`${className} p-4 group space-y-5`}>
       <p className="text-primary/80 relative w-fit capitalize font-bold text-md md:text-lg  animated-underline">
         {t("sectionLabel")}
       </p>
