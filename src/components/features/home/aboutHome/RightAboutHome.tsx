@@ -1,5 +1,4 @@
 import MyBtn from "@/components/ui/MyBtn";
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
 
@@ -12,7 +11,6 @@ const RightAboutHome = async ({
 }) => {
  const cookieStore = await cookies();
   const lang = cookieStore.get("NEXT_LOCALE")?.value || "en";
-  // const t = useTranslations("home.homeAbout");
     const t = await getTranslations({
     locale: lang,
     namespace: "home.homeAbout",
