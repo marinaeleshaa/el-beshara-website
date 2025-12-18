@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
-    const { id } = await params;
+    const { id } = await context.params;
 
-      const cookiesObj = await cookies();
+    const cookiesObj = await cookies();
     const token = cookiesObj.get("token")?.value;
 
     const res = await fetch(`${process.env.SERVERBASE}/promotions/${id}`, {
@@ -21,7 +24,10 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
     if (!res.ok || result.status !== "success") {
       return NextResponse.json(
-        { success: false, message: result.message || "Delete promotion failed" },
+        {
+          success: false,
+          message: result.message || "Delete promotion failed",
+        },
         { status: res.status }
       );
     }
@@ -33,9 +39,12 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
   }
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     const { title, description, validFrom, validTo } = await req.json();
     const cookiesObj = await cookies();
     const token = cookiesObj.get("token")?.value;
@@ -52,7 +61,10 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 
     if (!res.ok || result.status !== "success") {
       return NextResponse.json(
-        { success: false, message: result.message || "Update promotion failed" },
+        {
+          success: false,
+          message: result.message || "Update promotion failed",
+        },
         { status: res.status }
       );
     }

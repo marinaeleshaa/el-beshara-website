@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import AboutForm from "@/components/features/dashboard/about/AboutForm";
-import AboutCard from "@/components/features/dashboard/about/aboutCard";
 import { IProfile } from "@/lib/Interfaces/AboutInterface";
 import { getAbout, UpdateAbout } from "@/lib/api/about";
 import { Spinner } from "@/components/ui/spinner";
+import AboutCard from "@/components/features/dashboard/about/aboutCard";
 
 const AboutPage = () => {
   const [profileData, setProfileData] = useState<IProfile | null>(null);
@@ -14,6 +14,7 @@ const AboutPage = () => {
 
   useEffect(() => {
     let isMounted = true;
+
     const fetchData = async () => {
       try {
         const data = await getAbout();
@@ -32,30 +33,28 @@ const AboutPage = () => {
     };
   }, []);
 
- const handleSave = (newData: IProfile) => {
-  // Helper to remove _id and __v recursively
-  const cleanObject = (obj: any) => {
-    if (Array.isArray(obj)) {
-      return obj.map(cleanObject);
-    } else if (typeof obj === "object" && obj !== null) {
-      const newObj: any = {};
-      for (const key in obj) {
-        if (key !== "_id" && key !== "__v") {
-          newObj[key] = cleanObject(obj[key]);
-        }
+  const handleSave = (newData: IProfile) => {
+    const cleanObject = <T,>(obj: T): T => {
+      if (Array.isArray(obj)) {
+        return obj.map(item => cleanObject(item)) as unknown as T;
+      } else if (obj && typeof obj === "object") {
+        const newObj = {} as T;
+        (Object.keys(obj) as (keyof T)[]).forEach(key => {
+          if (key !== "_id" && key !== "__v") {
+            newObj[key] = cleanObject(obj[key]);
+          }
+        });
+        return newObj;
       }
-      return newObj;
-    }
-    return obj;
+      return obj;
+    };
+
+    const cleanedData = cleanObject(newData);
+
+    setProfileData(newData);
+    setIsFormOpen(false);
+    UpdateAbout(cleanedData);
   };
-
-  const cleanedData = cleanObject(newData);
-
-  setProfileData(newData);
-  setIsFormOpen(false);
-  UpdateAbout(cleanedData);
-};
-
 
   if (isLoading || !profileData) {
     return (
