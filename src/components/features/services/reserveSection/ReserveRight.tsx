@@ -49,7 +49,13 @@ const ReserveRight = ({ className }: { className: string }) => {
               `}
             >
               <p className="bg-primary text-primary-foreground p-2 rounded-full">
-                <DynamicIcon iconName={point.icon} />
+                <DynamicIcon
+                  iconName={
+                    typeof point.icon === "string"
+                      ? point.icon
+                      : point.icon.toString()
+                  }
+                />{" "}
               </p>
 
               <p>{point.label}</p>
