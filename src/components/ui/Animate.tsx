@@ -23,5 +23,4 @@ const Animate = ({ children, delay = 0, duration = 0.5, className , amount=0.3}:
     </motion.div>
   );
 };
-
 export default Animate;
