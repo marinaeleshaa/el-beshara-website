@@ -5,10 +5,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
 
-const AboutMainRight = ({ className }: { className: string }) => {
-  const t = useTranslations("about");
+const AboutMainRight = async ({ className }: { className: string }) => {
+  const cookieStore = await cookies();
+  const lang = cookieStore.get("NEXT_LOCALE")?.value || "en";
+  const t = await getTranslations({ locale: lang, namespace: "about" });
   const visionData = t.raw("visionContent") as string[];
   const missionData = t.raw("missionContent") as string[];
   const valuesData = t.raw("valuesContent") as string[];
@@ -33,6 +36,7 @@ const AboutMainRight = ({ className }: { className: string }) => {
           <AccordionItem
             value="item-1"
             className="bg-secondary p-1 rounded-lg mb-5"
+            dir={lang === "ar" ? "rtl" : "ltr"}
           >
             <div className="p-2 cursor-pointer">
               <AccordionTrigger className="text-foreground text-lg md:text-2xl capitalize cursor-pointer">
@@ -49,6 +53,7 @@ const AboutMainRight = ({ className }: { className: string }) => {
           <AccordionItem
             value="item-2"
             className="bg-secondary p-1 rounded-lg mb-5"
+            dir={lang === "ar" ? "rtl" : "ltr"}
           >
             <div className="p-2 cursor-pointer">
               <AccordionTrigger className="text-foreground text-lg md:text-2xl capitalize cursor-pointer">
@@ -62,7 +67,11 @@ const AboutMainRight = ({ className }: { className: string }) => {
             </div>
           </AccordionItem>
 
-          <AccordionItem value="item-3" className="bg-secondary p-1 rounded-lg">
+          <AccordionItem
+            value="item-3"
+            className="bg-secondary p-1 rounded-lg"
+            dir={lang === "ar" ? "rtl" : "ltr"}
+          >
             <div className="p-2 cursor-pointer">
               <AccordionTrigger className="text-foreground text-lg md:text-2xl capitalize cursor-pointer">
                 {t("valuesTitle")}
