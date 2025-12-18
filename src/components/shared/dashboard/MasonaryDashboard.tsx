@@ -81,7 +81,9 @@ interface GridItem extends MediaItem {
 interface MasonryDashboardProps {
   items: MediaItem[];
   onRemove?: (id: string) => void;
+  selectedIds?: string[];
   onSelectionChange?: (selectedIds: string[]) => void;
+  onUnselectAll?: () => void;
   ease?: string;
   duration?: number;
   stagger?: number;
@@ -95,7 +97,9 @@ interface MasonryDashboardProps {
 const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
   items,
   onRemove,
+  selectedIds = [],
   onSelectionChange,
+  onUnselectAll,
   ease = "power3.out",
   duration = 0.6,
   stagger = 0.05,
@@ -119,8 +123,10 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
   const [containerRef, { width }] = useMeasure<HTMLDivElement>();
   const [imagesReady, setImagesReady] = useState(false);
   const [popupMedia, setPopupMedia] = useState<MediaItem | null>(null);
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+  // Convert selectedIds array to Set for efficient lookups
+  const selectedIdsSet = useMemo(() => new Set(selectedIds), [selectedIds]);
 
   // Generate random heights for items (stable across re-renders)
   const itemHeights = useMemo(() => {
@@ -295,16 +301,15 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
     id: string
   ) => {
     e.stopPropagation();
+    if (!onSelectionChange) return;
+
     const newSelectedIds = new Set(selectedIds);
     if (e.target.checked) {
       newSelectedIds.add(id);
     } else {
       newSelectedIds.delete(id);
     }
-    setSelectedIds(newSelectedIds);
-    if (onSelectionChange) {
-      onSelectionChange(Array.from(newSelectedIds));
-    }
+    onSelectionChange(Array.from(newSelectedIds));
   };
 
   const containerHeight = useMemo(() => {
@@ -411,7 +416,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
               <div className="absolute top-2 left-2 z-10">
                 <input
                   type="checkbox"
-                  checked={selectedIds.has(item._id)}
+                  checked={selectedIdsSet.has(item._id)}
                   onChange={(e) => handleCheckboxChange(e, item._id)}
                   onClick={(e) => e.stopPropagation()}
                   className="w-5 h-5 cursor-pointer accent-blue-500"

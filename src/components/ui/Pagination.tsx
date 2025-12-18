@@ -1,13 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
-const Pagination = ({
+
+interface PaginationProps {
+  currentPage?: number;
+  totalPages?: number;
+  onPageChange?: (page: number) => void;
+  maxVisible?: number;
+}
+
+const Pagination: React.FC<PaginationProps> = ({
   currentPage = 1,
   totalPages = 10,
   onPageChange = (page: number) => console.log("Page:", page),
   maxVisible = 4,
 }) => {
   const [activePage, setActivePage] = useState(currentPage);
+
+  // Sync internal state with prop changes
+  useEffect(() => {
+    setActivePage(currentPage);
+  }, [currentPage]);
+
+  // Update activePage when totalPages changes and current page exceeds it
+  useEffect(() => {
+    if (activePage > totalPages && totalPages > 0) {
+      const newPage = totalPages;
+      setActivePage(newPage);
+      onPageChange(newPage);
+    }
+  }, [totalPages, activePage, onPageChange]);
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
@@ -16,7 +38,7 @@ const Pagination = ({
   };
 
   const getPageNumbers = () => {
-    const pages = [];
+    const pages: (number | string)[] = [];
 
     if (totalPages <= maxVisible) {
       // Show all pages if total is less than max visible
@@ -66,9 +88,14 @@ const Pagination = ({
 
   const pageNumbers = getPageNumbers();
 
+  // Don't render pagination if there's only one page or no pages
+  if (totalPages <= 1) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col sm:flex-row items-center justify-center gap-2 py-8">
-      <div className="flex  items-center justify-center gap-2">
+      <div className="flex items-center justify-center gap-2">
         {/* Previous Button */}
         <button
           onClick={() => handlePageChange(activePage - 1)}
@@ -79,7 +106,7 @@ const Pagination = ({
           ${
             activePage === 1
               ? "bg-secondary/80 text-secondary-foreground/30 cursor-not-allowed"
-              : "bg-secondary cursor-pointer text-secondary-foreground hover:bg-linear-to-br hover:from-primary/80 hover:to-dark/80 hover:text-white  hover:-translate-y-0.5 active:translate-y-0"
+              : "bg-secondary cursor-pointer text-secondary-foreground hover:bg-linear-to-br hover:from-primary/80 hover:to-dark/80 hover:text-white hover:-translate-y-0.5 active:translate-y-0"
           }
           border border-secondary
         `}
@@ -114,8 +141,8 @@ const Pagination = ({
                 transition-all duration-300 ease-out
                 ${
                   isActive
-                    ? "bg-linear-to-br from-primary to-dark text-white  scale-110"
-                    : "bg-secondary/50  text-secondary-foreground hover:bg-linear-to-br hover:from-primary/10 hover:to-secondary/10 hover:scale-105 hover:-translate-y-0.5 active:translate-y-0"
+                    ? "bg-linear-to-br from-primary to-dark text-white scale-110"
+                    : "bg-secondary/50 text-secondary-foreground hover:bg-linear-to-br hover:from-primary/10 hover:to-secondary/10 hover:scale-105 hover:-translate-y-0.5 active:translate-y-0"
                 }
                 border border-secondary 
                 hover:border-primary/30 
@@ -143,7 +170,7 @@ const Pagination = ({
           ${
             activePage === totalPages
               ? "bg-secondary/80 text-secondary-foreground/30 cursor-not-allowed"
-              : "bg-secondary cursor-pointer text-secondary-foreground hover:bg-linear-to-br hover:from-primary/80 hover:to-dark/80 hover:text-white  hover:-translate-y-0.5 active:translate-y-0"
+              : "bg-secondary cursor-pointer text-secondary-foreground hover:bg-linear-to-br hover:from-primary/80 hover:to-dark/80 hover:text-white hover:-translate-y-0.5 active:translate-y-0"
           }
           border border-secondary
         `}
