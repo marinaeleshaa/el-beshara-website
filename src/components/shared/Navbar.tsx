@@ -55,6 +55,8 @@ const Navbar = ({
   const t = useTranslations("common");
   const menu = t.raw("menu") as MenuItem[];
   const isRTL = lang === "ar";
+  const [open, setOpen] = useState(false);
+
 
   useEffect(() => {
     setMounted(true);
@@ -161,7 +163,7 @@ const Navbar = ({
             {/* Mobile Right Side (Menu + Mode Toggle) */}
             <div className="flex items-center gap-2">
               {/* Mobile Menu Sheet */}
-              <Sheet>
+              <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
                   <Button
                     variant="outline"
@@ -209,7 +211,7 @@ const Navbar = ({
                             ? "text-primary hover:text-primary/80"
                             : ""
                         }`}
-                        onClick={() => document.body.click()}
+                        onClick={() => setOpen(false)}
                       >
                         {item.title}
                       </Link>
@@ -323,7 +325,7 @@ const Navbar = ({
           {/* Mobile Right Side (Menu + Mode Toggle) */}
           <div className="flex items-center gap-2">
             {/* Mobile Menu Sheet */}
-            <Sheet>
+            <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="outline"
@@ -378,7 +380,7 @@ const Navbar = ({
                           ? "text-primary hover:text-primary/80"
                           : ""
                       } ${isRTL ? "text-right" : "text-left"}`}
-                      onClick={() => document.body.click()}
+                      onClick={() => setOpen(false)}
                     >
                       {item.title}
                     </Link>

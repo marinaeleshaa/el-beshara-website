@@ -95,7 +95,7 @@ const PromotionSlider = () => {
             {canScrollLeft && (
               <button
                 onClick={() => scroll("left")}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+                className="hidden absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
                 aria-label="Scroll left"
               >
                 <FaChevronLeft className="text-primary text-xl" />
@@ -119,7 +119,7 @@ const PromotionSlider = () => {
             {canScrollRight && (
               <button
                 onClick={() => scroll("right")}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+                className="hidden absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
                 aria-label="Scroll right"
               >
                 <FaChevronRight className="text-primary text-xl" />
