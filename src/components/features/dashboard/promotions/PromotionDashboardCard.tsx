@@ -8,6 +8,7 @@ import {
   deletePromotionAction,
   getPromotionsAction,
 } from "@/redux/slices/PromotionsSlice";
+import ConfirmationModal from "@/components/shared/ConfirmationModel";
 
 const PromotionDashboardCard = ({
   _id = "promo-001",
@@ -51,12 +52,14 @@ const PromotionDashboardCard = ({
 
   const [isDeleting, setIsDeleting] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleDelete = async () => {
     setIsDeleting(true);
     dispatch(deletePromotionAction(_id));
     dispatch(getPromotionsAction({ page: 1, limit: 6 }));
     setIsDeleting(false);
+    setIsOpen(false);
   };
 
   const handleEdit = () => onEdit();
@@ -108,13 +111,23 @@ const PromotionDashboardCard = ({
           />
           <MyBtn
             text={isDeleting ? <Spinner /> : "Delete"}
-            onClick={handleDelete}
+            onClick={() => setIsOpen(true)}
             icon={isDeleting ? null : <Trash2 className="w-4 h-4" />}
             variant="primary"
             className="flex-1"
           />
         </div>
       </div>
+      <ConfirmationModal
+        isOpen={isOpen}
+        onConfirm={handleDelete}
+        onCancel={() => setIsOpen(false)}
+        title={`Delete ${title}?`}
+        message="Are you sure you want to delete this promotion?"
+        variant="danger"
+        confirmText="remove"
+        cancelText="cancel"
+      />
     </div>
   );
 };
