@@ -12,11 +12,15 @@ import {
 import { AppDispatch } from "@/redux/slices/Store";
 import { Spinner } from "@/components/ui/spinner";
 import Pagination from "@/components/ui/Pagination";
+import ConfirmationModal from "@/components/shared/ConfirmationModel";
 
 export default function AdminTable() {
   const { admins, isLoading, meta } = useSelector(adminsSelector);
   const dispatch = useDispatch<AppDispatch>();
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const [adminId, setAdminId] = useState<string | null>(null);
+  const [adminName, setAdminName] = useState<string | null>(null);
 
   // fetch data
   const fetchAdmins = useCallback(
@@ -90,7 +94,11 @@ export default function AdminTable() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
                       <MyBtn
-                        onClick={() => handleDelete(admin._id)}
+                        onClick={() => {
+                          setOpen(true);
+                          setAdminId(admin._id);
+                          setAdminName(admin.username);
+                        }}
                         text={deletingId === admin._id ? <Spinner /> : "Delete"}
                         icon={
                           deletingId === admin._id ? null : (
@@ -118,6 +126,14 @@ export default function AdminTable() {
           </div>
         )}
       </div>
+      <ConfirmationModal
+        isOpen={open}
+        onCancel={() => setOpen(false)}
+        onConfirm={() => handleDelete(adminId!)}
+        title={`Delete ${adminName}`}
+        message="Are you sure you want to delete this admin?"
+        variant="danger"
+      />
     </div>
   );
 }

@@ -98,7 +98,7 @@ const ConfirmationModal = ({
               {cancelText}
             </button>
 
-            <MyBtn 
+            <MyBtn
               onClick={onConfirm}
               className="px-6 py-2.5 shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200"
             >
