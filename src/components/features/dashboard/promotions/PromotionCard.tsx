@@ -29,8 +29,8 @@ const PromotionCard = ({
   };
 
   const getDaysRemaining = () => {
-    const now = new Date();
-    const end = new Date(validTo);
+    const now = new Date().getTime();
+    const end = new Date(validTo).getTime();
     const diffTime = end - now;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 0;
@@ -40,7 +40,7 @@ const PromotionCard = ({
     <div className="group relative w-full h-full bg-secondary rounded-xl overflow-hidden border border-primary/10 hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col">
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-      
+
       <div className="relative flex flex-col h-full">
         {/* Header Section */}
         <div className="p-5 pb-4 border-b border-primary/10">
@@ -49,7 +49,7 @@ const PromotionCard = ({
             <div className="flex-shrink-0 p-2.5 bg-primary/10 rounded-lg group-hover:bg-primary/15 transition-colors">
               <CiDiscount1 className="w-5 h-5 text-primary dark:text-light" />
             </div>
-            
+
             {/* Badges Container */}
             <div className="flex flex-wrap items-center gap-2 justify-end">
               {isActive() && (
@@ -58,16 +58,16 @@ const PromotionCard = ({
                   {t("active")}
                 </span>
               )}
-              
+
               {isActive() && getDaysRemaining() > 0 && (
                 <span className="flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-md border border-amber-200">
                   <TrendingUp className="w-3 h-3" />
-                {getDaysRemaining()} {t("remaining")}
+                  {getDaysRemaining()} {t("remaining")}
                 </span>
               )}
             </div>
           </div>
-          
+
           {/* Title */}
           <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight line-clamp-2">
             {title}
@@ -96,7 +96,12 @@ const PromotionCard = ({
 
         {/* Footer Section */}
         <div className="p-5 pt-0">
-          <MyBtn text={t("btnText")} href={`/contact`} variant="primary" width="full" />
+          <MyBtn
+            text={t("btnText")}
+            href={`/contact`}
+            variant="primary"
+            width="full"
+          />
         </div>
       </div>
     </div>
