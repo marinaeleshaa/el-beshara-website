@@ -1,4 +1,5 @@
 "use client";
+import ConfirmationModal from "@/components/shared/ConfirmationModel";
 import DashboardHero from "@/components/shared/dashboard/DashboardHero";
 import MasonryDashboard from "@/components/shared/dashboard/MasonaryDashboard";
 import MyBtn from "@/components/ui/MyBtn";
@@ -8,22 +9,28 @@ import { IImage } from "@/lib/Interfaces/ImgInterface";
 import { AppDispatch } from "@/redux/slices/Store";
 import {
   AddVideoAction,
+  clearSelectedVideos,
   deleteOneVideoAction,
   deleteVideosAction,
   getVideosAction,
   setSelectedVideos,
   videoSelector,
 } from "@/redux/slices/VideoSlice";
+import { clear } from "console";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GrTrash } from "react-icons/gr";
+import { HiOutlineXMark } from "react-icons/hi2";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
+  const [openDeleteAll, setOpenDeleteAll] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { videos, meta, selectedVideos, isLoading } =
     useSelector(videoSelector);
+  const [selectedVideo, setSelectedVideo] = useState<string>("");
 
   const fetchVideos = useCallback(
     (page: number) => {
@@ -41,13 +48,21 @@ const Page = () => {
     dispatch(setSelectedVideos(ids));
   };
 
-  const handleDelete = (id: string) => {
-    dispatch(deleteOneVideoAction(id));
+  const handleDelete = async (id: string) => {
+    await dispatch(deleteOneVideoAction(id));
+    fetchVideos(meta.page);
+    setOpenDelete(false);
   };
 
-  const handleDeleteAll = () => {
-    dispatch(deleteVideosAction(selectedVideos));
-    dispatch(setSelectedVideos([]));
+  const handleDeleteAll = async () => {
+    await dispatch(deleteVideosAction(selectedVideos));
+    dispatch(clearSelectedVideos());
+    fetchVideos(meta.page);
+    setOpenDeleteAll(false);
+  };
+
+  const handleUnselectAll = () => {
+    dispatch(clearSelectedVideos());
   };
 
   if (isLoading) {
@@ -191,10 +206,20 @@ const Page = () => {
                 )}
               </CldUploadWidget>
               {selectedVideos.length > 0 && (
-                <MyBtn outline className="gap-2" onClick={handleDeleteAll}>
-                  <GrTrash />
-                  {`Remove ${selectedVideos.length}`}
-                </MyBtn>
+                <>
+                  <MyBtn
+                    outline
+                    className="gap-2"
+                    onClick={() => setOpenDeleteAll(true)}
+                  >
+                    <GrTrash />
+                    {`Remove ${selectedVideos.length}`}
+                  </MyBtn>
+                  <MyBtn outline className="gap-2" onClick={handleUnselectAll}>
+                    <HiOutlineXMark />
+                    {`Unselect ${selectedVideos.length}`}
+                  </MyBtn>
+                </>
               )}
             </div>
 
@@ -203,8 +228,13 @@ const Page = () => {
               <div className="space-y-4">
                 <MasonryDashboard
                   items={videos}
+                  selectedIds={selectedVideos}
                   onSelectionChange={handleSelect}
-                  onRemove={handleDelete}
+                  onRemove={(id) => {
+                    setOpenDelete(true);
+                    setSelectedVideo(id);
+                  }}
+                  onUnselectAll={handleUnselectAll}
                 />
                 <Pagination
                   totalPages={meta.totalPages}
@@ -215,6 +245,26 @@ const Page = () => {
             </div>
           </>
         )}
+        <ConfirmationModal
+          isOpen={openDeleteAll}
+          onCancel={() => setOpenDeleteAll(false)}
+          variant="danger"
+          onConfirm={handleDeleteAll}
+          title={`Remove ${selectedVideos.length} images`}
+          message="Are you sure you want to remove these images?"
+          confirmText="Remove"
+          cancelText="Cancel"
+        />
+        <ConfirmationModal
+          isOpen={openDelete}
+          onCancel={() => setOpenDelete(false)}
+          variant="danger"
+          onConfirm={() => handleDelete(selectedVideo)}
+          title={`Remove image`}
+          message="Are you sure you want to remove this image?"
+          confirmText="Remove"
+          cancelText="Cancel"
+        />
       </div>
     </div>
   );
