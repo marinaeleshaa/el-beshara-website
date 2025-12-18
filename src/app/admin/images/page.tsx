@@ -7,6 +7,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { IImage } from "@/lib/Interfaces/ImgInterface";
 import {
   AddImageAction,
+  clearSelectedImages,
   deleteImgsAction,
   getImagesAction,
   imgSelector,
@@ -14,15 +15,20 @@ import {
 } from "@/redux/slices/ImagesSlice";
 import { AppDispatch } from "@/redux/slices/Store";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { GrTrash } from "react-icons/gr";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
+import { HiOutlineXMark } from "react-icons/hi2";
+import ConfirmationModal from "@/components/shared/ConfirmationModel";
 
 const Page = () => {
+  const [openDeleteAll, setOpenDeleteAll] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { images, meta, isLoading, selectedImages } = useSelector(imgSelector);
+  const [selectedImage, setSelectedImage] = useState<string>("");
 
   const fetchImages = useCallback(
     (page: number) => {
@@ -40,13 +46,21 @@ const Page = () => {
     dispatch(setSelectedImages(ids));
   };
 
-  const handleDeleteAll = () => {
-    dispatch(deleteImgsAction(selectedImages));
-    dispatch(setSelectedImages([]));
+  const handleDeleteAll = async () => {
+    await dispatch(deleteImgsAction(selectedImages));
+    dispatch(clearSelectedImages());
+    fetchImages(meta.page);
+    setOpenDeleteAll(false);
   };
 
-  const handleDelete = (id: string) => {
-    dispatch(deleteImgsAction([id]));
+  const handleDelete = async (id: string) => {
+    await dispatch(deleteImgsAction([id]));
+    fetchImages(meta.page);
+    setOpenDelete(false);
+  };
+
+  const handleUnselectAll = () => {
+    dispatch(clearSelectedImages());
   };
 
   if (isLoading) {
@@ -189,10 +203,20 @@ const Page = () => {
                 )}
               </CldUploadWidget>
               {selectedImages.length > 0 && (
-                <MyBtn outline className="gap-2" onClick={handleDeleteAll}>
-                  <GrTrash />
-                  {`Remove ${selectedImages.length}`}
-                </MyBtn>
+                <>
+                  <MyBtn
+                    outline
+                    className="gap-2"
+                    onClick={() => setOpenDeleteAll(true)}
+                  >
+                    <GrTrash />
+                    {`Remove ${selectedImages.length}`}
+                  </MyBtn>
+                  <MyBtn outline className="gap-2" onClick={handleUnselectAll}>
+                    <HiOutlineXMark />
+                    {`Unselect ${selectedImages.length}`}
+                  </MyBtn>
+                </>
               )}
             </div>
 
@@ -201,8 +225,13 @@ const Page = () => {
               <div className="space-y-4">
                 <MasonryDashboard
                   items={images}
+                  selectedIds={selectedImages}
                   onSelectionChange={handleSelect}
-                  onRemove={handleDelete}
+                  onRemove={(id) => {
+                    setOpenDelete(true);
+                    setSelectedImage(id);
+                  }}
+                  onUnselectAll={handleUnselectAll}
                 />
                 <Pagination
                   totalPages={meta.totalPages}
@@ -213,6 +242,26 @@ const Page = () => {
             </div>
           </>
         )}
+        <ConfirmationModal
+          isOpen={openDeleteAll}
+          onCancel={() => setOpenDeleteAll(false)}
+          variant="danger"
+          onConfirm={handleDeleteAll}
+          title={`Remove ${selectedImages.length} images`}
+          message="Are you sure you want to remove these images?"
+          confirmText="Remove"
+          cancelText="Cancel"
+        />
+        <ConfirmationModal
+          isOpen={openDelete}
+          onCancel={() => setOpenDelete(false)}
+          variant="danger"
+          onConfirm={() => handleDelete(selectedImage) }
+          title={`Remove image`}
+          message="Are you sure you want to remove this image?"
+          confirmText="Remove"
+          cancelText="Cancel"
+        />
       </div>
     </div>
   );

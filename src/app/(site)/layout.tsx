@@ -1,7 +1,7 @@
 // app/(site)/layout.tsx
 
 import MainProvider from "@/components/providers/MainProvider";
-import Footer from "@/components/shared/Footer";
+import Footer from "@/components/shared/footer/Footer";
 import Navbar from "@/components/shared/Navbar";
 import { NavMenuItems } from "@/data/NavMenuItems";
 

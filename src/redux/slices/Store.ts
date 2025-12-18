@@ -4,6 +4,7 @@ import adminsSlice from "./AdminsSlice";
 import PromotionSlice from "./PromotionsSlice";
 import ImgSlice from "./ImagesSlice";
 import ReelsSlice from "./ReelsSlice";
+import ProfileSlice from "./ProfileSlice";
 
 import VideoSlice from "./VideoSlice";
 export const store = configureStore({
@@ -13,7 +14,8 @@ export const store = configureStore({
     promotions: PromotionSlice,
     img: ImgSlice,
     video: VideoSlice,
-    reels:ReelsSlice
+    reels: ReelsSlice,
+    profile: ProfileSlice,
   },
 });
 

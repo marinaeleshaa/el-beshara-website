@@ -19,7 +19,13 @@ import { Spinner } from "../ui/spinner";
 import { useTranslations } from "next-intl";
 import { MenuItem } from "@/lib/Interfaces/ServiceInterface";
 import { langSelector } from "@/redux/slices/LangSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getProfileDataAction,
+  profileSelector,
+} from "@/redux/slices/ProfileSlice";
+import { CldImage } from "next-cloudinary";
+import { AppDispatch } from "@/redux/slices/Store";
 
 interface NavbarProps {
   logo?: {
@@ -41,16 +47,18 @@ const Navbar = ({
   className,
 }: NavbarProps) => {
   const pathname = usePathname();
+  const dispatch = useDispatch<AppDispatch>();
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { lang } = useSelector(langSelector);
+  const { profile } = useSelector(profileSelector);
   const t = useTranslations("common");
   const menu = t.raw("menu") as MenuItem[];
   const isRTL = lang === "ar";
 
   useEffect(() => {
     setMounted(true);
-    
+    dispatch(getProfileDataAction());
     const handleScroll = () => {
       setScrolled(window.scrollY > 0);
     };
@@ -60,7 +68,9 @@ const Navbar = ({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [dispatch]);
+
+  // console.log(profile);
 
   const LanguageSwitcher = dynamic(() => import("./LanguageSwitcher"), {
     ssr: false,
@@ -86,13 +96,15 @@ const Navbar = ({
           <nav className="hidden md:flex items-center justify-between">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              <Image
-                width={40}
-                height={40}
-                src={logo.src}
-                className="max-h-8 dark:invert"
-                alt={logo.alt}
-              />
+              {profile?.logo?.url && (
+                <Image
+                  width={40}
+                  height={40}
+                  src={profile.logo.url}
+                  className="max-h-8 dark:invert"
+                  alt={logo.alt}
+                />
+              )}
               <span className="text-lg font-semibold tracking-tighter">
                 {t("studioName")}
               </span>
@@ -131,13 +143,16 @@ const Navbar = ({
           <div className="flex md:hidden items-center justify-between px-4">
             {/* Mobile Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              <Image
-                width={40}
-                height={40}
-                src={logo.src}
-                className="max-h-8 dark:invert"
-                alt={logo.alt}
-              />
+              {profile?.logo?.url && (
+                <Image
+                  width={40}
+                  height={40}
+                  src={profile.logo.url}
+                  className="max-h-8 dark:invert"
+                  alt={logo.alt}
+                />
+              )}
+
               <span className="text-lg font-semibold tracking-tighter">
                 {logo.title}
               </span>
@@ -169,13 +184,15 @@ const Navbar = ({
                   <SheetHeader>
                     <SheetTitle className="text-left">
                       <Link href={logo.url} className="flex items-center gap-2">
-                        <Image
-                          width={40}
-                          height={40}
-                          src={logo.src}
-                          className="max-h-8 dark:invert"
-                          alt={logo.alt}
-                        />
+                        {profile?.logo?.url && (
+                          <Image
+                            width={40}
+                            height={40}
+                            src={profile.logo.url}
+                            className="max-h-8 dark:invert"
+                            alt={logo.alt}
+                          />
+                        )}
                         <span>{logo.title}</span>
                       </Link>
                     </SheetTitle>
@@ -234,20 +251,26 @@ const Navbar = ({
         <nav className="hidden md:flex items-center justify-between">
           {/* Logo */}
           <Link href={logo.url} className={`flex items-center gap-2 `}>
-            <Image
-              width={40}
-              height={40}
-              src={logo.src}
-              className="max-h-8 dark:invert"
-              alt={logo.alt}
-            />
+            {profile?.logo?.url && (
+              <Image
+                width={40}
+                height={40}
+                src={profile.logo.url}
+                className="max-h-8 dark:invert"
+                alt={logo.alt}
+              />
+            )}
             <span className="text-lg font-semibold tracking-tighter">
               {t("studioName")}
             </span>
           </Link>
 
           {/* Menu Items */}
-          <div className={`flex items-center gap-6 lg:gap-8 ${isRTL ? "flex-row-reverse" : ""}`}>
+          <div
+            className={`flex items-center gap-6 lg:gap-8 ${
+              isRTL ? "flex-row-reverse" : ""
+            }`}
+          >
             {displayMenu?.map((item) => {
               const isActive =
                 item.url === "/gallery/images"
@@ -269,7 +292,11 @@ const Navbar = ({
           </div>
 
           {/* Desktop Mode Toggle  & Language Switcher*/}
-          <div className={`hidden md:flex items-center gap-4 ${isRTL ? "flex-row-reverse" : ""}`}>
+          <div
+            className={`hidden md:flex items-center gap-4 ${
+              isRTL ? "flex-row-reverse" : ""
+            }`}
+          >
             <ModeToggle />
             <LanguageSwitcher />
           </div>
@@ -279,13 +306,15 @@ const Navbar = ({
         <div className="flex md:hidden items-center justify-between px-4">
           {/* Mobile Logo */}
           <Link href={logo.url} className={`flex items-center gap-2 `}>
-            <Image
-              width={40}
-              height={40}
-              src={logo.src}
-              className="max-h-8 dark:invert"
-              alt={logo.alt}
-            />
+            {profile?.logo?.url && (
+              <Image
+                width={40}
+                height={40}
+                src={profile.logo.url}
+                className="max-h-8 dark:invert"
+                alt={logo.alt}
+              />
+            )}
             <span className="text-lg font-semibold tracking-tighter">
               {t("studioName")}
             </span>
@@ -299,7 +328,9 @@ const Navbar = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  className={`${isRTL ? "mr-2" : "ml-2"} cursor-pointer border-background ${
+                  className={`${
+                    isRTL ? "mr-2" : "ml-2"
+                  } cursor-pointer border-background ${
                     scrolled
                       ? "bg-background border-b text-foreground "
                       : "bg-transparent text-light"
@@ -316,14 +347,21 @@ const Navbar = ({
               >
                 <SheetHeader>
                   <SheetTitle className={isRTL ? "text-right" : "text-left"}>
-                    <Link href={logo.url} className={`flex items-center gap-2 ${isRTL ? "flex-row-reverse" : ""}`}>
-                      <Image
-                        width={40}
-                        height={40}
-                        src={logo.src}
-                        className="max-h-8 dark:invert"
-                        alt={logo.alt}
-                      />
+                    <Link
+                      href={logo.url}
+                      className={`flex items-center gap-2 ${
+                        isRTL ? "flex-row-reverse" : ""
+                      }`}
+                    >
+                      {profile?.logo?.url && (
+                        <Image
+                          width={40}
+                          height={40}
+                          src={profile.logo.url}
+                          className="max-h-8 dark:invert"
+                          alt={logo.alt}
+                        />
+                      )}
                       <span>{t("studioName")}</span>
                     </Link>
                   </SheetTitle>
@@ -348,7 +386,11 @@ const Navbar = ({
                 </div>
 
                 {/* Optional: Mobile Theme Toggle Inside Sheet */}
-                <div className={`pt-6 border-t flex p-5 gap-4 ${isRTL ? "flex-row-reverse" : ""}`}>
+                <div
+                  className={`pt-6 border-t flex p-5 gap-4 ${
+                    isRTL ? "flex-row-reverse" : ""
+                  }`}
+                >
                   <div className="flex justify-center">
                     <ModeToggle />
                   </div>

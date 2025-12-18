@@ -14,7 +14,11 @@ import {
 } from "@/components/ui/sidebar";
 import { FaHome, FaImages } from "react-icons/fa";
 import { GrResources } from "react-icons/gr";
-import { RiAdminLine, RiDiscountPercentFill, RiFolderVideoFill } from "react-icons/ri";
+import {
+  RiAdminLine,
+  RiDiscountPercentFill,
+  RiFolderVideoFill,
+} from "react-icons/ri";
 import { BsFillCameraReelsFill } from "react-icons/bs";
 import { ModeToggle } from "@/components/shared/ModeToggle";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
@@ -22,6 +26,7 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+import { HiOutlineInformationCircle } from "react-icons/hi";
 
 const DashboardSidebar = () => {
   // Get current pathname using Next.js hook
@@ -30,7 +35,7 @@ const DashboardSidebar = () => {
 
   useEffect(() => {
     const updateIsSuperAdmin = async () => {
-      const value =  Cookies.get("isSuperAdmin") === "true";
+      const value = Cookies.get("isSuperAdmin") === "true";
       setIsSuperAdmin(value);
     };
 
@@ -52,12 +57,12 @@ const DashboardSidebar = () => {
       title: "reels",
       url: "/admin/reels",
       icon: <BsFillCameraReelsFill />,
-    },{
-      title:"promotions",
-      url:"/admin/promotions",
-      icon:<RiDiscountPercentFill />
-
-    }
+    },
+    {
+      title: "promotions",
+      url: "/admin/promotions",
+      icon: <RiDiscountPercentFill />,
+    },
   ];
 
   // Helper function to check if a path is active
@@ -83,10 +88,10 @@ const DashboardSidebar = () => {
                   <SidebarMenuButton
                     asChild
                     tooltip={"Home"}
-                    className="text-lg data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                    className="text-lg data-[active=true]:bg-primary data-[active=true]:text-primary-foreground group-data-[collapsible=icon]:justify-center"
                     isActive={isPathActive("/")}
                   >
-                    <Link href={"/"} className="">
+                    <Link href={"/"} className="capitalize  group-data-[collapsible=icon]:pl-4!">
                       <span className="text-xl">
                         <FaHome />
                       </span>
@@ -113,7 +118,7 @@ const DashboardSidebar = () => {
                       className="text-lg data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                       isActive={isPathActive(item.url)}
                     >
-                      <Link href={item.url} className="capitalize">
+                      <Link href={item.url} className="capitalize  group-data-[collapsible=icon]:pl-1.5!">
                         <span className="text-xl">{item.icon}</span>
                         <span>{item.title}</span>
                       </Link>
@@ -125,8 +130,8 @@ const DashboardSidebar = () => {
           </SidebarGroup>
 
           {isSuperAdmin && (
-            <SidebarGroup>
-              <SidebarGroupLabel className="text-primary text-md my-5">
+            <SidebarGroup className="space-y-1">
+              <SidebarGroupLabel className="text-primary text-md my-3">
                 <RiAdminLine className="mr-2" />
                 Admins Management
               </SidebarGroupLabel>
@@ -139,11 +144,30 @@ const DashboardSidebar = () => {
                       className="text-lg data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                       isActive={isPathActive("/admin/admins")}
                     >
-                      <Link href={"/admin/admins"}>
+                      <Link href={"/admin/admins"} className="group-data-[collapsible=icon]:pl-1!">
                         <span className="text-xl">
                           <MdAdminPanelSettings size={25} />
                         </span>
                         <span>Admins</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={"About"}
+                      className="text-lg data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                      isActive={isPathActive("/admin/about")}
+                    >
+                      <Link href={"/admin/about"} className="group-data-[collapsible=icon]:pl-1!">
+                        <span className="text-xl">
+                          <HiOutlineInformationCircle size={25} />
+                        </span>
+                        <span>About</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

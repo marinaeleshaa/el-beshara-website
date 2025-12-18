@@ -1,4 +1,5 @@
 "use client";
+import ConfirmationModal from "@/components/shared/ConfirmationModel";
 import DashboardHero from "@/components/shared/dashboard/DashboardHero";
 import MasonryDashboard from "@/components/shared/dashboard/MasonaryDashboard";
 import MyBtn from "@/components/ui/MyBtn";
@@ -8,6 +9,7 @@ import { images } from "@/data/images";
 import { IImage } from "@/lib/Interfaces/ImgInterface";
 import {
   AddReelsAction,
+  clearSelectedReels,
   deleteOneReelAction,
   deleteReelsAction,
   getReelsAction,
@@ -15,16 +17,21 @@ import {
   setSelectedReels,
 } from "@/redux/slices/ReelsSlice";
 import { AppDispatch } from "@/redux/slices/Store";
+import { clear } from "console";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GrTrash } from "react-icons/gr";
+import { HiOutlineXMark } from "react-icons/hi2";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
+  const [openDeleteAll, setOpenDeleteAll] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { reels, isLoading, meta, selectedReels } = useSelector(reelsSelector);
   const uploadedReelsRef = useRef<CloudinaryUploadWidgetInfo[]>([]);
+  const [selectedReel, setSelectedReel] = useState<string>("");
 
   const fetchReels = useCallback(
     (page: number) => {
@@ -41,13 +48,21 @@ const Page = () => {
     dispatch(setSelectedReels(ids));
   };
 
-  const handleDelete = (id: string) => {
-    dispatch(deleteOneReelAction(id));
+  const handleDelete = async (id: string) => {
+    await dispatch(deleteOneReelAction(id));
+    fetchReels(meta.page);
+    setOpenDelete(false);
   };
 
-  const handleDeleteAll = () => {
-    dispatch(deleteReelsAction(selectedReels));
-    dispatch(setSelectedReels([]));
+  const handleDeleteAll = async () => {
+    await dispatch(deleteReelsAction(selectedReels));
+    dispatch(clearSelectedReels());
+    fetchReels(meta.page);
+    setOpenDeleteAll(false);
+  };
+
+  const handleUnselectAll = () => {
+    dispatch(clearSelectedReels());
   };
 
   if (isLoading) {
@@ -192,10 +207,20 @@ const Page = () => {
                 )}
               </CldUploadWidget>
               {selectedReels.length > 0 && (
-                <MyBtn outline className="gap-2" onClick={handleDeleteAll}>
-                  <GrTrash />
-                  {`Remove ${selectedReels.length}`}
-                </MyBtn>
+                <>
+                  <MyBtn
+                    outline
+                    className="gap-2"
+                    onClick={() => setOpenDeleteAll(true)}
+                  >
+                    <GrTrash />
+                    {`Remove ${selectedReels.length}`}
+                  </MyBtn>
+                  <MyBtn outline className="gap-2" onClick={handleUnselectAll}>
+                    <HiOutlineXMark />
+                    {`Unselect ${selectedReels.length}`}
+                  </MyBtn>
+                </>
               )}
             </div>
 
@@ -204,8 +229,13 @@ const Page = () => {
               <div className="space-y-4">
                 <MasonryDashboard
                   items={reels}
+                  selectedIds={selectedReels}
                   onSelectionChange={handleSelect}
-                  onRemove={handleDelete}
+                  onRemove={(id) => {
+                    setOpenDelete(true);
+                    setSelectedReel(id);
+                  }}
+                  onUnselectAll={handleUnselectAll}
                 />
                 <Pagination
                   totalPages={meta.totalPages}
@@ -216,6 +246,26 @@ const Page = () => {
             </div>
           </>
         )}
+        <ConfirmationModal
+          isOpen={openDeleteAll}
+          onCancel={() => setOpenDeleteAll(false)}
+          variant="danger"
+          onConfirm={handleDeleteAll}
+          title={`Remove ${selectedReels.length} Reels`}
+          message="Are you sure you want to remove these reels?"
+          confirmText="Remove"
+          cancelText="Cancel"
+        />
+        <ConfirmationModal
+          isOpen={openDelete}
+          onCancel={() => setOpenDelete(false)}
+          variant="danger"
+          onConfirm={() => handleDelete(selectedReel)}
+          title={`Remove Reel`}
+          message="Are you sure you want to remove this reel?"
+          confirmText="Remove"
+          cancelText="Cancel"
+        />
       </div>
     </div>
   );

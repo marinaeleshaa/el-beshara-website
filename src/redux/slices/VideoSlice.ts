@@ -80,21 +80,28 @@ const VideoSlice = createSlice({
     setSelectedVideos: (state, action) => {
       state.selectedVideos = action.payload;
     },
+    clearSelectedVideos: (state) => {
+      state.selectedVideos = [];
+    },
   },
   extraReducers: (builder) => {
-    // todo => add images
+    // todo => add video
     builder.addCase(AddVideoAction.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(AddVideoAction.fulfilled, (state, action) => {
       state.videos.unshift(action.payload.data);
+      // Update total count when adding new video
+      state.meta.total += 1;
+      // Recalculate total pages
+      state.meta.totalPages = Math.ceil(state.meta.total / state.meta.limit);
       state.isLoading = false;
     });
     builder.addCase(AddVideoAction.rejected, (state) => {
       state.isLoading = false;
     });
 
-    // todo => get all images
+    // todo => get all videos
     builder.addCase(getVideosAction.pending, (state) => {
       state.isLoading = true;
     });
@@ -107,14 +114,34 @@ const VideoSlice = createSlice({
       state.isLoading = false;
     });
 
-    // todo => delete images
+    // todo => delete videos
     builder.addCase(deleteVideosAction.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(deleteVideosAction.fulfilled, (state, action) => {
+      const deletedCount = action.payload.length;
       state.videos = state.videos.filter(
         (img) => !action.payload.includes(img._id)
       );
+      // remove deleted videos from selectedVideos
+      state.selectedVideos = state.selectedVideos.filter(
+        (id) => !action.payload.includes(id)
+      );
+      // Update total count when deleting videos
+      state.meta.total -= deletedCount;
+      // Recalculate total pages
+      state.meta.totalPages = Math.ceil(state.meta.total / state.meta.limit);
+      // If current page is now empty and we're not on page 1, go back one page
+      if (state.videos.length === 0 && state.meta.page > 1) {
+        state.meta.page -= 1;
+      }
+      // Ensure we don't exceed total pages
+      if (
+        state.meta.page > state.meta.totalPages &&
+        state.meta.totalPages > 0
+      ) {
+        state.meta.page = state.meta.totalPages;
+      }
       state.isLoading = false;
     });
     builder.addCase(deleteVideosAction.rejected, (state) => {
@@ -127,6 +154,24 @@ const VideoSlice = createSlice({
     });
     builder.addCase(deleteOneVideoAction.fulfilled, (state, action) => {
       state.videos = state.videos.filter((img) => img._id !== action.payload);
+      state.selectedVideos = state.selectedVideos.filter(
+        (id) => id !== action.payload
+      )
+      // Update total count when deleting videos
+      state.meta.total -= 1;
+      // Recalculate total pages
+      state.meta.totalPages = Math.ceil(state.meta.total / state.meta.limit);
+      // If current page is now empty and we're not on page 1, go back one page
+      if (state.videos.length === 0 && state.meta.page > 1) {
+        state.meta.page -= 1;
+      }
+      // Ensure we don't exceed total pages
+      if (
+        state.meta.page > state.meta.totalPages &&
+        state.meta.totalPages > 0
+      ) {
+        state.meta.page = state.meta.totalPages;
+      }
       state.isLoading = false;
     });
     builder.addCase(deleteOneVideoAction.rejected, (state) => {
@@ -135,6 +180,6 @@ const VideoSlice = createSlice({
   },
 });
 
-export const { setSelectedVideos } = VideoSlice.actions;
+export const { setSelectedVideos , clearSelectedVideos} = VideoSlice.actions;
 export const videoSelector = (state: RootState) => state.video;
 export default VideoSlice.reducer;

@@ -80,6 +80,9 @@ const ImgSlice = createSlice({
     setSelectedImages: (state, action) => {
       state.selectedImages = action.payload;
     },
+    clearSelectedImages: (state) => {
+      state.selectedImages = [];
+    },
   },
   extraReducers: (builder) => {
     // todo => add images
@@ -88,6 +91,10 @@ const ImgSlice = createSlice({
     });
     builder.addCase(AddImageAction.fulfilled, (state, action) => {
       state.images.unshift(action.payload.data);
+      // Update total count when adding new image
+      state.meta.total += 1;
+      // Recalculate total pages
+      state.meta.totalPages = Math.ceil(state.meta.total / state.meta.limit);
       state.isLoading = false;
     });
     builder.addCase(AddImageAction.rejected, (state) => {
@@ -112,9 +119,31 @@ const ImgSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(deleteImgsAction.fulfilled, (state, action) => {
+      const deletedCount = action.payload.length;
+
       state.images = state.images.filter(
         (img) => !action.payload.includes(img._id)
       );
+      // Remove deleted images from selection
+      state.selectedImages = state.selectedImages.filter(
+        (id) => !action.payload.includes(id)
+      );
+
+      // Update total count
+      state.meta.total -= deletedCount;
+      // Recalculate total pages
+      state.meta.totalPages = Math.ceil(state.meta.total / state.meta.limit);
+      // If current page is now empty and we're not on page 1, go back one page
+      if (state.images.length === 0 && state.meta.page > 1) {
+        state.meta.page -= 1;
+      }
+      // Ensure we don't exceed total pages
+      if (
+        state.meta.page > state.meta.totalPages &&
+        state.meta.totalPages > 0
+      ) {
+        state.meta.page = state.meta.totalPages;
+      }
       state.isLoading = false;
     });
     builder.addCase(deleteImgsAction.rejected, (state) => {
@@ -130,6 +159,18 @@ const ImgSlice = createSlice({
       state.selectedImages = state.selectedImages.filter(
         (id) => id !== action.payload
       );
+      // Update total count
+      state.meta.total -= 1;
+      // Recalculate total pages
+      state.meta.totalPages = Math.ceil(state.meta.total / state.meta.limit);
+      // If current page is now empty and we're not on page 1, go back one page
+      if (state.images.length === 0 && state.meta.page > 1) {
+        state.meta.page -= 1;
+      }
+        // Ensure we don't exceed total pages
+      if (state.meta.page > state.meta.totalPages && state.meta.totalPages > 0) {
+        state.meta.page = state.meta.totalPages;
+      }
       state.isLoading = false;
     });
     builder.addCase(deleteOneImgAction.rejected, (state) => {
@@ -138,6 +179,6 @@ const ImgSlice = createSlice({
   },
 });
 
-export const { setSelectedImages } = ImgSlice.actions;
+export const { setSelectedImages , clearSelectedImages } = ImgSlice.actions;
 export const imgSelector = (state: RootState) => state.img;
 export default ImgSlice.reducer;

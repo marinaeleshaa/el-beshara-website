@@ -173,4 +173,10 @@ img{
   body {
     @apply bg-background text-foreground;
   }
+  html[lang="ar"] body {
+    font-family: var(--font-noto-kufi-arabic), var(--font-geist-sans), sans-serif;
+  }
+  html[lang="en"] body {
+    font-family: var(--font-geist-sans), sans-serif;
+  }
 }
