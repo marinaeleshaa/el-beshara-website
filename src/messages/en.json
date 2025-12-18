@@ -1,4 +1,25 @@
 {
+  "formValidation": {
+    "name": {
+      "min": "Please enter your name"
+    },
+    "email": {
+      "invalid": "Please enter a valid email address",
+      "required": "Please enter an email address"
+    },
+    "phone": {
+      "length": "Phone number must be 11 digits",
+      "required": "Please enter a phone number"
+    },
+    "subject": {
+      "min": "Please enter a subject",
+      "required": "Please enter a subject"
+    },
+    "message": {
+      "min": "Please enter a message",
+      "required": "Please enter a message"
+    }
+  },
   "home": {
     "homeHero": [
       {
@@ -236,7 +257,11 @@
     "successMessage": {
       "title": "Message Sent Successfully",
       "description": "We will get back to you soon."
-    }
+    },
+    "phone": "Phone Number",
+    "email": "Email",
+    "address": "Address"
+
   },
   "common": {
     "menu": [

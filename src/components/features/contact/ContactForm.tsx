@@ -11,7 +11,7 @@ import {
   ContactFormType,
 } from "@/lib/validation/contactFormSchema";
 import toast from "react-hot-toast";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const ContactForm = ({ className }: { className?: string }) => {
   const {
@@ -23,13 +23,16 @@ const ContactForm = ({ className }: { className?: string }) => {
     resolver: zodResolver(ContactFormSchema),
     mode: "onChange",
   });
+  const lang = useLocale();
   const t = useTranslations("contact");
+  const tCommon = useTranslations();
   const onSubmit = (data: ContactFormType) => {
     toast.custom((toastObj) => (
       <div
         className={`${
           toastObj.visible ? "animate-enter" : "animate-leave"
         } pointer-events-auto flex w-full max-w-md rounded-xl bg-background shadow-2xl border border-primary/20 overflow-hidden`}
+        dir={lang === "ar" ? "rtl" : "ltr"}
       >
         {/* Colored side accent */}
         <div className="w-1.5 bg-primary"></div>
@@ -86,7 +89,10 @@ const ContactForm = ({ className }: { className?: string }) => {
   };
 
   return (
-    <div className={`${className} rounded-lg space-y-3 group`}>
+    <div
+      className={`${className} rounded-lg space-y-3 group`}
+      dir={lang === "ar" ? "rtl" : "ltr"}
+    >
       <h1 className="text-primary text-2xl md:text-4xl font-bold capitalize relative animated-underline w-fit">
         {t("title")}
       </h1>
@@ -104,7 +110,9 @@ const ContactForm = ({ className }: { className?: string }) => {
                 className="bg-background"
               />
               {errors.name && (
-                <span className="text-primary">{errors.name.message}</span>
+                <span className="text-primary">
+                  {tCommon(errors.name.message as string)}
+                </span>
               )}
             </Field>
 
@@ -117,7 +125,9 @@ const ContactForm = ({ className }: { className?: string }) => {
                 className="bg-background"
               />
               {errors.email && (
-                <span className="text-primary">{errors.email.message}</span>
+                <span className="text-primary">
+                  {tCommon(errors.email.message as string)}
+                </span>
               )}
             </Field>
 
@@ -130,7 +140,9 @@ const ContactForm = ({ className }: { className?: string }) => {
                 className="bg-background"
               />
               {errors.phone && (
-                <span className="text-primary">{errors.phone.message}</span>
+                <span className="text-primary">
+                  {tCommon(errors.phone.message as string)}
+                </span>
               )}
             </Field>
 
@@ -142,7 +154,9 @@ const ContactForm = ({ className }: { className?: string }) => {
                 className="bg-background"
               />
               {errors.subject && (
-                <span className="text-primary">{errors.subject.message}</span>
+                <span className="text-primary">
+                  {tCommon(errors.subject.message as string)}
+                </span>
               )}
             </Field>
 
@@ -154,7 +168,9 @@ const ContactForm = ({ className }: { className?: string }) => {
                 className="bg-background resize-none h-[150px]"
               />
               {errors.message && (
-                <span className="text-primary">{errors.message.message}</span>
+                <span className="text-primary">
+                  {tCommon(errors.message.message as string)}
+                </span>
               )}
             </Field>
           </FieldGroup>
