@@ -2,24 +2,12 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { langSelector, toggleLang } from "@/redux/slices/LangSlice";
-import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ scrolled }: { scrolled: boolean }) {
   const dispatch = useDispatch();
   const { lang } = useSelector(langSelector);
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+ 
 
   const toggleLanguage = () => {
     dispatch(toggleLang());
