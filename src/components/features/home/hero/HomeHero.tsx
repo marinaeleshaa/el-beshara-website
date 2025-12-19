@@ -65,7 +65,7 @@ const HomeHero = () => {
             transition={{ duration: 1, ease: "easeOut" }}
             className=" max-w-xl flex flex-col justify-center items-center text-center  px-4 text-light"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-3xl leading-snug sm:text-4xl md:text-5xl font-bold mb-4">
               {current.title}
             </h1>
             <p className="text-sm text-light/80 md:text-lg mb-6">
