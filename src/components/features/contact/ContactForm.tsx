@@ -13,6 +13,7 @@ import {
 import toast from "react-hot-toast";
 import { useLocale, useTranslations } from "next-intl";
 import { PhoneInput } from "@/components/ui/PhoneInput";
+import { SendMail } from "@/lib/api/contact";
 
 const ContactForm = ({ className }: { className?: string }) => {
   const {
@@ -26,6 +27,10 @@ const ContactForm = ({ className }: { className?: string }) => {
     mode: "onChange",
     defaultValues: {
       phone: "+20",
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
     },
   });
   const lang = useLocale();
@@ -48,68 +53,70 @@ const ContactForm = ({ className }: { className?: string }) => {
       message: data.message,
     };
 
-    // Log or send formData to your backend
-    console.log("Form Data:", formData);
-
-    toast.custom((toastObj) => (
-      <div
-        className={`${
-          toastObj.visible ? "animate-enter" : "animate-leave"
-        } pointer-events-auto flex w-full max-w-md rounded-xl bg-background shadow-2xl border border-primary/20 overflow-hidden`}
-        dir={lang === "ar" ? "rtl" : "ltr"}
-      >
-        {/* Colored side accent */}
-        <div className="w-1.5 bg-primary"></div>
-
-        <div className="flex flex-1 items-start gap-3 p-4">
-          {/* Success Icon */}
-          <div className="shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-            <svg
-              className="w-5 h-5 text-primary"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M5 13l4 4L19 7"></path>
-            </svg>
-          </div>
-
-          {/* Content */}
-          <div className="flex-1 pt-0.5">
-            <p className="text-sm font-semibold text-primary mb-1">
-              {t("successMessage.title")}
-            </p>
-            <p className="text-sm text-foreground/70">
-              {t("successMessage.description")}
-            </p>
-          </div>
-
-          {/* Close Button */}
-          <button
-            onClick={() => toast.dismiss(toastObj.id)}
-            className="shrink-0 w-8 h-8 rounded-lg hover:bg-secondary/50 transition-colors duration-200 flex items-center justify-center group"
-            aria-label="Close notification"
+   
+    SendMail(formData).then((res) => {
+      console.log(res.status);
+      if (res.status === "success") {
+        toast.custom((toastObj) => (
+          <div
+            className={`${
+              toastObj.visible ? "animate-enter" : "animate-leave"
+            } pointer-events-auto flex w-full max-w-md rounded-xl bg-background shadow-2xl border border-primary/20 overflow-hidden`}
+            dir={lang === "ar" ? "rtl" : "ltr"}
           >
-            <svg
-              className="w-4 h-4 text-foreground/50 group-hover:text-foreground transition-colors"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-    ));
+            {/* Colored side accent */}
+            <div className="w-1.5 bg-primary"></div>
 
-    reset({ phone: "+20" });
+            <div className="flex flex-1 items-start gap-3 p-4">
+              {/* Success Icon */}
+              <div className="shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <svg
+                  className="w-5 h-5 text-primary"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 pt-0.5">
+                <p className="text-sm font-semibold text-primary mb-1">
+                  {t("successMessage.title")}
+                </p>
+                <p className="text-sm text-foreground/70">
+                  {t("successMessage.description")}
+                </p>
+              </div>
+
+              {/* Close Button */}
+              <button
+                onClick={() => toast.dismiss(toastObj.id)}
+                className="shrink-0 w-8 h-8 rounded-lg hover:bg-secondary/50 transition-colors duration-200 flex items-center justify-center group"
+                aria-label="Close notification"
+              >
+                <svg
+                  className="w-4 h-4 text-foreground/50 group-hover:text-foreground transition-colors"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        ));
+        reset();
+      }
+    });
   };
 
   return (

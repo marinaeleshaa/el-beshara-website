@@ -12,7 +12,8 @@
       "required": "Please enter a phone number",
       "invalidFormat": "Phone must start with country code (e.g., +20)",
       "min": "Phone number must be at least 10 digits",
-      "max": "Phone number must be at most 18 digits"
+      "max": "Phone number must be at most 18 digits",
+      "invalidLength": "Phone number length is invalid for the selected country"
     },
     "subject": {
       "min": "Please enter a subject",

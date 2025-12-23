@@ -41,22 +41,16 @@ export const ContactFormSchema = Z.object({
     .nonempty("formValidation.phone.required")
     .regex(/^\+\d{1,4}\d{7,14}$/, "formValidation.phone.invalidFormat")
     .refine((phone) => {
-      // Extract country code (e.g., +20, +1, +44, +966, etc.)
-      const countryCodeMatch = phone.match(/^\+\d{1,4}/);
-      if (!countryCodeMatch) return false;
+      const matchedCountry = Object.keys(countryPhoneLengths)
+        .sort((a, b) => b.length - a.length) // مهم جدًا
+        .find((code) => phone.startsWith(code));
 
-      const countryCode = countryCodeMatch[0];
-      const expectedLength = countryPhoneLengths[countryCode];
-
-      // If country code is not in our list, use a general validation
-      if (!expectedLength) {
+      if (!matchedCountry) {
         return phone.length >= 10 && phone.length <= 18;
       }
 
-      // Check if phone matches the exact length for the country
-      return phone.length === expectedLength;
+      return phone.length === countryPhoneLengths[matchedCountry];
     }, "formValidation.phone.invalidLength"),
-
   subject: Z.string()
     .nonempty("formValidation.subject.required")
     .min(5, "formValidation.subject.min"),
