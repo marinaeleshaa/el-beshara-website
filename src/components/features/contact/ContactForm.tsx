@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import {
 } from "@/lib/validation/contactFormSchema";
 import toast from "react-hot-toast";
 import { useLocale, useTranslations } from "next-intl";
+import { PhoneInput } from "@/components/ui/PhoneInput";
 
 const ContactForm = ({ className }: { className?: string }) => {
   const {
@@ -19,14 +20,37 @@ const ContactForm = ({ className }: { className?: string }) => {
     handleSubmit,
     formState: { errors, isValid },
     reset,
+    control,
   } = useForm<ContactFormType>({
     resolver: zodResolver(ContactFormSchema),
     mode: "onChange",
+    defaultValues: {
+      phone: "+20",
+    },
   });
   const lang = useLocale();
   const t = useTranslations("contact");
   const tCommon = useTranslations();
+
   const onSubmit = (data: ContactFormType) => {
+    // Create the form data object
+    const formData: {
+      name: string;
+      phone: string;
+      email: string;
+      subject: string;
+      message: string;
+    } = {
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      subject: data.subject,
+      message: data.message,
+    };
+
+    // Log or send formData to your backend
+    console.log("Form Data:", formData);
+
     toast.custom((toastObj) => (
       <div
         className={`${
@@ -85,7 +109,7 @@ const ContactForm = ({ className }: { className?: string }) => {
       </div>
     ));
 
-    reset();
+    reset({ phone: "+20" });
   };
 
   return (
@@ -133,11 +157,18 @@ const ContactForm = ({ className }: { className?: string }) => {
 
             <Field>
               <FieldLabel>{t("phoneInput.label")}</FieldLabel>
-              <Input
-                {...register("phone")}
-                placeholder={t("phoneInput.placeholder")}
-                type="tel"
-                className="bg-background"
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <PhoneInput
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="+20 123 456 7890"
+                    error={!!errors.phone}
+                    dir={lang === "ar" ? "rtl" : "ltr"}
+                  />
+                )}
               />
               {errors.phone && (
                 <span className="text-primary">
