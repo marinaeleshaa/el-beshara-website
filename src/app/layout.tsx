@@ -25,6 +25,10 @@ export const metadata: Metadata = {
   description: "Creating amazing musical experiences for the world.",
 };
 
+
+
+
+
 export default async function RootLayout({
   children,
 }: Readonly<{
