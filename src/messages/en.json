@@ -9,7 +9,11 @@
     },
     "phone": {
       "length": "Phone number must be 11 digits",
-      "required": "Please enter a phone number"
+      "required": "Please enter a phone number",
+      "invalidFormat": "Phone must start with country code (e.g., +20)",
+      "min": "Phone number must be at least 10 digits",
+      "max": "Phone number must be at most 18 digits",
+      "invalidLength": "Phone number length is invalid for the selected country"
     },
     "subject": {
       "min": "Please enter a subject",
@@ -233,7 +237,7 @@
   "contact": {
     "title": "Get in Touch",
     "description": "Get in touch with us for a professional recording, mixing, or mastering session. We're here to help you bring your musical vision to life.",
-    "nameInput":{
+    "nameInput": {
       "label": "Name",
       "placeholder": "Enter your name"
     },
@@ -261,7 +265,6 @@
     "phone": "Phone Number",
     "email": "Email",
     "address": "Address"
-
   },
   "common": {
     "menu": [
@@ -288,27 +291,27 @@
     "contactUs": "Contact Us",
     "studioSlogan": "Creating amazing musical experiences for the world."
   },
-  "promotion":{
-    "hero":{
-      "badge":"Execlusive Offer",
-      "title1":"Amazing Promotions ",
-      "title2":"Just for you",
-      "description":" Discover unbeatable deals and limited-time offers. Save big on your favorite products and services.",
-      "activeDeals":"Active Deals",
-      "upTo":"Up to",
-      "discount":"Discounts"
+  "promotion": {
+    "hero": {
+      "badge": "Execlusive Offer",
+      "title1": "Amazing Promotions ",
+      "title2": "Just for you",
+      "description": " Discover unbeatable deals and limited-time offers. Save big on your favorite products and services.",
+      "activeDeals": "Active Deals",
+      "upTo": "Up to",
+      "discount": "Discounts"
     },
-    "slider":{
-      "currentOffer":"Current Offer",
-      "offers":"Offers",
-      "offer":"Offer",
-      "scroll":"Scroll To See More Offers",
-      "stayTuned":"Stay Tuned"
+    "slider": {
+      "currentOffer": "Current Offer",
+      "offers": "Offers",
+      "offer": "Offer",
+      "scroll": "Scroll To See More Offers",
+      "stayTuned": "Stay Tuned"
     },
-    "card":{
-      "btnText":"Get the Offer",
-      "active":"Active",
-      "remaining":"days left"
+    "card": {
+      "btnText": "Get the Offer",
+      "active": "Active",
+      "remaining": "days left"
     }
   }
 }
