@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
+import { useLocale } from "next-intl";
 
 interface Country {
   name: string;
@@ -13,17 +14,59 @@ interface Country {
 
 const countries: Country[] = [
   { name: "Egypt", code: "EG", dialCode: "+20", flag: "🇪🇬", phoneLength: 13 },
-  { name: "United States", code: "US", dialCode: "+1", flag: "🇺🇸", phoneLength: 12 },
-  { name: "United Kingdom", code: "GB", dialCode: "+44", flag: "🇬🇧", phoneLength: 13 },
-  { name: "Saudi Arabia", code: "SA", dialCode: "+966", flag: "🇸🇦", phoneLength: 13 },
-  { name: "United Arab Emirates", code: "AE", dialCode: "+971", flag: "🇦🇪", phoneLength: 13 },
+  {
+    name: "United States",
+    code: "US",
+    dialCode: "+1",
+    flag: "🇺🇸",
+    phoneLength: 12,
+  },
+  {
+    name: "United Kingdom",
+    code: "GB",
+    dialCode: "+44",
+    flag: "🇬🇧",
+    phoneLength: 13,
+  },
+  {
+    name: "Saudi Arabia",
+    code: "SA",
+    dialCode: "+966",
+    flag: "🇸🇦",
+    phoneLength: 13,
+  },
+  {
+    name: "United Arab Emirates",
+    code: "AE",
+    dialCode: "+971",
+    flag: "🇦🇪",
+    phoneLength: 13,
+  },
   { name: "Kuwait", code: "KW", dialCode: "+965", flag: "🇰🇼", phoneLength: 12 },
   { name: "Qatar", code: "QA", dialCode: "+974", flag: "🇶🇦", phoneLength: 12 },
-  { name: "Bahrain", code: "BH", dialCode: "+973", flag: "🇧🇭", phoneLength: 12 },
+  {
+    name: "Bahrain",
+    code: "BH",
+    dialCode: "+973",
+    flag: "🇧🇭",
+    phoneLength: 12,
+  },
   { name: "Oman", code: "OM", dialCode: "+968", flag: "🇴🇲", phoneLength: 12 },
   { name: "Jordan", code: "JO", dialCode: "+962", flag: "🇯🇴", phoneLength: 13 },
-  { name: "Lebanon", code: "LB", dialCode: "+961", flag: "🇱🇧", phoneLength: 12 },
-  { name: "Palestine", code: "PS", dialCode: "+970", flag: "🇵🇸", phoneLength: 13 },
+  {
+    name: "Lebanon",
+    code: "LB",
+    dialCode: "+961",
+    flag: "🇱🇧",
+    phoneLength: 12,
+  },
+  {
+    name: "Palestine",
+    code: "PS",
+    dialCode: "+970",
+    flag: "🇵🇸",
+    phoneLength: 13,
+  },
   { name: "Iraq", code: "IQ", dialCode: "+964", flag: "🇮🇶", phoneLength: 14 },
   { name: "Syria", code: "SY", dialCode: "+963", flag: "🇸🇾", phoneLength: 13 },
   { name: "Turkey", code: "TR", dialCode: "+90", flag: "🇹🇷", phoneLength: 13 },
@@ -32,12 +75,30 @@ const countries: Country[] = [
   { name: "Italy", code: "IT", dialCode: "+39", flag: "🇮🇹", phoneLength: 13 },
   { name: "Spain", code: "ES", dialCode: "+34", flag: "🇪🇸", phoneLength: 12 },
   { name: "Canada", code: "CA", dialCode: "+1", flag: "🇨🇦", phoneLength: 12 },
-  { name: "Australia", code: "AU", dialCode: "+61", flag: "🇦🇺", phoneLength: 12 },
+  {
+    name: "Australia",
+    code: "AU",
+    dialCode: "+61",
+    flag: "🇦🇺",
+    phoneLength: 12,
+  },
   { name: "India", code: "IN", dialCode: "+91", flag: "🇮🇳", phoneLength: 13 },
-  { name: "Pakistan", code: "PK", dialCode: "+92", flag: "🇵🇰", phoneLength: 13 },
+  {
+    name: "Pakistan",
+    code: "PK",
+    dialCode: "+92",
+    flag: "🇵🇰",
+    phoneLength: 13,
+  },
   { name: "China", code: "CN", dialCode: "+86", flag: "🇨🇳", phoneLength: 14 },
   { name: "Japan", code: "JP", dialCode: "+81", flag: "🇯🇵", phoneLength: 13 },
-  { name: "South Korea", code: "KR", dialCode: "+82", flag: "🇰🇷", phoneLength: 13 },
+  {
+    name: "South Korea",
+    code: "KR",
+    dialCode: "+82",
+    flag: "🇰🇷",
+    phoneLength: 13,
+  },
 ];
 
 interface PhoneInputProps {
@@ -61,6 +122,7 @@ export const PhoneInput = ({
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const lang = useLocale();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -98,7 +160,7 @@ export const PhoneInput = ({
     // Update phone value with new country code
     const currentNumber = value.replace(/^\+\d+/, "").trim();
     const newValue = country.dialCode + currentNumber;
-    
+
     // Apply max length validation for new country
     if (newValue.length <= country.phoneLength) {
       onChange(newValue);
@@ -120,7 +182,9 @@ export const PhoneInput = ({
     }
 
     // Apply max length validation based on selected country
-    const fullNumber = selectedCountry.dialCode + inputValue.replace(selectedCountry.dialCode, "");
+    const fullNumber =
+      selectedCountry.dialCode +
+      inputValue.replace(selectedCountry.dialCode, "");
     if (fullNumber.length <= selectedCountry.phoneLength) {
       onChange(fullNumber);
     }
@@ -159,6 +223,7 @@ export const PhoneInput = ({
               {/* Search */}
               <div className="p-2 border-b border-input sticky top-0 bg-background">
                 <input
+                  dir={lang === "ar" ? "rtl" : "ltr"}
                   type="text"
                   placeholder="Search country..."
                   value={searchQuery}
@@ -207,7 +272,9 @@ export const PhoneInput = ({
             onChange={handlePhoneChange}
             placeholder={placeholder.replace(/^\+\d+\s*/, "")}
             dir={dir}
-            maxLength={selectedCountry.phoneLength - selectedCountry.dialCode.length}
+            maxLength={
+              selectedCountry.phoneLength - selectedCountry.dialCode.length
+            }
             className={`w-full px-3 py-2 rounded-md border ${
               error ? "border-primary" : "border-input"
             } bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors h-[42px] ${
@@ -215,7 +282,11 @@ export const PhoneInput = ({
             }`}
           />
           {value.length > 0 && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-foreground/50">
+            <div
+              className={`absolute ${
+                dir === "rtl" ? "left-3" : "right-3"
+              } top-1/2 -translate-y-1/2 text-xs text-foreground/50`}
+            >
               {value.length}/{selectedCountry.phoneLength}
             </div>
           )}
