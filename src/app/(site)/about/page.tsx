@@ -2,8 +2,9 @@ import AboutLayout from "@/components/features/about/AboutLayout";
 import PageHero from "@/components/shared/PageHero";
 
 export const metadata = {
-  title: "About | El-Beshara Studio",
-  description: "Creating amazing musical experiences for the world.",
+  title: "About Us | El-Beshara Charity",
+  description:
+    "Learn about our mission to serve the community with faith-based charitable programs and support services.",
 };
 const page = () => {
   return (
