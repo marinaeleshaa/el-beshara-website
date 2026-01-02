@@ -198,6 +198,7 @@
     "title": "Our Music Studio",
     "subtitle": "Supporting Charity Through Creative Excellence",
     "description": "El-Beshara also operates a professional music studio to support Christian artists and worship teams. All proceeds from studio services directly support our charitable programs and community outreach.",
+    "badge": "Professional Studio Services",
     "studioServices": {
       "reserve": {
         "id": 1,
