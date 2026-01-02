@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -60,29 +61,38 @@ const MyBtn = ({
   outline = false,
   type = "button",
   disabled = false,
-  children
+  children,
 }: IBtn) => {
   const router = useRouter();
+  const locale = useLocale();
+  const dir = locale === "ar" ? "rtl" : "ltr";
 
   const handleClick = () => {
     if (onClick) onClick();
     if (href) router.push(href);
   };
 
+  const widthClass = width === "fit" ? "w-fit" : width === "full" ? "w-full" : "w-auto";
+
   return (
     <button
-      className={` ${CheckVariant(variant, outline)} ${className} flex justify-center items-center ${
-        icon ? "gap-2" : ""
-      } font-semibold  px-4 py-2 hover:scale-105 transition duration-300 cursor-pointer capitalize w-${width} rounded-lg ${disabled ? "opacity-50 cursor-not-allowed hover:scale-none" : ""}`}
+      className={`${CheckVariant(
+        variant,
+        outline
+      )} ${className} flex justify-center items-center font-semibold px-4 py-2 hover:scale-105 transition duration-300 cursor-pointer capitalize ${widthClass} rounded-lg ${
+        disabled ? "opacity-50 cursor-not-allowed hover:scale-100" : ""
+      }`}
       onClick={handleClick}
       type={type}
+      dir={dir}
+      disabled={disabled}
     >
       {icon && (
-        <span className=" transition duration-500">
+        <span className={`transition duration-500 ${dir === "rtl" ? "ms-2" : "me-2"}`}>
           {icon}
         </span>
       )}
-      {text}
+      <span>{text}</span>
       {children}
     </button>
   );

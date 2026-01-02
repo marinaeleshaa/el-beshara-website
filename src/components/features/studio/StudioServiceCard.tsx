@@ -1,6 +1,7 @@
 import MyBtn from "@/components/ui/MyBtn";
 import DynamicIcon from "@/hooks/DynamicIconHook";
 import { IService } from "@/lib/Interfaces/ServiceInterface";
+import { getLocale } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,6 +12,9 @@ const StudioServiceCard = async ({
   service: IService;
   index: number;
 }) => {
+
+    const locale = await getLocale();
+    const isRTL = locale === "ar";
 
   return (
     <div
@@ -113,11 +117,12 @@ const StudioServiceCard = async ({
           <Link href={service.action.href} className="mt-auto">
             <MyBtn
               width="full"
-              // className="w-full bg-linear-to-r from-primary via-primary/90 to-primary/80 hover:from-primary/90 hover:via-primary/80 hover:to-primary/70 text-white font-bold shadow-lg hover:shadow-primary/40 transition-all duration-300 group/btn"
+              variant="primary"
+            //   className={`${isRTL ? "flex-row-reverse" : ""}  }`}
             >
               <span>{service.action.text}</span>
-              <span className="ml-2 group-hover/btn:translate-x-1 transition-transform">
-                →
+              <span className={`ms-2 group-hover/btn:translate-x-1 transition-transform ${isRTL ? "rotate-180" : ""}`}>
+                <DynamicIcon iconName="FaArrowRightLong" />
               </span>
             </MyBtn>
           </Link>
