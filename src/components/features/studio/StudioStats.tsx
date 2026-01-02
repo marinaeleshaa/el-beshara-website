@@ -10,7 +10,7 @@ const StudioStats = () => {
 
   return (
     <section
-      className="py-16 bg-gradient-to-br from-primary/5 to-primary/10 rounded-3xl"
+      className="py-16 bg-secondary/70 rounded-3xl"
       dir={isRTL ? "rtl" : "ltr"}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 px-8 md:px-16">
