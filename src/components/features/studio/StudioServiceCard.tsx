@@ -12,9 +12,8 @@ const StudioServiceCard = async ({
   service: IService;
   index: number;
 }) => {
-
-    const locale = await getLocale();
-    const isRTL = locale === "ar";
+  const locale = await getLocale();
+  const isRTL = locale === "ar";
 
   return (
     <div
@@ -37,8 +36,14 @@ const StudioServiceCard = async ({
           }`}
         >
           {/* Image Number Badge */}
-          <div className="absolute -top-4 -left-4 z-20 w-12 h-12 rounded-full bg-linear-to-br from-primary via-primary/80 to-primary/60 flex items-center justify-center text-xl font-black text-white shadow-xl border-4 border-background">
-            {index + 1}
+          <div
+            className={`absolute -top-6 ${
+              index % 2 === 0 ? "-left-6" : "-right-6"
+            } z-20`}
+          >
+            <div className="w-15 h-15 rounded-2xl bg-linear-to-br from-primary to-primary/60 flex items-center justify-center text-4xl font-black text-white shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+              {index + 1}
+            </div>
           </div>
 
           <div className="relative h-87.5 lg:h-full min-h-100 rounded-2xl overflow-hidden">
@@ -118,10 +123,14 @@ const StudioServiceCard = async ({
             <MyBtn
               width="full"
               variant="primary"
-            //   className={`${isRTL ? "flex-row-reverse" : ""}  }`}
+              //   className={`${isRTL ? "flex-row-reverse" : ""}  }`}
             >
               <span>{service.action.text}</span>
-              <span className={`ms-2 group-hover/btn:translate-x-1 transition-transform ${isRTL ? "rotate-180" : ""}`}>
+              <span
+                className={`ms-2 group-hover/btn:translate-x-1 transition-transform ${
+                  isRTL ? "rotate-180" : ""
+                }`}
+              >
                 <DynamicIcon iconName="FaArrowRightLong" />
               </span>
             </MyBtn>
