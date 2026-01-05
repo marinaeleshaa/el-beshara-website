@@ -9,7 +9,7 @@ const AboutMainSection = () => {
       <Animate className="w-full lg:w-1/3" amount={0}>
         <AboutMainLeft className="w-full  " />
       </Animate>
-      <Animate className="w-full lg:w-2/3" delay={0.5} amount={0}>
+      <Animate className="w-full lg:w-2/3" myDelay amount={0}>
         <AboutMainRight className="w-full " />
       </Animate>
     </div>
