@@ -1,4 +1,3 @@
-import React from "react";
 import Animate from "@/components/ui/Animate";
 import ImpactHomeRight from "./ImpactHomeRight";
 import ImpactHomeLeft from "./ImpactHomeLeft";
@@ -9,7 +8,7 @@ const ImpactHomeLayout = () => {
       <Animate className="w-full md:w-1/2">
         <ImpactHomeRight className="w-full " />
       </Animate>
-      <Animate className="w-[80%] mx-auto md:w-1/2" delay={0.5}>
+      <Animate className="w-myWidth  mx-auto md:w-1/2!" myDelay>
         <ImpactHomeLeft className="w-full " />
       </Animate>
     </div>

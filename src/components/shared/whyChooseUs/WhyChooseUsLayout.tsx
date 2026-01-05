@@ -1,4 +1,3 @@
-import React from "react";
 import WhyChooseUsLeft from "./WhyChooseUsLeft";
 import WhyChooseUsRight from "./WhyChooseUseRight";
 import WhyChooseUsBottom from "./WhyChooseUsBottom";
@@ -13,7 +12,7 @@ const WhyChooseUsLayout = () => {
           <WhyChooseUsLeft className="w-full h-64 md:h-96 " />
         </Animate>
         {/* Right Content - Takes 2 columns on desktop */}
-        <Animate className="w-full md:col-span-2 " delay={0.5}>
+        <Animate className="w-full md:col-span-2 " myDelay>
           <WhyChooseUsRight className="w-full md:col-span-2 h-full " />
         </Animate>
         {/* Bottom Image - Full width on all screens */}

@@ -1,10 +1,10 @@
 import Animate from "@/components/ui/Animate";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-const FixedHomeImgLayout = () => {
-  const t = useTranslations("common");
+const FixedHomeImgLayout = async() => {
+  const t = await getTranslations("common");
   return (
-    <div className="w-full h-[300px] relative overflow-hidden">
+    <div className="w-full h-75 relative overflow-hidden">
       {/* Background */}
       <div className="absolute overflow-hidden inset-0 bg-[url('/home/fixed.jpg')] bg-cover bg-center bg-fixed"></div>
 

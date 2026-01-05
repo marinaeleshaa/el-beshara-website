@@ -1,10 +1,9 @@
 import Image from "next/image";
-import React from "react";
 
 const ImpactHomeLeft = ({ className }: { className?: string }) => {
   return (
     <div className={`${className}`}>
-      <div className="w-full h-[300px] md:h-[500px] sm:h-[500px] relative">
+      <div className="w-full h-75 md:h-125 sm:h-125 relative">
         <Image
           src="/home/2.jpg"
           alt="charity impact"
