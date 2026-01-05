@@ -10,6 +10,7 @@
   .w-myWidth {
     width: var(--myWidth);
   }
+  
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
@@ -90,6 +91,7 @@ img{
 }
 
 :root {
+  --delay:0.5;
   --myWidth: 80%;
   --light: #f2f5fa;
   --light-foreground: #1c2826;

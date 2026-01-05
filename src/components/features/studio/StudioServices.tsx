@@ -1,7 +1,7 @@
 import { IService } from "@/lib/Interfaces/ServiceInterface";
 import Animate from "@/components/ui/Animate";
-import StudioServiceCard from "./StudioServiceCard";
 import { getLocale, getTranslations } from "next-intl/server";
+import ServiceCard from "../services/ServiceCard";
 
 const StudioServices = async () => {
   const t = await getTranslations("studio");
@@ -35,9 +35,11 @@ const StudioServices = async () => {
       {/* Services Cards Grid */}
       <div className="space-y-24">
         {servicesArray.map((service, index) => (
-          <Animate key={index + 1} duration={0.5}>
-            <StudioServiceCard service={service} index={index} />
-          </Animate>
+          <ServiceCard
+            key={service.id}
+            service={service}
+            index={index}
+          />
         ))}
       </div>
     </section>
