@@ -3,9 +3,6 @@ import { revalidateTag } from "next/cache";
 import { IProfile } from "../Interfaces/AboutInterface";
 import { cookies } from "next/headers";
 
-const cookiesObj = await cookies();
-const token = cookiesObj.get("token")?.value;
-
 export async function getAbout(): Promise<
   IProfile | { success: false; message: string }
 > {
@@ -31,12 +28,16 @@ export async function getAbout(): Promise<
 }
 
 export async function UpdateAbout(data: IProfile) {
+  const cookiesObj = await cookies();
+  const token = cookiesObj.get("token")?.value;
   try {
     const res = await fetch(`${process.env.SERVERBASE}/about`, {
       method: "PUT",
       body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" , Authorization: `Bearer ${token}` },
-
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     revalidateTag("about", "default");
     return res.json();
