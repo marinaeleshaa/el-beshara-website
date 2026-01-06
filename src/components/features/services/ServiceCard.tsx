@@ -77,7 +77,7 @@ const ServiceCard = async ({
               {/* Content Header */}
               <div className="space-y-2.5 mb-5">
                 {service.subtitle && (
-                  <div className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold">
+                  <div className="inline-block px-4 py-1.5 bg-primary/10  text-primary dark:bg-secondary dark:text-secondary-foreground/70 rounded-lg text-sm font-semibold">
                     {service.subtitle}
                   </div>
                 )}
