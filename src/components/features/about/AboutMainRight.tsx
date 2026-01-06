@@ -17,7 +17,7 @@ const AboutMainRight = async ({ className }: { className: string }) => {
   const valuesData = t.raw("valuesContent") as string[];
   return (
     <div className={`${className} flex flex-col md:flex-row gap-5 h-auto  `}>
-      <div className=" shrink-0 sm:h-[600px] md:h-[535px]">
+      <div className=" shrink-0 sm:h-150 md:h-133.75">
         <Image
           src="/home/about2.jpg"
           alt="about"

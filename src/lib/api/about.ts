@@ -1,11 +1,22 @@
+"use server";
+import { revalidateTag } from "next/cache";
 import { IProfile } from "../Interfaces/AboutInterface";
+import { cookies } from "next/headers";
 
-export async function getAbout() {
+const cookiesObj = await cookies();
+const token = cookiesObj.get("token")?.value;
+
+export async function getAbout(): Promise<
+  IProfile | { success: false; message: string }
+> {
   try {
-    const res = await fetch(`/api/about`, {
+    const res = await fetch(`${process.env.SERVERBASE}/about`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+      },
+      next: {
+        tags: ["about"],
       },
     });
     const result = await res.json();
@@ -21,11 +32,13 @@ export async function getAbout() {
 
 export async function UpdateAbout(data: IProfile) {
   try {
-    const res = await fetch(`/api/about`, {
+    const res = await fetch(`${process.env.SERVERBASE}/about`, {
       method: "PUT",
       body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" , Authorization: `Bearer ${token}` },
+
     });
+    revalidateTag("about", "default");
     return res.json();
   } catch (err) {
     if (err instanceof Error) return { success: false, message: err.message };

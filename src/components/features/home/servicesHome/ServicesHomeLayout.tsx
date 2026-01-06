@@ -1,11 +1,10 @@
-import React from "react";
 import ServiceCard from "./ServiceCard";
-import { useTranslations } from "next-intl";
 import { IService } from "@/lib/Interfaces/ServiceInterface";
 import Animate from "@/components/ui/Animate";
+import { getTranslations } from "next-intl/server";
 
-const ServicesHomeLayout = () => {
-  const t = useTranslations("ourServices");
+const ServicesHomeLayout = async () => {
+  const t = await getTranslations("ourServices");
   const ServicesData = t.raw("servicesData") as IService[];
   const servicesArray = Object.values(ServicesData);
   return (
@@ -23,7 +22,7 @@ const ServicesHomeLayout = () => {
       <div className="w-myWidth   mx-auto flex flex-col gap-10  px-4 py-10">
         <div className=" grid grid-cols-1 gap-10 md:grid-cols-3">
           {servicesArray.map((service, i) => (
-            <Animate key={i} delay={i * 0.4} duration={0.5}>
+            <Animate key={service.id} delay={i * 0.4}>
               <ServiceCard key={service.id} service={service} />
             </Animate>
           ))}

@@ -21,8 +21,9 @@ const notoKufiArabic = Noto_Kufi_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "El-Beshara Studio | Home",
-  description: "Creating amazing musical experiences for the world.",
+  title: "El-Beshara Charity | Home",
+  description:
+    "Serving our community with faith, hope, and love through charitable programs and support services.",
 };
 
 
@@ -36,10 +37,13 @@ export default async function RootLayout({
 }>) {
   const { cookies } = await import("next/headers");
   const cookieStore = await cookies();
-  const locale = cookieStore.get("NEXT_LOCALE")?.value || cookieStore.get("locale")?.value || "en";
-  
+  const locale =
+    cookieStore.get("NEXT_LOCALE")?.value ||
+    cookieStore.get("locale")?.value ||
+    "en";
+
   return (
-    <html lang={locale} suppressHydrationWarning >
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoKufiArabic.variable} antialiased`}
       >

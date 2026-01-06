@@ -1,15 +1,14 @@
 import AboutHomeSectionLayout from "./aboutHome/AboutHomeSectionLayout";
 import ServicesHomeLayout from "./servicesHome/ServicesHomeLayout";
 import FixedHomeImgLayout from "./fixedHomeImg/FixedHomeImgLayout";
-import GalleryHomeLayout from "./studioHome/StudioHomeLayout";
+import ImpactHomeLayout from "./impactHome/ImpactHomeLayout";
 import WhyChooseUsLayout from "@/components/shared/whyChooseUs/WhyChooseUsLayout";
 import HomeHero from "./hero/HomeHero";
-import PromotionHomeLayout from "./promotions/PromotionHomeLayout";
 
 const HomeLayout = () => {
   return (
     <div>
-      <HomeHero/>
+      <HomeHero />
       <div className="space-y-20">
         <div className="w-myWidth mx-auto relative ">
           <AboutHomeSectionLayout />
@@ -17,12 +16,10 @@ const HomeLayout = () => {
         <ServicesHomeLayout />
         <FixedHomeImgLayout />
         <div className="w-myWidth space-y-20 mx-auto relative ">
-          <GalleryHomeLayout/>
-          <PromotionHomeLayout/>
-          <WhyChooseUsLayout/>
+          <ImpactHomeLayout />
+          <WhyChooseUsLayout />
         </div>
       </div>
-     
     </div>
   );
 };
