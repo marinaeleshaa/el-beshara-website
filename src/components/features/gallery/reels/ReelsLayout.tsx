@@ -1,9 +1,12 @@
 "use client";
 
 import Masonry from "@/components/Masonry";
+import EmptyState from "@/components/shared/EmptyState";
 import Pagination from "@/components/ui/Pagination";
 import { Spinner } from "@/components/ui/spinner";
 import { IMediaItem } from "@/lib/Interfaces/ImgInterface";
+import { FilmIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface ReelsLayoutProps {
@@ -20,11 +23,14 @@ const ReelsLayout = ({
   const [reels, setReels] = useState(initialReels);
   const [meta, setMeta] = useState(initialMeta);
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("emptyState.reels");
 
   const fetchPage = async (page: number) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/get-reels?page=${page}&limit=20&isReel=true`);
+      const res = await fetch(
+        `/api/get-reels?page=${page}&limit=20&isReel=true`
+      );
       const result = await res.json();
 
       setReels(result.data);
@@ -38,11 +44,22 @@ const ReelsLayout = ({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-100">
         <Spinner className="w-20 h-20" />
       </div>
     );
   }
+
+  if (reels.length === 0)
+    return (
+      <div className="text-center">
+        <EmptyState
+          title={t("title")}
+          icon={<FilmIcon size={100} />}
+          description={t("description")}
+        />
+      </div>
+    );
   return (
     <div>
       <Masonry items={reels} />

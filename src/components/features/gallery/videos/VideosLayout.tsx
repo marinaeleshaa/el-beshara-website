@@ -1,9 +1,12 @@
 "use client";
 
 import Masonry from "@/components/Masonry";
+import EmptyState from "@/components/shared/EmptyState";
 import Pagination from "@/components/ui/Pagination";
 import { Spinner } from "@/components/ui/spinner";
 import { IMediaItem } from "@/lib/Interfaces/ImgInterface";
+import { FilmIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface VideosLayoutProps {
@@ -20,6 +23,7 @@ const VideosLayout = ({
   const [videos, setVideos] = useState(initialVideos);
   const [meta, setMeta] = useState(initialMeta);
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("emptyState.videos");
 
   const fetchPage = async (page: number) => {
     setLoading(true);
@@ -38,8 +42,20 @@ const VideosLayout = ({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-100">
         <Spinner className="w-20 h-20" />
+      </div>
+    );
+  }
+
+  if (videos.length === 0) {
+    return (
+      <div className="text-center">
+        <EmptyState
+          title={t("title")}
+          icon={<FilmIcon size={100} />}
+          description={t("description")}
+        />
       </div>
     );
   }
