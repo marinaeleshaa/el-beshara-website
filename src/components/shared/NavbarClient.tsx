@@ -72,7 +72,6 @@ const NavbarClient = ({
       } ${className}`}
     >
       <div className="max-w-[80%] mx-auto">
-
         {/* ================= Desktop ================= */}
         <nav className="hidden md:flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
@@ -99,9 +98,7 @@ const NavbarClient = ({
                 <Link
                   key={item.title}
                   href={item.url}
-                  className={`link-underline ${
-                    isActive ? "link-active" : ""
-                  }`}
+                  className={`link-underline ${isActive ? "link-active" : ""}`}
                 >
                   {item.title}
                 </Link>
@@ -119,19 +116,14 @@ const NavbarClient = ({
         <div className="flex md:hidden justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
             {profile?.logo?.url && (
-              <Image
-                src={profile.logo.url}
-                alt="logo"
-                width={40}
-                height={40}
-              />
+              <Image src={profile.logo.url} alt="logo" width={40} height={40} />
             )}
             <span className="font-semibold">{studioName}</span>
           </Link>
 
-          <Sheet open={open} onOpenChange={setOpen}>
+          <Sheet open={open} onOpenChange={setOpen} >
             <SheetTrigger asChild>
-              <Button size="icon" variant="outline">
+              <Button size="icon" variant="outline" className=" bg-transparent cursor-pointer">
                 <Menu />
               </Button>
             </SheetTrigger>
@@ -141,21 +133,21 @@ const NavbarClient = ({
                 <SheetTitle>{studioName}</SheetTitle>
               </SheetHeader>
 
-              <div className="mt-6 flex flex-col gap-4">
+              <div className="mt-6 flex flex-col gap-4 p-4 ">
                 {menu.map((item) => (
                   <Link
                     key={item.title}
                     href={item.url}
                     onClick={() => setOpen(false)}
-                    className="font-semibold border-b pb-2"
+                    className="font-semibold border-b pb-2 hover:text-primary hover:border-primary transition-all duration-300 ease-in-out hover:ms-4 "
                   >
                     {item.title}
                   </Link>
                 ))}
               </div>
 
-              <div className="flex gap-4 mt-6">
-                <ModeToggle />
+              <div className="flex gap-4  p-4">
+                <ModeToggle  />
                 <LanguageSwitcher scrolled={scrolled} />
               </div>
             </SheetContent>
