@@ -433,5 +433,20 @@
       "active": "Active",
       "remaining": "days left"
     }
+  },
+  "emptyState": {
+  "images": {
+    "title": "No Images Yet",
+    "description": "There are no images to show at the moment."
+  },
+  "videos": {
+    "title": "No Videos Yet",
+    "description": "There are no videos available right now."
+  },
+  "reels": {
+    "title": "No Reels Yet",
+    "description": "There are no reels to display at the moment."
   }
+}
+
 }
