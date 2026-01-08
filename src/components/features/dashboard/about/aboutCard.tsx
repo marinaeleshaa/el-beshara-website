@@ -1,7 +1,6 @@
 "use client";
 
-import { Mail, Phone, MapPin, Edit2 } from "lucide-react";
-import { Facebook, Twitter, Instagram, Linkedin, Globe } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, Globe , Mail, Phone, MapPin, Edit2} from "lucide-react";
 import MyBtn from "@/components/ui/MyBtn";
 import Link from "next/link";
 import { IProfile } from "@/lib/Interfaces/AboutInterface";
@@ -69,7 +68,7 @@ const AboutCard = ({
               />
             </div>
             <h1 className="text-4xl font-bold text-foreground mb-3 tracking-tight">
-              El-Beshara Studio
+              El-Beshara Charity
             </h1>
             <div className="h-1 w-24 bg-primary rounded-full"></div>
           </div>
