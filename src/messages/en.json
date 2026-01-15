@@ -50,6 +50,12 @@
         "href": "/gallery/images"
       },
       {
+        "title": "El-Beshara Studio",
+        "description": "Discover the creative space where artists find their true sound. Record, mix, master, and bring your vision to life with a professional team and world-class equipment.",
+        "btnText": "Visit Studio",
+        "href": "/studio"
+      },
+      {
         "title": "Get in Touch",
         "description": "Have a question or want to get involved? Contact us and our team will get back to you shortly.",
         "btnText": "Contact Us",
