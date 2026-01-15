@@ -17,16 +17,16 @@ const AboutMainRight = async ({ className }: { className: string }) => {
   const valuesData = t.raw("valuesContent") as string[];
   return (
     <div className={`${className} flex flex-col md:flex-row gap-5 h-auto  `}>
-      <div className=" shrink-0 sm:h-150 md:h-133.75">
+      <div className=" shrink-0 max-w-[50%] sm:h-150 md:h-133.75">
         <Image
-          src="/home/about2.jpg"
+          src="/home/logo.jpg"
           alt="about"
           width={900}
           height={900}
           className="object-cover rounded-lg w-full h-full"
         />
       </div>
-      <div className="flex-1 flex flex-col gap-5 justify-evenly">
+      <div className="flex-1  flex flex-col gap-5 justify-evenly">
         <Accordion
           type="single"
           collapsible

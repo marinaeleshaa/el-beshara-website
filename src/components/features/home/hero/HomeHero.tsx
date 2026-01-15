@@ -41,6 +41,7 @@ const HomeHero = () => {
     className="relative h-[80vh] mb-20 overflow-hidden">
       {/* Overlay */}
       <div  className={`absolute ${mounted && lang === "ar" ? "scale-x-[-1]" : "scale-x-[1]"} inset-0 bg-radial-[at_90%_70%] from-transparent-[0%] via-transparent-[30%] via-dark-[70%] to-dark z-10`}></div>
+      <div className="absolute inset-0 bg-dark/50 z-10"></div>
       {/* Stacked Images */}
       {images.slice(0, index + 1).map((img, i) => (
         <motion.div
@@ -63,12 +64,12 @@ const HomeHero = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className=" max-w-xl flex flex-col justify-center items-center text-center  px-4 text-light"
+            className=" max-w-xl  flex flex-col justify-center items-center text-center  px-4 text-light"
           >
             <h1 className="text-3xl leading-snug sm:text-4xl md:text-5xl font-bold mb-4">
               {current.title}
             </h1>
-            <p className="text-sm text-light/80 md:text-lg mb-6">
+            <p className="text-base text-light md:text-xl mb-6">
               {current.description}
             </p>
 

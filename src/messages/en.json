@@ -50,6 +50,12 @@
         "href": "/gallery/images"
       },
       {
+        "title": "El-Beshara Studio",
+        "description": "Discover the creative space where artists find their true sound. Record, mix, master, and bring your vision to life with a professional team and world-class equipment.",
+        "btnText": "Visit Studio",
+        "href": "/studio"
+      },
+      {
         "title": "Get in Touch",
         "description": "Have a question or want to get involved? Contact us and our team will get back to you shortly.",
         "btnText": "Contact Us",
@@ -96,103 +102,154 @@
     "title": "Our Services",
     "description": "Discover how we serve our community with compassion and dedication. From supporting families in need to empowering individuals through education and providing essential resources — we're here to make a lasting difference.",
     "servicesData": {
-      "familySupport": {
-        "id": 1,
-        "title": "Family Support Programs",
-        "subtitle": "Helping families thrive through challenging times.",
-        "description": "We provide comprehensive support to families facing difficulties, offering financial assistance, counseling, and practical resources. Our programs are designed to address immediate needs while building long-term stability and strength.",
-        "image": "/home/fixed.jpg",
-        "points": [
-          {
-            "label": "Emergency financial assistance for families in crisis situations.",
-            "icon": "FaHandHoldingHeart"
-          },
-          {
-            "label": "Family counseling and guidance with experienced professionals.",
-            "icon": "FaUsers"
-          },
-          {
-            "label": "Food and essential supplies distribution programs.",
-            "icon": "FaBoxOpen"
-          },
-          {
-            "label": "Support services tailored to each family's unique needs.",
-            "icon": "FaHandsHelping"
-          }
-        ],
-        "statistics": [
-          { "label": "Families Supported", "value": "500+" },
-          { "label": "Monthly Assistance Programs", "value": "12+" },
-          { "label": "Success Rate", "value": "95%" }
-        ],
-        "action": { "text": "Learn More", "href": "/services#familySupport" },
-        "toContact": "get help now"
-      },
-      "education": {
-        "id": 2,
-        "title": "Educational Programs",
-        "subtitle": "Empowering through knowledge and skill development.",
-        "description": "We offer educational initiatives, vocational training, and scholarship programs to help individuals build better futures. From literacy classes to professional development, we equip people with tools for success.",
-        "image": "/home/record.jpg",
-        "points": [
-          {
-            "label": "Scholarship programs for students from underprivileged backgrounds.",
-            "icon": "FaGraduationCap"
-          },
-          {
-            "label": "Vocational training and skill development workshops.",
-            "icon": "FaTools"
-          },
-          {
-            "label": "Adult literacy and continuing education classes.",
-            "icon": "FaBook"
-          },
-          {
-            "label": "Mentorship programs connecting students with experienced professionals.",
-            "icon": "FaHandshake"
-          }
-        ],
-        "statistics": [
-          { "label": "Scholarships Awarded", "value": "200+" },
-          { "label": "Training Programs", "value": "25+" },
-          { "label": "Graduates Employed", "value": "85%" }
-        ],
-        "action": { "text": "Explore Programs", "href": "/services#education" },
-        "toContact": "apply now"
-      },
-      "community": {
-        "id": 3,
-        "title": "Community Outreach",
-        "subtitle": "Building stronger, more connected communities.",
-        "description": "Our outreach programs bring hope and practical support directly to those who need it most. Through regular community events, health initiatives, and support networks, we create lasting positive change.",
-        "image": "/home/mix2.jpg",
-        "points": [
-          {
-            "label": "Regular community events fostering connection and support.",
-            "icon": "FaPeopleCarry"
-          },
-          {
-            "label": "Health and wellness programs providing essential care.",
-            "icon": "FaHeartbeat"
-          },
-          {
-            "label": "Crisis intervention and emergency response services.",
-            "icon": "FaPhoneAlt"
-          },
-          {
-            "label": "Volunteer opportunities for community members to get involved.",
-            "icon": "FaHandsHelping"
-          }
-        ],
-        "statistics": [
-          { "label": "Community Events", "value": "150+" },
-          { "label": "People Reached", "value": "5000+" },
-          { "label": "Active Volunteers", "value": "200+" }
-        ],
-        "action": { "text": "Get Involved", "href": "/services#community" },
-        "toContact": "volunteer today"
-      }
-    }
+  "culturalReligious": {
+    "id": 1,
+    "title": "Cultural, Educational & Religious Services",
+    "subtitle": "Spreading knowledge, values, and awareness.",
+    "description": "We offer cultural, educational, and religious programs that aim to raise awareness, strengthen moral values, and support lifelong learning through lectures, seminars, and community initiatives.",
+    "image": "/services/lecture-img.jpg",
+    "points": [
+      { "label": "Organizing cultural and educational seminars and workshops.", "icon": "FaBookOpen" },
+      { "label": "Religious awareness programs and guidance sessions.", "icon": "FaMosque" },
+      { "label": "Scientific lectures and skill-development courses.", "icon": "FaChalkboardTeacher" },
+      { "label": "Community events promoting positive values and ethics.", "icon": "FaHandsHelping" }
+    ],
+    "statistics": [
+      { "label": "Annual Events", "value": "100+" },
+      { "label": "Participants", "value": "3000+" },
+      { "label": "Active Programs", "value": "15+" }
+    ],
+    "action": { "text": "join our programs", "href": "/contact" },
+    "toContact": "join our programs"
+  },
+
+  "prisonersCare": {
+    "id": 2,
+    "title": "Prisoners & Families Support",
+    "subtitle": "Restoring hope and dignity to affected families.",
+    "description": "We support prisoners and their families by providing financial aid, social rehabilitation programs, and psychological support to help them rebuild their lives with dignity.",
+    "image": "/services/prisoners-img.jpg",
+    "points": [
+      { "label": "Financial and social support for prisoners' families.", "icon": "FaHandHoldingHeart" },
+      { "label": "Rehabilitation and reintegration programs.", "icon": "FaUserCheck" },
+      { "label": "Psychological and social counseling services.", "icon": "FaUsers" },
+      { "label": "Educational support for prisoners' children.", "icon": "FaGraduationCap" }
+    ],
+    "statistics": [
+      { "label": "Families Supported", "value": "800+" },
+      { "label": "Rehabilitation Programs", "value": "20+" },
+      { "label": "Children Assisted", "value": "500+" }
+    ],
+    "action": { "text": "get support", "href": "/contact" },
+    "toContact": "get support"
+  },
+
+  "specialNeeds": {
+    "id": 3,
+    "title": "People with Special Needs",
+    "subtitle": "Empowering abilities, not disabilities.",
+    "description": "We provide comprehensive care and empowerment programs for people with special needs, focusing on inclusion, rehabilitation, and skill development.",
+    "image": "/services/disability-img.jpg",
+    "points": [
+      { "label": "Rehabilitation and physical therapy programs.", "icon": "FaWheelchair" },
+      { "label": "Educational and skill-building activities.", "icon": "FaBrain" },
+      { "label": "Social inclusion and integration initiatives.", "icon": "FaUsers" },
+      { "label": "Family guidance and support services.", "icon": "FaHandsHelping" }
+    ],
+    "statistics": [
+      { "label": "Beneficiaries", "value": "600+" },
+      { "label": "Therapy Sessions", "value": "2500+" },
+      { "label": "Active Programs", "value": "10+" }
+    ],
+    "action": { "text": "get involved", "href": "/contact" },
+    "toContact": "get involved"
+  },
+
+  "widowsOrphans": {
+    "id": 4,
+    "title": "Widows, Orphans & Street Children Care",
+    "subtitle": "Providing safety, care, and a better future.",
+    "description": "Our programs aim to protect and support widows, orphans, and street children by providing shelter, education, healthcare, and emotional support.",
+    "image": "/services/orphans-img.jpg",
+    "points": [
+      { "label": "Monthly financial and food assistance.", "icon": "FaBoxOpen" },
+      { "label": "Educational sponsorship for children.", "icon": "FaSchool" },
+      { "label": "Safe shelters and care programs.", "icon": "FaHome" },
+      { "label": "Psychological and social rehabilitation.", "icon": "FaHeart" }
+    ],
+    "statistics": [
+      { "label": "Children Supported", "value": "1200+" },
+      { "label": "Widows Assisted", "value": "700+" },
+      { "label": "Care Programs", "value": "18+" }
+    ],
+    "action": { "text": "Help Now", "href": "/contact" },
+    "toContact": "donate today"
+  },
+
+  "workshops": {
+    "id": 5,
+    "title": "Clothing Workshops & Manufacturing",
+    "subtitle": "Creating opportunities through production.",
+    "description": "We establish and manage workshops for clothing manufacturing to provide vocational training and sustainable income opportunities.",
+    "image": "/services/workshop-img.jpg",
+    "points": [
+      { "label": "Professional tailoring and sewing workshops.", "icon": "FaCut" },
+      { "label": "Job training and skill development.", "icon": "FaTools" },
+      { "label": "Supporting local production initiatives.", "icon": "FaIndustry" },
+      { "label": "Income generation for families in need.", "icon": "FaMoneyBillWave" }
+    ],
+    "statistics": [
+      { "label": "Workshops Established", "value": "12+" },
+      { "label": "Trainees", "value": "400+" },
+      { "label": "Jobs Created", "value": "250+" }
+    ],
+    "action": { "text": "partner with us", "href": "/contact" },
+    "toContact": "partner with us"
+  },
+
+  "employmentProjects": {
+    "id": 6,
+    "title": "Youth & Women Employment Projects",
+    "subtitle": "Building sustainable livelihoods.",
+    "description": "We launch income-generating projects that empower youth and women through employment, entrepreneurship, and professional training.",
+    "image": "/services/women-img.jpg",
+    "points": [
+      { "label": "Small business and startup support.", "icon": "FaBriefcase" },
+      { "label": "Professional and technical training programs.", "icon": "FaUserGraduate" },
+      { "label": "Women empowerment initiatives.", "icon": "FaFemale" },
+      { "label": "Sustainable employment opportunities.", "icon": "FaChartLine" }
+    ],
+    "statistics": [
+      { "label": "Projects Launched", "value": "30+" },
+      { "label": "Women Empowered", "value": "900+" },
+      { "label": "Youth Employed", "value": "1100+" }
+    ],
+    "action": { "text": "Join Us", "href": "/contact" },
+    "toContact": "start today"
+  },
+
+  "medicalCenters": {
+    "id": 7,
+    "title": "Medical Centers & Clinics",
+    "subtitle": "Healthcare for those who need it most.",
+    "description": "We establish medical centers and clinics that provide affordable and accessible healthcare services to underserved communities.",
+    "image": "/services/medical-img.jpg",
+    "points": [
+      { "label": "Primary healthcare and medical checkups.", "icon": "FaStethoscope" },
+      { "label": "Specialized clinics and treatment services.", "icon": "FaHospital" },
+      { "label": "Medical convoys and outreach campaigns.", "icon": "FaAmbulance" },
+      { "label": "Affordable medicine and healthcare support.", "icon": "FaPills" }
+    ],
+    "statistics": [
+      { "label": "Patients Treated", "value": "10000+" },
+      { "label": "Medical Campaigns", "value": "60+" },
+      { "label": "Clinics Established", "value": "8+" }
+    ],
+    "action": { "text": "book appointment", "href": "/contact" },
+    "toContact": "book appointment"
+  }
+}
+
   },
   "studio": {
     "title": "Our Music Studio",
@@ -205,7 +262,7 @@
         "title": "Reserve the Studio",
         "subtitle": "A peaceful, creative space designed to inspire worship and excellence.",
         "description": "Book your dedicated recording space in our professional Christian music studio. Enjoy a peaceful, inspiring environment equipped with high-quality microphones, instruments, and sound treatment — perfect for worship sessions, choirs, solo artists, voice-overs, and live musical performances.",
-        "image": "/home/fixed.jpg",
+        "image": "/home/studio.jpg",
         "points": [
           {
             "label": "Sound-treated rooms designed for worship and vocal clarity.",
@@ -409,7 +466,8 @@
   "footer": {
     "quickLinks": "Quick Links",
     "contactUs": "Contact Us",
-    "studioSlogan": "Serving our community with faith, hope, and love."
+    "studioSlogan": "Serving our community with faith, hope, and love.",
+    "copyright": " © El-Beshara Charity. All rights reserved."
   },
   "promotion": {
     "hero": {

@@ -83,7 +83,7 @@ const ServiceCard = async ({
                 )}
 
                 <div className="relative w-fit">
-                  <h2 className="text-3xl md:text-4xl w-fit font-black text-primary leading-tight animated-underline">
+                  <h2 className="text-3xl md:text-4xl w-fit max-w-xl font-black text-primary  leading-tight animated-underline">
                     {service.title}
                   </h2>
                 </div>
