@@ -1,13 +1,13 @@
 import { MenuItem } from "@/lib/Interfaces/ServiceInterface";
-import { useLocale, useTranslations } from "next-intl";
 import FooterContact from "./FooterContact";
 import FooterSocial from "./FooterSocial";
+import { getLocale, getTranslations } from "next-intl/server";
 
-const Footer = () => {
-  const tCommon = useTranslations("common");
+const Footer = async() => {
+  const tCommon =await getTranslations("common");
   const menu = tCommon.raw("menu") as MenuItem[];
-  const tFooter = useTranslations("footer");
-  const lang= useLocale();
+  const tFooter = await getTranslations("footer");
+  const lang=await getLocale();
   return (
     <footer dir={lang === "ar" ? "rtl" : "ltr"} className="bg-dark dark:bg-secondary text-dark-foreground">
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-5">
@@ -19,7 +19,7 @@ const Footer = () => {
           {/* Quick Links */}
           <div dir={lang === "ar" ? "rtl" : "ltr"} className="flex sm:justify-center">
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-white">
+              <h4 className="text-lg font-semibold text-light">
                 {tFooter("quickLinks")}
               </h4>
               <ul className="space-y-3 ">
@@ -27,7 +27,7 @@ const Footer = () => {
                   <li key={item.title}>
                     <a
                       href={item.url}
-                      className="text-light hover:text-primary hover:pl-2 inline-block transition-all duration-300"
+                      className={`text-light hover:text-primary ${lang === "ar" ? "hover:-translate-x-1" : "hover:translate-x-1"} inline-block transition-all duration-300 `}
                     >
                       {item.title}
                     </a>
@@ -48,7 +48,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-row justify-center items-center  text-sm text-light">
-          <p>© 2024 El-Beshara Studio. All rights reserved.</p>
+          <p>{tFooter("copyright")}</p>
         </div>
       </div>
     </footer>
