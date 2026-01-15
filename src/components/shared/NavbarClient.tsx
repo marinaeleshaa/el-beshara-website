@@ -60,7 +60,7 @@ const NavbarClient = ({
 
   if (!mounted) return null;
 
-  const displayMenu = isRTL ? [...menu].reverse() : menu;
+
 
   return (
     <section
@@ -88,7 +88,7 @@ const NavbarClient = ({
           </Link>
 
           <div className="flex gap-6">
-            {displayMenu.map((item) => {
+            {menu.map((item) => {
               const isActive =
                 item.url === "/gallery/images"
                   ? pathname.includes("gallery")
