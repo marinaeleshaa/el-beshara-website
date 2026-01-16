@@ -15,10 +15,12 @@ const ServiceCard = async ({
 }) => {
   const locale = await getLocale();
   const isRTL = locale === "ar";
+  const text = locale === "ar" ? "تواصل معنا" : "Contact Us";
 
   // Unified button data - supports both old and new structure
-  const buttonText = service.action?.text || service.toContact || "Contact Us";
-  const buttonHref = service.action?.href || "/contact";
+  const buttonText =  service.toContact.text || text;
+  const buttonHref = service.toContact.href || "/contact";
+
 
   return (
     <div key={service.id} id={String(service.id)} className="relative group ">
