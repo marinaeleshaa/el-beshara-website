@@ -22,7 +22,7 @@ const ServicesHomeLayout = async () => {
       <div className="w-myWidth   mx-auto flex flex-col gap-10  px-4 py-10">
         <div className=" grid grid-cols-1 gap-10 md:grid-cols-3">
           {servicesArray.map((service, i) => (
-            <Animate key={service.id} delay={i * 0.4}>
+            <Animate key={service.id} delay={i*0.1}>
               <ServiceCard key={service.id} service={service} />
             </Animate>
           ))}

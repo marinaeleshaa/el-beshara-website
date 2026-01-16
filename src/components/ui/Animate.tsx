@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Animate = ({ children, delay = 0 , myDelay=false, duration = 0.5, className , amount=0.3}: Props) => {
-  const delayValue = myDelay ? 0.5 : delay;
+  const delayValue = myDelay ? 0.3 : delay;
   return (
     <motion.div
       className={`${className}`}
