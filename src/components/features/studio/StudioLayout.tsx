@@ -29,13 +29,13 @@ const StudioLayout = async () => {
           </p>
         </div>
       </Animate>
-      <PromotionHomeLayout />
-      {/* Studio Services */}
-      <StudioServices />
       {/* Studio Statistics */}
       <Animate>
         <StudioStats />
       </Animate>
+      <PromotionHomeLayout />
+      {/* Studio Services */}
+      <StudioServices />
     </div>
   );
 };
