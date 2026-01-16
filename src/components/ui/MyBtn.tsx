@@ -72,14 +72,15 @@ const MyBtn = ({
     if (href) router.push(href);
   };
 
-  const widthClass = width === "fit" ? "w-fit" : width === "full" ? "w-full" : "w-auto";
+  const widthClass =
+    width === "fit" ? "w-fit" : width === "full" ? "w-full" : "w-auto";
 
   return (
     <button
       className={`${CheckVariant(
         variant,
         outline
-      )} ${className} flex justify-center items-center font-semibold px-4 py-2 hover:scale-105 transition duration-300 cursor-pointer capitalize ${widthClass} rounded-lg ${
+      )} ${className} flex justify-center items-center font-semibold px-4 py-2 hover:scale-102 transition duration-300 cursor-pointer capitalize ${widthClass} rounded-lg ${
         disabled ? "opacity-50 cursor-not-allowed hover:scale-100" : ""
       }`}
       onClick={handleClick}
@@ -88,7 +89,11 @@ const MyBtn = ({
       disabled={disabled}
     >
       {icon && (
-        <span className={`transition duration-500 ${dir === "rtl" ? "ms-2" : "me-2"}`}>
+        <span
+          className={`transition duration-500 ${
+            dir === "rtl" ? "ms-2" : "me-2"
+          }`}
+        >
           {icon}
         </span>
       )}

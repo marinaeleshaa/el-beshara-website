@@ -53,9 +53,7 @@ const ContactForm = ({ className }: { className?: string }) => {
       message: data.message,
     };
 
-   
     SendMail(formData).then((res) => {
-      console.log(res.status);
       if (res.status === "success") {
         toast.custom((toastObj) => (
           <div
@@ -219,7 +217,9 @@ const ContactForm = ({ className }: { className?: string }) => {
           variant="primary"
           width="full"
           type="submit"
-          className="mt-5"
+          className={`mt-5 ${
+            !isValid && "opacity-50 cursor-not-allowed! hover:scale-100!"
+          }`}
           disabled={!isValid}
         />
       </form>
