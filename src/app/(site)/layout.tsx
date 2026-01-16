@@ -3,7 +3,6 @@
 import MainProvider from "@/components/providers/MainProvider";
 import Footer from "@/components/shared/footer/Footer";
 import Navbar from "@/components/shared/Navbar";
-import { NavMenuItems } from "@/data/NavMenuItems";
 
 export default function SiteLayout({
   children,
