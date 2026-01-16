@@ -5,7 +5,7 @@ export interface IServiceStat {
   value: string;
 }
 
-export interface IServiceAction {
+export interface IServiceBtn {
   text: string;
   href: string;
 }
@@ -23,8 +23,8 @@ export interface IService {
   image: string;
   points: IPoints[];
   statistics: IServiceStat[];
-  action: IServiceAction;
-  toContact?: string
+  action?: IServiceBtn;
+  toContact: IServiceBtn;
 }
 
 export interface MenuItem {

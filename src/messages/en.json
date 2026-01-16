@@ -102,154 +102,228 @@
     "title": "Our Services",
     "description": "Discover how we serve our community with compassion and dedication. From supporting families in need to empowering individuals through education and providing essential resources — we're here to make a lasting difference.",
     "servicesData": {
-  "culturalReligious": {
-    "id": 1,
-    "title": "Cultural, Educational & Religious Services",
-    "subtitle": "Spreading knowledge, values, and awareness.",
-    "description": "We offer cultural, educational, and religious programs that aim to raise awareness, strengthen moral values, and support lifelong learning through lectures, seminars, and community initiatives.",
-    "image": "/services/lecture-img.jpg",
-    "points": [
-      { "label": "Organizing cultural and educational seminars and workshops.", "icon": "FaBookOpen" },
-      { "label": "Religious awareness programs and guidance sessions.", "icon": "FaMosque" },
-      { "label": "Scientific lectures and skill-development courses.", "icon": "FaChalkboardTeacher" },
-      { "label": "Community events promoting positive values and ethics.", "icon": "FaHandsHelping" }
-    ],
-    "statistics": [
-      { "label": "Annual Events", "value": "100+" },
-      { "label": "Participants", "value": "3000+" },
-      { "label": "Active Programs", "value": "15+" }
-    ],
-    "action": { "text": "join our programs", "href": "/contact" },
-    "toContact": "join our programs"
-  },
+      "culturalReligious": {
+        "id": "cultural",
+        "title": "Cultural, Educational & Religious Services",
+        "subtitle": "Spreading knowledge, values, and awareness.",
+        "description": "We offer cultural, educational, and religious programs that aim to raise awareness, strengthen moral values, and support lifelong learning through lectures, seminars, and community initiatives.",
+        "image": "/services/lecture-img.jpg",
+        "points": [
+          {
+            "label": "Organizing cultural and educational seminars and workshops.",
+            "icon": "FaBookOpen"
+          },
+          {
+            "label": "Religious awareness programs and guidance sessions.",
+            "icon": "FaMosque"
+          },
+          {
+            "label": "Scientific lectures and skill-development courses.",
+            "icon": "FaChalkboardTeacher"
+          },
+          {
+            "label": "Community events promoting positive values and ethics.",
+            "icon": "FaHandsHelping"
+          }
+        ],
+        "statistics": [
+          { "label": "Annual Events", "value": "100+" },
+          { "label": "Participants", "value": "3000+" },
+          { "label": "Active Programs", "value": "15+" }
+        ],
+        "action": { "text": "get involved", "href": "/services/#cultural" },
+        "toContact": { "text": "join our programs", "href": "/contact" }
+      },
 
-  "prisonersCare": {
-    "id": 2,
-    "title": "Prisoners & Families Support",
-    "subtitle": "Restoring hope and dignity to affected families.",
-    "description": "We support prisoners and their families by providing financial aid, social rehabilitation programs, and psychological support to help them rebuild their lives with dignity.",
-    "image": "/services/prisoners-img.jpg",
-    "points": [
-      { "label": "Financial and social support for prisoners' families.", "icon": "FaHandHoldingHeart" },
-      { "label": "Rehabilitation and reintegration programs.", "icon": "FaUserCheck" },
-      { "label": "Psychological and social counseling services.", "icon": "FaUsers" },
-      { "label": "Educational support for prisoners' children.", "icon": "FaGraduationCap" }
-    ],
-    "statistics": [
-      { "label": "Families Supported", "value": "800+" },
-      { "label": "Rehabilitation Programs", "value": "20+" },
-      { "label": "Children Assisted", "value": "500+" }
-    ],
-    "action": { "text": "get support", "href": "/contact" },
-    "toContact": "get support"
-  },
+      "prisonersCare": {
+        "id": "prisoners",
+        "title": "Prisoners & Families Support",
+        "subtitle": "Restoring hope and dignity to affected families.",
+        "description": "We support prisoners and their families by providing financial aid, social rehabilitation programs, and psychological support to help them rebuild their lives with dignity.",
+        "image": "/services/prisoners-img.jpg",
+        "points": [
+          {
+            "label": "Financial and social support for prisoners' families.",
+            "icon": "FaHandHoldingHeart"
+          },
+          {
+            "label": "Rehabilitation and reintegration programs.",
+            "icon": "FaUserCheck"
+          },
+          {
+            "label": "Psychological and social counseling services.",
+            "icon": "FaUsers"
+          },
+          {
+            "label": "Educational support for prisoners' children.",
+            "icon": "FaGraduationCap"
+          }
+        ],
+        "statistics": [
+          { "label": "Families Supported", "value": "800+" },
+          { "label": "Rehabilitation Programs", "value": "20+" },
+          { "label": "Children Assisted", "value": "500+" }
+        ],
+        "action": { "text": "learn more", "href": "/services/#prisoners" },
+        "toContact": { "text": "get support", "href": "/contact" }
+      },
 
-  "specialNeeds": {
-    "id": 3,
-    "title": "People with Special Needs",
-    "subtitle": "Empowering abilities, not disabilities.",
-    "description": "We provide comprehensive care and empowerment programs for people with special needs, focusing on inclusion, rehabilitation, and skill development.",
-    "image": "/services/disability-img.jpg",
-    "points": [
-      { "label": "Rehabilitation and physical therapy programs.", "icon": "FaWheelchair" },
-      { "label": "Educational and skill-building activities.", "icon": "FaBrain" },
-      { "label": "Social inclusion and integration initiatives.", "icon": "FaUsers" },
-      { "label": "Family guidance and support services.", "icon": "FaHandsHelping" }
-    ],
-    "statistics": [
-      { "label": "Beneficiaries", "value": "600+" },
-      { "label": "Therapy Sessions", "value": "2500+" },
-      { "label": "Active Programs", "value": "10+" }
-    ],
-    "action": { "text": "get involved", "href": "/contact" },
-    "toContact": "get involved"
-  },
+      "specialNeeds": {
+        "id": "special",
+        "title": "People with Special Needs",
+        "subtitle": "Empowering abilities, not disabilities.",
+        "description": "We provide comprehensive care and empowerment programs for people with special needs, focusing on inclusion, rehabilitation, and skill development.",
+        "image": "/services/disability-img.jpg",
+        "points": [
+          {
+            "label": "Rehabilitation and physical therapy programs.",
+            "icon": "FaWheelchair"
+          },
+          {
+            "label": "Educational and skill-building activities.",
+            "icon": "FaBrain"
+          },
+          {
+            "label": "Social inclusion and integration initiatives.",
+            "icon": "FaUsers"
+          },
+          {
+            "label": "Family guidance and support services.",
+            "icon": "FaHandsHelping"
+          }
+        ],
+        "statistics": [
+          { "label": "Beneficiaries", "value": "600+" },
+          { "label": "Therapy Sessions", "value": "2500+" },
+          { "label": "Active Programs", "value": "10+" }
+        ],
+        "action": { "text": "more info", "href": "/services/#special" },
+        "toContact": { "text": "join our programs", "href": "/contact" }
+      },
 
-  "widowsOrphans": {
-    "id": 4,
-    "title": "Widows, Orphans & Street Children Care",
-    "subtitle": "Providing safety, care, and a better future.",
-    "description": "Our programs aim to protect and support widows, orphans, and street children by providing shelter, education, healthcare, and emotional support.",
-    "image": "/services/orphans-img.jpg",
-    "points": [
-      { "label": "Monthly financial and food assistance.", "icon": "FaBoxOpen" },
-      { "label": "Educational sponsorship for children.", "icon": "FaSchool" },
-      { "label": "Safe shelters and care programs.", "icon": "FaHome" },
-      { "label": "Psychological and social rehabilitation.", "icon": "FaHeart" }
-    ],
-    "statistics": [
-      { "label": "Children Supported", "value": "1200+" },
-      { "label": "Widows Assisted", "value": "700+" },
-      { "label": "Care Programs", "value": "18+" }
-    ],
-    "action": { "text": "Help Now", "href": "/contact" },
-    "toContact": "donate today"
-  },
+      "widowsOrphans": {
+        "id": "orphans",
+        "title": "Widows, Orphans & Street Children Care",
+        "subtitle": "Providing safety, care, and a better future.",
+        "description": "Our programs aim to protect and support widows, orphans, and street children by providing shelter, education, healthcare, and emotional support.",
+        "image": "/services/orphans-img.jpg",
+        "points": [
+          {
+            "label": "Monthly financial and food assistance.",
+            "icon": "FaBoxOpen"
+          },
+          {
+            "label": "Educational sponsorship for children.",
+            "icon": "FaSchool"
+          },
+          { "label": "Safe shelters and care programs.", "icon": "FaHome" },
+          {
+            "label": "Psychological and social rehabilitation.",
+            "icon": "FaHeart"
+          }
+        ],
+        "statistics": [
+          { "label": "Children Supported", "value": "1200+" },
+          { "label": "Widows Assisted", "value": "700+" },
+          { "label": "Care Programs", "value": "18+" }
+        ],
+        "action": { "text": "learn more", "href": "/services/#orphans" },
+        "toContact": { "text": "donate now", "href": "/contact" }
+      },
 
-  "workshops": {
-    "id": 5,
-    "title": "Clothing Workshops & Manufacturing",
-    "subtitle": "Creating opportunities through production.",
-    "description": "We establish and manage workshops for clothing manufacturing to provide vocational training and sustainable income opportunities.",
-    "image": "/services/workshop-img.jpg",
-    "points": [
-      { "label": "Professional tailoring and sewing workshops.", "icon": "FaCut" },
-      { "label": "Job training and skill development.", "icon": "FaTools" },
-      { "label": "Supporting local production initiatives.", "icon": "FaIndustry" },
-      { "label": "Income generation for families in need.", "icon": "FaMoneyBillWave" }
-    ],
-    "statistics": [
-      { "label": "Workshops Established", "value": "12+" },
-      { "label": "Trainees", "value": "400+" },
-      { "label": "Jobs Created", "value": "250+" }
-    ],
-    "action": { "text": "partner with us", "href": "/contact" },
-    "toContact": "partner with us"
-  },
+      "workshops": {
+        "id": "workshops",
+        "title": "Clothing Workshops & Manufacturing",
+        "subtitle": "Creating opportunities through production.",
+        "description": "We establish and manage workshops for clothing manufacturing to provide vocational training and sustainable income opportunities.",
+        "image": "/services/workshop-img.jpg",
+        "points": [
+          {
+            "label": "Professional tailoring and sewing workshops.",
+            "icon": "FaCut"
+          },
+          { "label": "Job training and skill development.", "icon": "FaTools" },
+          {
+            "label": "Supporting local production initiatives.",
+            "icon": "FaIndustry"
+          },
+          {
+            "label": "Income generation for families in need.",
+            "icon": "FaMoneyBillWave"
+          }
+        ],
+        "statistics": [
+          { "label": "Workshops Established", "value": "12+" },
+          { "label": "Trainees", "value": "400+" },
+          { "label": "Jobs Created", "value": "250+" }
+        ],
+        "action": { "text": "more details", "href": "/services/#workshops" },
+        "toContact": { "text": "apply now", "href": "/contact" }
+      },
 
-  "employmentProjects": {
-    "id": 6,
-    "title": "Youth & Women Employment Projects",
-    "subtitle": "Building sustainable livelihoods.",
-    "description": "We launch income-generating projects that empower youth and women through employment, entrepreneurship, and professional training.",
-    "image": "/services/women-img.jpg",
-    "points": [
-      { "label": "Small business and startup support.", "icon": "FaBriefcase" },
-      { "label": "Professional and technical training programs.", "icon": "FaUserGraduate" },
-      { "label": "Women empowerment initiatives.", "icon": "FaFemale" },
-      { "label": "Sustainable employment opportunities.", "icon": "FaChartLine" }
-    ],
-    "statistics": [
-      { "label": "Projects Launched", "value": "30+" },
-      { "label": "Women Empowered", "value": "900+" },
-      { "label": "Youth Employed", "value": "1100+" }
-    ],
-    "action": { "text": "Join Us", "href": "/contact" },
-    "toContact": "start today"
-  },
+      "employmentProjects": {
+        "id": "employment",
+        "title": "Youth & Women Employment Projects",
+        "subtitle": "Building sustainable livelihoods.",
+        "description": "We launch income-generating projects that empower youth and women through employment, entrepreneurship, and professional training.",
+        "image": "/services/women-img.jpg",
+        "points": [
+          {
+            "label": "Small business and startup support.",
+            "icon": "FaBriefcase"
+          },
+          {
+            "label": "Professional and technical training programs.",
+            "icon": "FaUserGraduate"
+          },
+          { "label": "Women empowerment initiatives.", "icon": "FaFemale" },
+          {
+            "label": "Sustainable employment opportunities.",
+            "icon": "FaChartLine"
+          }
+        ],
+        "statistics": [
+          { "label": "Projects Launched", "value": "30+" },
+          { "label": "Women Empowered", "value": "900+" },
+          { "label": "Youth Employed", "value": "1100+" }
+        ],
+        "action": { "text": "know more", "href": "/services/#employment" },
+        "toContact": { "text": "start today", "href": "/contact" }
+      },
 
-  "medicalCenters": {
-    "id": 7,
-    "title": "Medical Centers & Clinics",
-    "subtitle": "Healthcare for those who need it most.",
-    "description": "We establish medical centers and clinics that provide affordable and accessible healthcare services to underserved communities.",
-    "image": "/services/medical-img.jpg",
-    "points": [
-      { "label": "Primary healthcare and medical checkups.", "icon": "FaStethoscope" },
-      { "label": "Specialized clinics and treatment services.", "icon": "FaHospital" },
-      { "label": "Medical convoys and outreach campaigns.", "icon": "FaAmbulance" },
-      { "label": "Affordable medicine and healthcare support.", "icon": "FaPills" }
-    ],
-    "statistics": [
-      { "label": "Patients Treated", "value": "10000+" },
-      { "label": "Medical Campaigns", "value": "60+" },
-      { "label": "Clinics Established", "value": "8+" }
-    ],
-    "action": { "text": "book appointment", "href": "/contact" },
-    "toContact": "book appointment"
-  }
-}
-
+      "medicalCenters": {
+        "id": "medical",
+        "title": "Medical Centers & Clinics",
+        "subtitle": "Healthcare for those who need it most.",
+        "description": "We establish medical centers and clinics that provide affordable and accessible healthcare services to underserved communities.",
+        "image": "/services/medical-img.jpg",
+        "points": [
+          {
+            "label": "Primary healthcare and medical checkups.",
+            "icon": "FaStethoscope"
+          },
+          {
+            "label": "Specialized clinics and treatment services.",
+            "icon": "FaHospital"
+          },
+          {
+            "label": "Medical convoys and outreach campaigns.",
+            "icon": "FaAmbulance"
+          },
+          {
+            "label": "Affordable medicine and healthcare support.",
+            "icon": "FaPills"
+          }
+        ],
+        "statistics": [
+          { "label": "Patients Treated", "value": "10000+" },
+          { "label": "Medical Campaigns", "value": "60+" },
+          { "label": "Clinics Established", "value": "8+" }
+        ],
+        "action": { "text": "learn more", "href": "/services/#medical" },
+        "toContact": { "text": "apply now", "href": "/contact" }
+      }
+    }
   },
   "studio": {
     "title": "Our Music Studio",
@@ -286,8 +360,7 @@
           { "label": "Returning Artists", "value": "90%" },
           { "label": "Studio Capacity", "value": "Up to 12 people" }
         ],
-        "action": { "text": "More Details", "href": "/studio#reserve" },
-        "toContact": "reserve now"
+        "toContact": { "text": "reserve now", "href": "/contact" }
       },
       "record": {
         "id": 2,
@@ -318,8 +391,7 @@
           { "label": "Choirs & Groups", "value": "70+" },
           { "label": "Artist Satisfaction", "value": "98%" }
         ],
-        "action": { "text": "Start Recording", "href": "/studio#record" },
-        "toContact": "book your session"
+        "toContact": { "text": "Start Recording", "href": "/contact" }
       },
       "mix": {
         "id": 3,
@@ -350,8 +422,7 @@
           { "label": "Streaming-Ready Files Delivered", "value": "1000+" },
           { "label": "Average Delivery Time", "value": "48 hours" }
         ],
-        "action": { "text": "Mix & Master", "href": "/studio#mix" },
-        "toContact": "book your session"
+        "toContact": { "text": "book your session", "href": "/contact" }
       }
     },
     "impact": "All studio proceeds support our charitable programs",
@@ -493,18 +564,17 @@
     }
   },
   "emptyState": {
-  "images": {
-    "title": "No Images Yet",
-    "description": "There are no images to show at the moment."
-  },
-  "videos": {
-    "title": "No Videos Yet",
-    "description": "There are no videos available right now."
-  },
-  "reels": {
-    "title": "No Reels Yet",
-    "description": "There are no reels to display at the moment."
+    "images": {
+      "title": "No Images Yet",
+      "description": "There are no images to show at the moment."
+    },
+    "videos": {
+      "title": "No Videos Yet",
+      "description": "There are no videos available right now."
+    },
+    "reels": {
+      "title": "No Reels Yet",
+      "description": "There are no reels to display at the moment."
+    }
   }
-}
-
 }

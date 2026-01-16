@@ -48,8 +48,8 @@ const ServiceCard = ({ service }: { service: IService }) => {
               <div className="text-center px-4 mt-2 flex flex-col gap-2">
                 <p className="line-clamp-3">{service.description}</p>
                 <MyBtn
-                  text={service.action.text}
-                  href={service.action.href}
+                  text={service.action?.text}
+                  href={service.action?.href}
                   width="full"
                 />
               </div>

@@ -101,182 +101,238 @@
     "title": "خدماتنا",
     "description": "اكتشف كيف نخدم مجتمعنا بالرحمة والتفاني. من دعم الأسر المحتاجة إلى تمكين الأفراد من خلال التعليم وتوفير الموارد الأساسية — نحن هنا لإحداث فرق دائم.",
     "servicesData": {
-      "culturalReligious": {
-        "id": 1,
-        "title": "الخدمات الثقافية والعلمية والدينية",
-        "subtitle": "نشر الوعي وبناء القيم وتعزيز المعرفة.",
-        "description": "نقدم برامج ثقافية وعلمية ودينية تهدف إلى رفع الوعي المجتمعي، وتعزيز القيم الأخلاقية، ودعم التعلم المستمر من خلال الندوات والمحاضرات والأنشطة التوعوية.",
-        "image": "/services/lecture-img.jpg",
-        "points": [
-          {
-            "label": "تنظيم الندوات والمحاضرات الثقافية والعلمية.",
-            "icon": "FaBookOpen"
-          },
-          { "label": "برامج التوعية والإرشاد الديني.", "icon": "FaMosque" },
-          {
-            "label": "دورات تنمية المهارات وبناء القدرات.",
-            "icon": "FaChalkboardTeacher"
-          },
-          {
-            "label": "أنشطة مجتمعية لترسيخ القيم الإيجابية.",
-            "icon": "FaHandsHelping"
-          }
-        ],
-        "statistics": [
-          { "label": "الفعاليات السنوية", "value": "100+" },
-          { "label": "عدد المستفيدين", "value": "3000+" },
-          { "label": "البرامج القائمة", "value": "15+" }
-        ],
-        "action": { "text": "اعرف أكثر", "href": "/contact" },
-        "toContact": "انضم للأنشطة"
+  "culturalReligious": {
+    "id": "cultural",
+    "title": "الخدمات الثقافية والعلمية والدينية",
+    "subtitle": "نشر المعرفة وترسيخ القيم وتعزيز الوعي.",
+    "description": "نقدم برامج ثقافية وعلمية ودينية تهدف إلى رفع الوعي المجتمعي، وتعزيز القيم الأخلاقية، ودعم التعلم المستمر من خلال المحاضرات والندوات والمبادرات المجتمعية.",
+    "image": "/services/lecture-img.jpg",
+    "points": [
+      {
+        "label": "تنظيم الندوات والمحاضرات الثقافية والعلمية.",
+        "icon": "FaBookOpen"
       },
-
-      "prisonersCare": {
-        "id": 2,
-        "title": "رعاية المسجونين وأسرهم",
-        "subtitle": "دعم إنساني يعيد الأمل والاستقرار.",
-        "description": "نوفر الدعم المادي والمعنوي للمسجونين وأسرهم من خلال برامج اجتماعية وتأهيلية تهدف إلى إعادة دمجهم في المجتمع وتحقيق الاستقرار الأسري.",
-        "image": "/services/prison-img.jpg",
-        "points": [
-          {
-            "label": "مساعدات مالية واجتماعية لأسر المسجونين.",
-            "icon": "FaHandHoldingHeart"
-          },
-          {
-            "label": "برامج التأهيل وإعادة الدمج المجتمعي.",
-            "icon": "FaUserCheck"
-          },
-          { "label": "دعم نفسي واجتماعي متخصص.", "icon": "FaUsers" },
-          {
-            "label": "رعاية تعليمية لأبناء المسجونين.",
-            "icon": "FaGraduationCap"
-          }
-        ],
-        "statistics": [
-          { "label": "الأسر المستفيدة", "value": "800+" },
-          { "label": "برامج التأهيل", "value": "20+" },
-          { "label": "الأطفال المدعومين", "value": "500+" }
-        ],
-        "action": { "text": "اعرف التفاصيل", "href": "/contact" },
-        "toContact": "اطلب الدعم"
+      {
+        "label": "برامج التوعية والإرشاد الديني.",
+        "icon": "FaMosque"
       },
-
-      "specialNeeds": {
-        "id": 3,
-        "title": "ذوو الاحتياجات الخاصة",
-        "subtitle": "نؤمن بالقدرات قبل الإعاقات.",
-        "description": "نقدم برامج رعاية وتأهيل شاملة لذوي الاحتياجات الخاصة، مع التركيز على الدمج المجتمعي وتنمية المهارات ودعم الأسر.",
-        "image": "/services/disability-img.jpg",
-        "points": [
-          { "label": "جلسات التأهيل والعلاج الطبيعي.", "icon": "FaWheelchair" },
-          { "label": "برامج تعليمية وتنمية مهارات.", "icon": "FaBrain" },
-          { "label": "مبادرات الدمج المجتمعي.", "icon": "FaUsers" },
-          {
-            "label": "دعم وإرشاد لأسر ذوي الاحتياجات الخاصة.",
-            "icon": "FaHandsHelping"
-          }
-        ],
-        "statistics": [
-          { "label": "عدد المستفيدين", "value": "600+" },
-          { "label": "جلسات التأهيل", "value": "2500+" },
-          { "label": "البرامج النشطة", "value": "10+" }
-        ],
-        "action": { "text": "ساهم معنا", "href": "/contact" },
-        "toContact": "شارك بالدعم"
+      {
+        "label": "محاضرات علمية ودورات لتنمية المهارات.",
+        "icon": "FaChalkboardTeacher"
       },
-
-      "widowsOrphans": {
-        "id": 4,
-        "title": "رعاية الأرامل والأيتام وأطفال الشوارع",
-        "subtitle": "حماية ورعاية لمستقبل أكثر أمانًا.",
-        "description": "نعمل على تقديم الرعاية المتكاملة للأرامل والأيتام وأطفال الشوارع من خلال الدعم المادي، والتعليمي، والصحي، والنفسي.",
-        "image": "/services/orphans-img.jpg",
-        "points": [
-          { "label": "مساعدات مالية وغذائية شهرية.", "icon": "FaBoxOpen" },
-          { "label": "كفالة تعليمية للأطفال.", "icon": "FaSchool" },
-          { "label": "توفير الرعاية والإيواء الآمن.", "icon": "FaHome" },
-          { "label": "الدعم النفسي والاجتماعي.", "icon": "FaHeart" }
-        ],
-        "statistics": [
-          { "label": "الأطفال المكفولين", "value": "1200+" },
-          { "label": "الأرامل المستفيدات", "value": "700+" },
-          { "label": "برامج الرعاية", "value": "18+" }
-        ],
-        "action": { "text": "ادعم الآن", "href": "/contact" },
-        "toContact": "تبرع الآن"
-      },
-
-      "workshops": {
-        "id": 5,
-        "title": "ورش ومشاغل تصنيع الملابس",
-        "subtitle": "تمكين اقتصادي من خلال العمل والإنتاج.",
-        "description": "ننشئ وندير ورش ومشاغل لتصنيع الملابس بهدف تدريب المستفيدين وتوفير فرص عمل مستدامة وتحقيق دخل كريم للأسر.",
-        "image": "/services/workshop-img.jpg",
-        "points": [
-          { "label": "ورش تدريب على الخياطة والتفصيل.", "icon": "FaCut" },
-          { "label": "تنمية مهارات مهنية وحرفية.", "icon": "FaTools" },
-          { "label": "دعم الإنتاج المحلي.", "icon": "FaIndustry" },
-          { "label": "توفير مصدر دخل ثابت للأسر.", "icon": "FaMoneyBillWave" }
-        ],
-        "statistics": [
-          { "label": "عدد الورش", "value": "12+" },
-          { "label": "عدد المتدربين", "value": "400+" },
-          { "label": "فرص العمل", "value": "250+" }
-        ],
-        "action": { "text": "ابداء التسجيل ", "href": "/contact" },
-        "toContact": "كن شريكًا"
-      },
-
-      "employmentProjects": {
-        "id": 6,
-        "title": "مشروعات تشغيل الشباب والمرأة",
-        "subtitle": "فرص عمل تبني مستقبلًا أفضل.",
-        "description": "نطلق مشروعات تنموية لتشغيل الشباب والمرأة من خلال التدريب المهني، ودعم المشروعات الصغيرة، وتعزيز الاستقلال الاقتصادي.",
-        "image": "/services/women-img.jpg",
-        "points": [
-          {
-            "label": "دعم المشروعات الصغيرة ومتناهية الصغر.",
-            "icon": "FaBriefcase"
-          },
-          { "label": "برامج تدريب وتأهيل مهني.", "icon": "FaUserGraduate" },
-          { "label": "تمكين المرأة اقتصاديًا.", "icon": "FaFemale" },
-          { "label": "فرص عمل مستدامة للشباب.", "icon": "FaChartLine" }
-        ],
-        "statistics": [
-          { "label": "المشروعات المنفذة", "value": "30+" },
-          { "label": "عدد النساء المستفيدات", "value": "900+" },
-          { "label": "الشباب العاملون", "value": "1100+" }
-        ],
-        "action": { "text": "انضم إلينا", "href": "/contact" },
-        "toContact": "ابدأ الآن"
-      },
-      "medicalCenters": {
-        "id": 7,
-        "title": "المراكز والمستوصفات الطبية",
-        "subtitle": "رعاية صحية في متناول الجميع.",
-        "description": "ننشئ مراكز ومستـوصفات طبية لتقديم خدمات صحية متكاملة وبأسعار مناسبة للفئات الأكثر احتياجًا.",
-        "image": "/services/medical-img.jpg",
-        "points": [
-          {
-            "label": "الكشف الطبي والرعاية الصحية الأولية.",
-            "icon": "FaStethoscope"
-          },
-          { "label": "عيادات متخصصة وخدمات علاجية.", "icon": "FaHospital" },
-          {
-            "label": "قوافل طبية للمناطق الأكثر احتياجًا.",
-            "icon": "FaAmbulance"
-          },
-          { "label": "توفير الأدوية والخدمات العلاجية.", "icon": "FaPills" }
-        ],
-        "statistics": [
-          { "label": "عدد المرضى", "value": "10000+" },
-          { "label": "القوافل الطبية", "value": "60+" },
-          { "label": "المراكز الطبية", "value": "8+" }
-        ],
-        "action": { "text": "احصل على الرعاية", "href": "/contact" },
-        "toContact": "احجز موعد"
+      {
+        "label": "أنشطة مجتمعية لترسيخ القيم والأخلاق الإيجابية.",
+        "icon": "FaHandsHelping"
       }
-    }
+    ],
+    "statistics": [
+      { "label": "الفعاليات السنوية", "value": "100+" },
+      { "label": "عدد المشاركين", "value": "3000+" },
+      { "label": "البرامج النشطة", "value": "15+" }
+    ],
+    "action": { "text": "شارك معنا", "href": "/services/#cultural" },
+    "toContact": { "text": "انضم لبرامجنا", "href": "/contact" }
+  },
+
+  "prisonersCare": {
+    "id": "prisoners",
+    "title": "رعاية المسجونين وأسرهم",
+    "subtitle": "إعادة الأمل والكرامة للأسر المتضررة.",
+    "description": "ندعم المسجونين وأسرهم من خلال تقديم المساعدات المالية، وبرامج التأهيل الاجتماعي، والدعم النفسي لمساعدتهم على إعادة بناء حياتهم بكرامة.",
+    "image": "/services/prisoners-img.jpg",
+    "points": [
+      {
+        "label": "دعم مالي واجتماعي لأسر المسجونين.",
+        "icon": "FaHandHoldingHeart"
+      },
+      {
+        "label": "برامج التأهيل وإعادة الدمج في المجتمع.",
+        "icon": "FaUserCheck"
+      },
+      {
+        "label": "خدمات الإرشاد النفسي والاجتماعي.",
+        "icon": "FaUsers"
+      },
+      {
+        "label": "دعم تعليمي لأبناء المسجونين.",
+        "icon": "FaGraduationCap"
+      }
+    ],
+    "statistics": [
+      { "label": "الأسر المستفيدة", "value": "800+" },
+      { "label": "برامج التأهيل", "value": "20+" },
+      { "label": "الأطفال المدعومون", "value": "500+" }
+    ],
+    "action": { "text": "اعرف المزيد", "href": "/services/#prisoners" },
+    "toContact": { "text": "اطلب الدعم", "href": "/contact" }
+  },
+
+  "specialNeeds": {
+    "id": "special",
+    "title": "ذوو الاحتياجات الخاصة",
+    "subtitle": "نؤمن بالقدرات لا بالإعاقات.",
+    "description": "نوفر برامج رعاية وتمكين شاملة لذوي الاحتياجات الخاصة، مع التركيز على الدمج المجتمعي، والتأهيل، وتنمية المهارات.",
+    "image": "/services/disability-img.jpg",
+    "points": [
+      {
+        "label": "برامج التأهيل والعلاج الطبيعي.",
+        "icon": "FaWheelchair"
+      },
+      {
+        "label": "أنشطة تعليمية وتنمية مهارات.",
+        "icon": "FaBrain"
+      },
+      {
+        "label": "مبادرات الدمج والتكامل المجتمعي.",
+        "icon": "FaUsers"
+      },
+      {
+        "label": "إرشاد ودعم لأسر ذوي الاحتياجات الخاصة.",
+        "icon": "FaHandsHelping"
+      }
+    ],
+    "statistics": [
+      { "label": "عدد المستفيدين", "value": "600+" },
+      { "label": "جلسات التأهيل", "value": "2500+" },
+      { "label": "البرامج النشطة", "value": "10+" }
+    ],
+    "action": { "text": "مزيد من المعلومات", "href": "/services/#special" },
+    "toContact": { "text": "انضم لبرامجنا", "href": "/contact" }
+  },
+
+  "widowsOrphans": {
+    "id": "orphans",
+    "title": "رعاية الأرامل والأيتام وأطفال الشوارع",
+    "subtitle": "رعاية وأمان لمستقبل أفضل.",
+    "description": "تهدف برامجنا إلى حماية ودعم الأرامل والأيتام وأطفال الشوارع من خلال توفير المأوى، والتعليم، والرعاية الصحية، والدعم النفسي.",
+    "image": "/services/orphans-img.jpg",
+    "points": [
+      {
+        "label": "مساعدات مالية وغذائية شهرية.",
+        "icon": "FaBoxOpen"
+      },
+      {
+        "label": "كفالة تعليمية للأطفال.",
+        "icon": "FaSchool"
+      },
+      {
+        "label": "توفير دور رعاية وإيواء آمن.",
+        "icon": "FaHome"
+      },
+      {
+        "label": "برامج التأهيل النفسي والاجتماعي.",
+        "icon": "FaHeart"
+      }
+    ],
+    "statistics": [
+      { "label": "الأطفال المدعومون", "value": "1200+" },
+      { "label": "الأرامل المستفيدات", "value": "700+" },
+      { "label": "برامج الرعاية", "value": "18+" }
+    ],
+    "action": { "text": "اعرف المزيد", "href": "/services/#orphans" },
+    "toContact": { "text": "تبرع الآن", "href": "/contact" }
+  },
+
+  "workshops": {
+    "id": "workshops",
+    "title": "ورش ومشاغل تصنيع الملابس",
+    "subtitle": "خلق فرص من خلال العمل والإنتاج.",
+    "description": "ننشئ وندير ورشًا ومشاغل لتصنيع الملابس بهدف التدريب المهني وتوفير فرص عمل ودخل مستدام للأسر.",
+    "image": "/services/workshop-img.jpg",
+    "points": [
+      {
+        "label": "ورش خياطة وتفصيل احترافية.",
+        "icon": "FaCut"
+      },
+      {
+        "label": "تدريب مهني وتنمية مهارات.",
+        "icon": "FaTools"
+      },
+      {
+        "label": "دعم مبادرات الإنتاج المحلي.",
+        "icon": "FaIndustry"
+      },
+      {
+        "label": "توفير مصدر دخل للأسر المحتاجة.",
+        "icon": "FaMoneyBillWave"
+      }
+    ],
+    "statistics": [
+      { "label": "عدد الورش", "value": "12+" },
+      { "label": "عدد المتدربين", "value": "400+" },
+      { "label": "فرص العمل", "value": "250+" }
+    ],
+    "action": { "text": "تفاصيل أكثر", "href": "/services/#workshops" },
+    "toContact": { "text": "قدّم الآن", "href": "/contact" }
+  },
+
+  "employmentProjects": {
+    "id": "employment",
+    "title": "مشروعات تشغيل الشباب والمرأة",
+    "subtitle": "بناء سبل عيش مستدامة.",
+    "description": "نطلق مشروعات مدرة للدخل لتمكين الشباب والمرأة من خلال فرص العمل، وريادة الأعمال، والتدريب المهني.",
+    "image": "/services/women-img.jpg",
+    "points": [
+      {
+        "label": "دعم المشروعات الصغيرة والناشئة.",
+        "icon": "FaBriefcase"
+      },
+      {
+        "label": "برامج تدريب وتأهيل مهني.",
+        "icon": "FaUserGraduate"
+      },
+      {
+        "label": "مبادرات تمكين المرأة.",
+        "icon": "FaFemale"
+      },
+      {
+        "label": "توفير فرص عمل مستدامة.",
+        "icon": "FaChartLine"
+      }
+    ],
+    "statistics": [
+      { "label": "المشروعات المنفذة", "value": "30+" },
+      { "label": "النساء المُمكّنات", "value": "900+" },
+      { "label": "الشباب العاملون", "value": "1100+" }
+    ],
+    "action": { "text": "اعرف أكثر", "href": "/services/#employment" },
+    "toContact": { "text": "ابدأ اليوم", "href": "/contact" }
+  },
+
+  "medicalCenters": {
+    "id": "medical",
+    "title": "المراكز والمستوصفات الطبية",
+    "subtitle": "رعاية صحية لمن هم في أمسّ الحاجة.",
+    "description": "ننشئ مراكز ومستـوصفات طبية لتقديم خدمات رعاية صحية ميسّرة وسهلة الوصول للفئات الأكثر احتياجًا.",
+    "image": "/services/medical-img.jpg",
+    "points": [
+      {
+        "label": "الرعاية الصحية الأولية والفحوصات الطبية.",
+        "icon": "FaStethoscope"
+      },
+      {
+        "label": "عيادات متخصصة وخدمات علاجية.",
+        "icon": "FaHospital"
+      },
+      {
+        "label": "قوافل طبية وحملات توعوية.",
+        "icon": "FaAmbulance"
+      },
+      {
+        "label": "توفير الأدوية والدعم العلاجي.",
+        "icon": "FaPills"
+      }
+    ],
+    "statistics": [
+      { "label": "عدد المرضى", "value": "10000+" },
+      { "label": "الحملات الطبية", "value": "60+" },
+      { "label": "عدد المراكز", "value": "8+" }
+    ],
+    "action": { "text": "اعرف المزيد", "href": "/services/#medical" },
+    "toContact": { "text": "قدّم الآن", "href": "/contact" }
+  }
+}
+
   },
   "studio": {
     "title": "استوديو الموسيقى",
@@ -313,11 +369,10 @@
           { "label": "الفنانين العائدين", "value": "90%" },
           { "label": "سعة الاستوديو", "value": "حتى 12 شخص" }
         ],
-        "action": {
-          "text": "المزيد من التفاصيل",
-          "href": "/studio#reserve"
-        },
-        "toContact": "احجز الآن"
+        "toContact": {
+          "text": "احجز الآن",
+          "href": "/contact"
+        }
       },
       "record": {
         "id": 2,
@@ -348,8 +403,7 @@
           { "label": "الجوقات والمجموعات", "value": "70+" },
           { "label": "رضا الفنانين", "value": "98%" }
         ],
-        "action": { "text": "ابدأ التسجيل", "href": "/studio#record" },
-        "toContact": "احجز جلستك"
+        "toContact": { "text": "ابدأ التسجيل", "href": "/contact" }
       },
       "mix": {
         "id": 3,
@@ -380,8 +434,7 @@
           { "label": "ملفات جاهزة للبث", "value": "1000+" },
           { "label": "متوسط وقت التسليم", "value": "48 ساعة" }
         ],
-        "action": { "text": "المزج والمعالجة", "href": "/studio#mix" },
-        "toContact": "احجز جلستك"
+        "toContact": { "text": "احجز موعدك", "href": "/contact" }
       }
     },
     "impact": "جميع عائدات الاستوديو تدعم برامجنا الخيرية",
