@@ -19,7 +19,7 @@ const AboutMainRight = async ({ className }: { className: string }) => {
     <div className={`${className} flex flex-col md:flex-row gap-5 h-auto  `}>
       <div className=" shrink-0 max-w-[50%] sm:h-150 md:h-133.75">
         <Image
-          src="/home/logo.jpg"
+          src="/full-logo.jpg"
           alt="about"
           width={900}
           height={900}
